@@ -96,9 +96,7 @@
     "apps/web/stress-tests/reasoning-chunks.stress.ts",
     "apps/server/tests/**/*.ts",
     "packages/*/*/tests/**/*.ts",
-    "scripts/**/*.ts",
-    "website/**/*.ts",
-    "website/.vitepress/**/*.ts"
+    "scripts/**/*.ts"
   ],
   // Under packages/client a test file names the face it covers: `*.client.*`
   // belongs to the Client aggregate, `*.host.spec.ts` to this one. The two
@@ -271,16 +269,10 @@
       "path": "./packages/credentials/authorization"
     },
     {
-      "path": "./packages/session-query/tool-session-query"
-    },
-    {
       "path": "./packages/storage/storage"
     },
     {
       "path": "./packages/storage/storage-json"
-    },
-    {
-      "path": "./packages/storage/storage-sqlite"
     },
     {
       "path": "./packages/storage/storage-domain"
@@ -299,9 +291,6 @@
     },
     {
       "path": "./packages/session/session-title-first-prompt-llm"
-    },
-    {
-      "path": "./packages/session/session-title-all-prompts-llm"
     },
     {
       "path": "./packages/session/session-turn-outline"
@@ -409,12 +398,6 @@
       "path": "./packages/subprocess/win32-process"
     },
     {
-      "path": "./packages/e2b/e2b"
-    },
-    {
-      "path": "./packages/e2b/subprocess-e2b"
-    },
-    {
       "path": "./packages/shell/shell"
     },
     {
@@ -430,13 +413,7 @@
       "path": "./packages/shell/tool-pwsh-persistent"
     },
     {
-      "path": "./packages/terminal/tool-terminal"
-    },
-    {
       "path": "./packages/code-runtime/code-runtime"
-    },
-    {
-      "path": "./packages/code-runtime/code-runtime-python"
     },
     {
       "path": "./packages/code-runtime/code-runtime-worker-thread"
@@ -490,9 +467,6 @@
       "path": "./packages/fs/fs-local"
     },
     {
-      "path": "./packages/e2b/fs-e2b"
-    },
-    {
       "path": "./packages/fs/fs-observation-policy"
     },
     {
@@ -524,9 +498,6 @@
     },
     {
       "path": "./packages/web/web-search-exa"
-    },
-    {
-      "path": "./packages/web/web-search-perplexity"
     },
     {
       "path": "./packages/web/web-search-deepseek"
@@ -586,9 +557,6 @@
       "path": "./packages/experimental/webworker-packer"
     },
     {
-      "path": "./packages/experimental/inspector/tsconfig.host.json"
-    },
-    {
       "path": "./packages/subagent/subagent"
     },
     {
@@ -610,15 +578,6 @@
       "path": "./packages/subagent/subagent-fork-in-process"
     },
     {
-      "path": "./packages/subagent/subagent-acp"
-    },
-    {
-      "path": "./packages/subagent/subagent-claude-code"
-    },
-    {
-      "path": "./packages/subagent/subagent-codex"
-    },
-    {
       "path": "./packages/jobs/jobs"
     },
     {
@@ -635,9 +594,6 @@
     },
     {
       "path": "./packages/experimental/tool-agent-team"
-    },
-    {
-      "path": "./packages/experimental/agent-team-web-profile"
     },
     {
       "path": "./packages/workflow/workflow"
@@ -713,15 +669,6 @@
     },
     {
       "path": "./packages/host/webserver"
-    },
-    {
-      "path": "./packages/lsp/lsp"
-    },
-    {
-      "path": "./packages/lsp/lsp-stdio"
-    },
-    {
-      "path": "./packages/lsp/tool-lsp"
     },
     {
       "path": "./apps/server"

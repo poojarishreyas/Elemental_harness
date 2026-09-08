@@ -69,7 +69,7 @@ DeepSeek Harness is a Web GUI and agent backend. Use the canonical product spell
 
 ## 4. Write the package README
 
-Keep package-specific service API, config, events, extension points, and design notes first. Choose the frontmatter `kind` from the four kind labels in the [dsh-doc metadata reference](../../.agents/skills/dsh-doc/references/metadata-links-i18n.md#the-kind-system) — group, reference, library, or bundle — matching the package's repository position and entry shape; each kind selects one README template. The limitations section records durable consumer gaps and non-obvious maintainer constraints owned by this package; ordinary cleanup stays in its source TODO or Agent Note. An indirect Model Experience sentence may name the consumer that surfaces this package's contribution, but it does not restate that consumer's implementation. End a package README with this canonical sequence:
+Keep package-specific service API, config, events, extension points, and design notes first. Choose the frontmatter `kind` from the four kind labels in the dsh-doc metadata reference — group, reference, library, or bundle — matching the package's repository position and entry shape; each kind selects one README template. The limitations section records durable consumer gaps and non-obvious maintainer constraints owned by this package; ordinary cleanup stays in its source TODO or Agent Note. An indirect Model Experience sentence may name the consumer that surfaces this package's contribution, but it does not restate that consumer's implementation. End a package README with this canonical sequence:
 
 ````markdown
 ## Model Experience

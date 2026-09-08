@@ -16,7 +16,7 @@ The `github-pages` environment carries a `dsh-v*` deployment tag policy and requ
 
 `DOCS_REPOSITORY_REF` stays `master`, so projected source links continue to target the public repository's default branch rather than the dispatched tag. That repository advances only to each release commit, so its master never carries unreleased work and the published tag adds no exposure control. It also retains only its most recent tags, so following the dispatched tag would leave every projected source link on a deploy from an older tag unresolvable.
 
-Build coverage does not depend on this workflow. `check:ci:static` builds the production site on every pull request through `docs:build:mpa`, and `ci-master.yml` builds it again on master; [the projection Agent Note](2026-07-13-documentation-site-projection.md) rejected moving that build into a deployment workflow for exactly this reason, and tag-gated publication is what makes that separation load-bearing.
+Build coverage does not depend on this workflow. `check:ci:static` builds the production site on every pull request through `docs:build:mpa`, and `ci-master.yml` builds it again on master; the projection Agent Note rejected moving that build into a deployment workflow for exactly this reason, and tag-gated publication is what makes that separation load-bearing.
 
 `ci-workflow.spec.ts` pins the shape beside the npm and Python release assertions: `on` carries `workflow_dispatch` alone, the build job runs the tag verification with `RELEASE_PUBLISH`, checkout takes complete history, `DOCS_REPOSITORY_REF` reads `master`, and the deploy job keeps the `github-pages` environment.
 

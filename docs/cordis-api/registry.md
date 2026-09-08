@@ -96,7 +96,7 @@ namespace Plugin {
 
   /** Class plugin constructed with `(ctx, config)`. */
   export interface Constructor<T = any> extends Base<T> {
-    new (ctx: Context, config: T): any
+    new(ctx: Context, config: T): any
   }
 
   /** Object plugin with an `apply(ctx, config)` method. */

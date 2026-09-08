@@ -39,7 +39,7 @@ const sessionId = brandString<SessionId>('session-1')
 
 ### When to brand
 
-Brand ids that cross package boundaries and could plausibly be confused — `ToolCallId` in `dsh-llm`, the shared agent/session `SessionId` in `dsh-session`, `JobId` in `dsh-jobs`, `LspProviderId` in `dsh-lsp`. Strings that never leave their owning package do not need this abstraction.
+Brand ids that cross package boundaries and could plausibly be confused — `ToolCallId` in `dsh-llm`, the shared agent/session `SessionId` in `dsh-session` and `JobId` in `dsh-jobs`. Strings that never leave their owning package do not need this abstraction.
 
 -----
 
@@ -76,7 +76,6 @@ Keeping these helpers in their own package means `dsh-jobs` can brand `JobId` wi
 Read these pages when you need the ids this primitive brands or the type conventions around it.
 
 - [Core subsystem](../../../docs/subsystems/core.md) — where the shared `SessionId` brand and the type rules are documented.
-- [LSP subsystem](../../../docs/subsystems/lsp.md) — `LspProviderId`, a branded provider id built on this primitive.
 - [Jobs package](../../jobs/jobs/README.md) — the `JobId` brand owned by the jobs capability.
 
 -----

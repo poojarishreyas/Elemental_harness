@@ -1,8 +1,8 @@
-# Metadata, links, and bilingual pairs
+# Metadata and links
 
 ## Summary
 
-README metadata is a retrieval and template-selection interface, not a miniature report or advertisement. The `kind` field selects exactly one README template that exists in this skill and maps to the document standard; the frontmatter carries no field that a filename convention or an executed gate already owns. Bilingual pages keep equal authority, one-to-one structure, and exact physical line alignment. The `*.i18n.yaml` sidecar records the last-confirmed pair and supports automatic merges. Link syntax must render correctly on GitHub and the documentation site, so repository links stay renderer-valid relative URLs.
+README metadata is a retrieval and template-selection interface, not a miniature report or advertisement. The `kind` field selects exactly one README template that exists in this skill and maps to the document standard; the frontmatter carries no field that a filename convention or an executed gate already owns. Link syntax must render correctly on GitHub, so repository links stay renderer-valid relative URLs.
 
 ## Table of Contents
 
@@ -10,8 +10,6 @@ README metadata is a retrieval and template-selection interface, not a miniature
 - [The kind system](#the-kind-system)
 - [Description quality](#description-quality)
 - [Repository links and path mentions](#repository-links-and-path-mentions)
-- [Bilingual line alignment](#bilingual-line-alignment)
-- [Bilingual consistency records](#bilingual-consistency-records)
 - [Dev Note](#dev-note)
 
 ## README metadata
@@ -57,17 +55,7 @@ Weak: `The best and most advanced session storage implementation with lots of op
 
 Keep link destinations machine-checkable and mentions context-relative. Use fragment-only links for the current page's menu. Use full URLs for external resources.
 
-The desired internal-link model names a target from the repository root, but a leading `/docs/...` Markdown URL resolves outside the repository on GitHub, remains untouched by the website projector, and is skipped by `verify-md-links`. Until a repository-owned resolver supports root paths in every renderer, use the current renderer-valid relative URL in Markdown links and write logical path mentions such as `docs/` or `packages/session/` relative to the discussion. Never adopt an unchecked leading-slash link merely to resemble an absolute path.
-
-## Bilingual line alignment
-
-Keep English and Simplified Chinese equally authoritative. Match frontmatter key order, headings, blank lines, paragraphs, list items, tables, code fences, link targets, and total physical line count one to one. The English side points every relative link at the `.md` target; the Chinese side points it at the `.zh.md` sibling when that counterpart exists and falls back to the `.md` target otherwise — the pairing gate compares `.md` and `.zh.md` targets as the same document. Translate prose naturally within its corresponding line; do not hard-wrap either language. Keep code blocks byte-identical and reposition first-use terminology annotations without changing line structure.
-
-Line equality is a structural check, not proof of faithful meaning. Review still owns completeness, terminology, natural language, and whether each line expresses the same proposition.
-
-## Bilingual consistency records
-
-Keep the `*.i18n.yaml` sidecar for every bilingual pair. `verify-translation-pairing` consumes its Git blob hashes for last-confirmed-text recovery, verifies structure and exact line alignment, supports automatic merging, records generated regions, and seals archives. Re-record it with `pnpm run verify-translation-pairing --write <pair>` after either language changes. Do not copy content hashes into README frontmatter: independent edits would change the same header line and turn otherwise mergeable prose into an owner-file conflict.
+The desired internal-link model names a target from the repository root, but a leading `/docs/...` Markdown URL resolves outside the repository on GitHub and is skipped by `verify-md-links`. Until a repository-owned resolver supports root paths in every renderer, use the current renderer-valid relative URL in Markdown links and write logical path mentions such as `docs/` or `packages/session/` relative to the discussion. Never adopt an unchecked leading-slash link merely to resemble an absolute path.
 
 ## Dev Note
 

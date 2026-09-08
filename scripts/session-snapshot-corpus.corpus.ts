@@ -84,7 +84,7 @@ async function snapshotNamedTests(): Promise<string[]> {
       }
     }
   }
-  for (const root of ['apps', 'native', 'packages', 'scripts', 'snapshots', 'website']) {
+  for (const root of ['apps', 'native', 'packages', 'scripts', 'snapshots']) {
     await visit(join(repoRoot, root), root)
   }
   return files.sort()

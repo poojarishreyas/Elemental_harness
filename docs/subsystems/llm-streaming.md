@@ -833,9 +833,9 @@ Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnp
 
 <a id="ctxdeepseekllmapiextensions--deepseekllmapiextensionregistry"></a>
 
-### `ctx.deepseekLlmApiExtensions` — `DeepSeekLlmApiExtensionRegistry`
+### `ctx.deepseekLlmApiExtensions` — `deepseekLlmApiExtensionRegistry`
 
-Registry of independently owned top-level fields for official DeepSeek requests.
+Registry of independently owned top-level fields for official deepseek requests.
 
 ```ts cordis-catalog
 /**
@@ -844,7 +844,7 @@ Registry of independently owned top-level fields for official DeepSeek requests.
  * @param provider - request-time field preparation and optional acceptance behavior.
  * @returns disposer that releases the field.
  */
-register<K extends keyof DeepSeekLlmApiExtensionMap>( field: K, provider: DeepSeekLlmApiExtensionProvider<DeepSeekLlmApiExtensionMap[K]>, ): () => Promise<void>
+register<K extends keyof deepseekLlmApiExtensionMap>( field: K, provider: deepseekLlmApiExtensionProvider<deepseekLlmApiExtensionMap[K]>, ): () => Promise<void>
 
 /**
  * Prepare every currently registered field from one immutable base request.
@@ -853,7 +853,7 @@ register<K extends keyof DeepSeekLlmApiExtensionMap>( field: K, provider: DeepSe
  * @param request - exact serialized request facts before extension fields.
  * @returns detached fields and their idempotent joint acceptance transaction.
  */
-async prepare(request: DeepSeekLlmApiExtensionRequest): Promise<PreparedDeepSeekLlmApiExtensions>
+async prepare(request: deepseekLlmApiExtensionRequest): Promise<PrepareddeepseekLlmApiExtensions>
 ```
 
 Source: [`packages/llm/deepseek-llm-api-extensions/src/index.ts`](../../packages/llm/deepseek-llm-api-extensions/src/index.ts)

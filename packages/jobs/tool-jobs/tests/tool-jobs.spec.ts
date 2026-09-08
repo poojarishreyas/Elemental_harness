@@ -14,6 +14,14 @@ import type { JobHooks, JobOutcome, JobSnapshot, JobStart } from '@deepseek-ai/d
 import * as ToolTasks from '@deepseek-ai/dsh-tool-jobs'
 import { statusLine } from '@deepseek-ai/dsh-tool-jobs'
 
+// A producer kind owned by no shipped plugin: these cases cover the registry's
+// job-notice byte budgeting against an arbitrary producer id, not any one tool.
+declare module '@deepseek-ai/dsh-jobs' {
+  interface JobKindMap {
+    ptySend: 'pty-send'
+  }
+}
+
 const testToolSignal = new AbortController().signal
 
 const agentRegistryDisposers = new WeakMap<Agent, () => void>()

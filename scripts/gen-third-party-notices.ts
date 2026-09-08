@@ -33,7 +33,6 @@ const DEV_ONLY_AREAS = [
   'package.json',
   'packages/test-support/',
   'packages/test-support/client-runtime/',
-  'website/',
   'native/',
 ] as const
 
@@ -357,7 +356,7 @@ function normalizeRepo(raw: string | undefined): string | undefined {
  * External npm dependencies, tiered by which workspace area declares them at
  * runtime: a package is runtime when any manifest outside `DEV_ONLY_AREAS`
  * names it in `dependencies`/`optionalDependencies`. A package declared only
- * by tooling, test infrastructure, the website, or the demo leaves — whatever
+ * by tooling, test infrastructure, or the demo leaves — whatever
  * the declaring section is called — is development-only.
  */
 function collectNpmDeps(manifests: Map<string, Manifest>, names: Set<string>): ExternalDep[] {

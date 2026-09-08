@@ -55,7 +55,6 @@ const PACKAGE_LIBRARIES: Readonly<Record<string, string>> = {
   'packages/client/ui-primitives': 'Browser-side UI component library; plain component exports.',
   'packages/client/ui-slots': 'Browser-side slot-map declarations; plain type exports.',
   'packages/client/web': 'Browser application boot library; exports the app entry and static module table.',
-  'packages/code-runtime/code-runtime-python': 'Host-side protocol library for the CPython subprocess runtime.',
   'packages/core/scope': 'Scoped-context primitives; exports functions and types without a plugin entry.',
   'packages/experimental/webworker-packer': 'Build-time VFS image packer and command library.',
   'packages/experimental/webworker-runtime': 'Browser worker runtime library with explicit host entry points.',
@@ -143,11 +142,10 @@ describe('dsh-doc skill consolidation', () => {
   it('carries no prototype-era language', () => {
     const files = [
       '.agents/skills/dsh-doc/SKILL.md',
-      '.agents/skills/dsh-doc/references/metadata-links-i18n.md',
+      '.agents/skills/dsh-doc/references/metadata-links.md',
       '.agents/skills/dsh-doc/references/structure-hierarchy.md',
       '.agents/skills/dsh-doc/references/style.md',
       '.agents/skills/dsh-doc/references/review.md',
-      '.agents/skills/dsh-doc/references/website-sync.md',
     ]
     for (const file of files) {
       const source = readFileSync(resolve(root, file), 'utf8')
@@ -155,16 +153,9 @@ describe('dsh-doc skill consolidation', () => {
     }
   })
 
-  it('copies no stale website sidebar or section-owner values', () => {
-    const source = readFileSync(resolve(root, '.agents/skills/dsh-doc/references/website-sync.md'), 'utf8')
-    expect(source).not.toContain('en-docs')
-    expect(source).not.toContain('sectionOrder')
-  })
-
   it('keeps the reference example linked from the skill', () => {
     const skill = readFileSync(resolve(root, '.agents/skills/dsh-doc/SKILL.md'), 'utf8')
     expect(skill).toContain('session-persistence-jsonl/README.md')
-    expect(skill).toContain('session-persistence-jsonl/README.zh.md')
   })
 
   it('defines controlled English as a precision-preserving review discipline', () => {

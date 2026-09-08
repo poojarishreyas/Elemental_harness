@@ -65,7 +65,7 @@ export const NO_START_CAPABILITIES: SubagentCapabilities = Object.freeze({
 /**
  * Assert a configured timing bound is a positive finite number (it bounds a
  * teardown or shutdown wait; zero, negative, or NaN would skip or wedge it).
- * @param prefix - the consuming plugin's diagnostic prefix (e.g. `subagent-acp`).
+ * @param prefix - the consuming plugin's diagnostic prefix (e.g. `subagent-spawn-in-process`).
  * @param name - the config field name, for the diagnostic.
  * @param value - the configured value.
  */

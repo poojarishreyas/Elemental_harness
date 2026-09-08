@@ -1058,8 +1058,8 @@ Source: [`packages/core/session/src/types.ts:244`](../packages/core/session/src/
 #### `web/deepseek-search-llm-request` — log-only
 
 ```ts persistence-catalog
-/** Secret-free auxiliary DeepSeek search request recorded before dispatch. */
-'web/deepseek-search-llm-request': DeepSeekSearchLlmRequest
+/** Secret-free auxiliary deepseek search request recorded before dispatch. */
+'web/deepseek-search-llm-request': deepseekSearchLlmRequest
 ```
 
 Source: [`packages/web/web-search-deepseek/src/provider.ts:83`](../packages/web/web-search-deepseek/src/provider.ts)

@@ -23,7 +23,7 @@ kind: "package-library"
 <a id="use-this-package"></a>
 ## Use this package
 
-As a deployment, configure this policy through the [first-prompt](../session-title-first-prompt-llm/README.md) or [all-prompts](../session-title-all-prompts-llm/README.md) provider plugin. As a provider author, register through the shared helper instead of hand-rolling generation.
+As a deployment, configure this policy through the [first-prompt](../session-title-first-prompt-llm/README.md) provider plugin. As a provider author, register through the shared helper instead of hand-rolling generation.
 
 ### Registering a provider
 
@@ -84,7 +84,6 @@ Read these pages when the generation policy is not enough. They move from the se
 - [Session title service](../session-title/README.md) — the title service, fallback behavior, and provider registration contract.
 - [Session title subsystem](../../../docs/subsystems/session-title.md) — durable title state and the auxiliary request record.
 - [First-message title provider](../session-title-first-prompt-llm/README.md) — titles from the first eligible human message.
-- [All-messages title provider](../session-title-all-prompts-llm/README.md) — titles from every eligible human message.
 - [Session package map](../README.md) — adjacent persistence, projection, title, and telemetry packages.
 
 -----
