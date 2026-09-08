@@ -1,0 +1,10 @@
+version: 1
+scenario: parallel-tool-calls
+profile: test-base
+composition: fs
+recording: authored
+header:
+  class: fs
+  pin: true
+  systemPromptSource: text-turn
+  toolSchemasSource: text-turn

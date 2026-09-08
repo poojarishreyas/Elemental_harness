@@ -1,0 +1,7 @@
+version: 1
+scenario: hook-codex-invalid-matcher
+profile: test-base
+composition: default
+recording: authored
+header:
+  class: default

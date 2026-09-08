@@ -1,0 +1,34 @@
+# Test-only ACP provider patch over the production base bundle. The parent
+# omits `cwd` so both scenarios exercise parent-session inheritance.
+- id: agent-loop
+  config:
+    agents:
+      - id: main
+        provider: mock
+        model: mock-delegate
+        cwd: !!js process.cwd()
+
+- id: session-persistence-jsonl
+  config:
+    root: './.sessions'
+    compression: none
+
+- id: tool-subagent
+  config:
+    provider: acp
+    toolName: subagent
+    maxDepth: 'provider-managed'
+
+- insert:
+    - id: mock-llm
+      name: './mock-delegating-llm.ts'
+
+    - id: subagent-acp
+      name: '@deepseek-ai/dsh-subagent-acp'
+      config:
+        providerName: acp
+        command: !!js process.execPath
+        args:
+          - !!js process.env.DSH_TEST_MOCK_ACP_SERVER
+        permission: reject
+        env: !!js "process.env.DSH_TEST_ACP_MODE === 'diagnostic' ? { MOCK_TEXT: 'partial loader answer', MOCK_STOP: 'max_turn_requests' } : { MOCK_ECHO_CWD: '1' }"

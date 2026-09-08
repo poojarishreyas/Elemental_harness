@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/postmortem/0001-acp-default-export-drops-inject.md
+0001-acp-default-export-drops-inject.md: 948e2eedf7053b379673461f0b3e2162e585dbec
+0001-acp-default-export-drops-inject.zh.md: 735ead6eb27537d38ca87cfd402234235a6eb920

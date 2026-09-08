@@ -1,0 +1,8 @@
+version: 1
+scenario: both-mode-turn
+profile: test-base
+composition: both
+recording: live
+header:
+  class: both
+  pin: true
