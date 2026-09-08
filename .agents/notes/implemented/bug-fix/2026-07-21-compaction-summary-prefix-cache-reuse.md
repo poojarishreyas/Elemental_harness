@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-21-compaction-summary-prefix-cache-reuse.zh.md)
-
 ## Problem
 
 Automatic compaction fires mid-conversation, right after the loop has warmed the provider's KV cache with the last routed request (`system` + `tools` + derived history). The default summarizer then issued a *separate* auxiliary request whose prefix shared nothing with that warm request: a bespoke summarizer `system` prompt followed by the older history flattened to a single rendered transcript string. A provider caches on the request's leading token sequence, so a first token that differs — a different system prompt — invalidates the entire cached prefix. Every compaction therefore paid full prompt-processing cost for the whole replayed history twice: once for the conversation request that tripped pressure, and again for the summarization call, defeating the cache exactly when the conversation is largest.

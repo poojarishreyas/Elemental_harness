@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-api-key-format-validation.zh.md)
-
 ## Problem
 
 An API key holding characters no HTTP header value can carry was accepted by every configuration surface and failed only when a request was built, far from the field that caused it.

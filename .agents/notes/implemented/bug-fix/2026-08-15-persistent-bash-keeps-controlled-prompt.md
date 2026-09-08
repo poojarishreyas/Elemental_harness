@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-15-persistent-bash-keeps-controlled-prompt.zh.md)
-
 ## Problem
 
 `dsh-tool-bash-persistent` initialized its shell with `stty -echo; PS1='__DSH_PERSISTENT_BASH_PROMPT__ '`, overwriting the `PS1` that `dsh-terminal-bash` sets in the spawn environment. The backend's prompt readiness requires the printable tail after the OSC `133;D` marker to exactly equal the controlled prompt ([design](../feature/2026-07-16-persistent-pty-sessions.md)), so after initialization no send could ever settle through it. `PROMPT_COMMAND` survived the override, so the marker kept arriving and every send paid the silence tier plus handoff grace — 3.5 s per tool call under production defaults, 7.2 s for the first call because the initialization send degraded too, and an extra 3.5 s tail after every long command. macOS has no exact stdin-wait tier, and on Linux the exact probe cannot observe a sub-poll-interval command leaving its stdin wait, so the degradation applied to effectively every call. Package tests masked it by configuring `idleSilenceMs: 100`.

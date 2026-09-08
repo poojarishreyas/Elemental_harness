@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-synchronous-subprocess-exit-cleanup.zh.md)
-
 ## Problem
 
 The local subprocess provider owns ordinary detached process trees and terminal sessions, but it previously reached them only through asynchronous Cordis disposal. A fatal launcher may call `process.exit()` before that disposal finishes: the [fail-loud release](2026-07-31-fail-loud-releases-the-terminal.md) waits at most two seconds, while a local process can have a longer termination grace. Once Node enters its synchronous exit phase, pending promises and escalation timers do not continue, so a TERM-resistant child can outlive the host and keep CPU, memory, or ports. Some ACP, JSON-RPC, and SDK entry points also have no root release callback.

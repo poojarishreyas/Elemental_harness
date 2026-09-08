@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-30-web-turn-rail-outline-jump.zh.md)
-
 ## Problem
 
 The web chat's turn rail derived its marks from the loaded event window, and the window is a paged suffix of the log (50-message tail, `Load earlier` per page). In a long session the rail therefore named only the most recent turns: history that had not been paged in was invisible to navigation, unreachable except by clicking `Load earlier` repeatedly, and the rail squeezed whatever it did show into a fixed frame by compressing mark spacing to percentages, so a many-turn session degenerated into an unreadable dense strip.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-02-session-search-not-shipped-default.zh.md)
-
 ## Problem
 
 The [shipped-roster decision](2026-07-31-even-out-shipped-tool-rosters.md) made `tool-session-query` a default row of the shared [`cordis.patch.yml`](../../../../packages/bundle/base/cordis.patch.yml), so the shipped TUI and Web surfaces put the five session-search tools (`session_search`, `session_event_search`, `session_trace`, `session_event_trace`, `session_event_read`) in front of the model. That contradicted the [model-facing session-query-tools decision](2026-07-24-model-facing-session-query-tools.md), whose opt-in stance the package README recorded as "shipped host compositions do not mount it by default". The default also shipped a prompt section teaching a prior-work search workflow that no user had asked for.

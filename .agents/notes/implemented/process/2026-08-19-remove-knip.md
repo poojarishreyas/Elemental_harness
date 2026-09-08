@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-19-remove-knip.zh.md)
-
 ## Problem
 
 Knip derives unused files, exports, and dependencies from a static source graph. DeepSeek Harness also loads Cordis plugins from package manifests and configuration, emits Typert faces into `lib/`, splits Host and Client programs, and declares dependencies consumed only by generated or runtime-loaded code. The repository therefore needed workspace-specific entry lists and ignored-dependency exceptions to make supported paths pass the scan. Package and test-layout changes had to maintain that second approximation of the executable graph.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-25-feedback-gated-telemetry-default.zh.md)
-
 ## Problem
 
 Diagnosing a `/feedback` report needs the session data the report describes. With the shared base resolving an unset `DSH_TELEMETRY_MODE` to `DISABLED`, a default installation's feedback reached its receiver with no session data at all, and the reporter had no way to grant access at the moment they asked for help; only deployments that had exported `DSH_TELEMETRY_MODE` beforehand ever delivered a diagnosable report.

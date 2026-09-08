@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-17-local-spill-startup-cleanup.zh.md)
-
 ## Problem
 
 The local spill backend never deleted the full tool results it wrote. Every oversized result added another file, so configured roots grew without bound and default per-process `dsh-spill-*` roots accumulated across runs. Immediate deletion is wrong because persisted, resumed, and forked sessions may still reference a locator. The [tool output spill policy](./2026-07-08-tool-output-spill-files.md) needs a bounded local-storage lifetime.

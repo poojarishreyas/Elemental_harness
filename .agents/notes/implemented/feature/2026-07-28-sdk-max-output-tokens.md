@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-sdk-max-output-tokens.zh.md)
-
 > The [Web-only application decision](../simplification/2026-09-04-web-only-application.md) supersedes this note’s public SDK, headless, and ACP server entry points. Independent rationale for shared runtime mechanisms, external ACP subagent clients, and test design remains applicable.
 
 ## Problem

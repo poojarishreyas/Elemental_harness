@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-21-log-backed-session-titles.zh.md)
-
 ## Problem
 
 A session needs a short human-facing title before an editor, terminal, or query consumer can present it usefully. The cheapest implementation can derive one from the first prompt, while higher-quality implementations may call a model over the first prompt or the whole conversation. Those strategies have different latency, cost, routing, and retry behavior, but every consumer needs one durable source of truth.

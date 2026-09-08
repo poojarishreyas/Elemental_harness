@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-web-search-deepseek
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 With `dsh-web-search-deepseek`, the harness searches the web through deepseek's native search using an existing `deepseek_API_KEY`. Choose it when a deployment wants deepseek native search and accepts that one search costs a full model turn in latency and tokens, because deepseek exposes no dedicated search endpoint. Results come from the structured search blocks deepseek returns, never from scraping text out of a reply. A missing credential fails the call with a structured error; a response without a search-result block fails loudly rather than degrading. The model-facing `web_search` tool lives in `dsh-tool-web`.

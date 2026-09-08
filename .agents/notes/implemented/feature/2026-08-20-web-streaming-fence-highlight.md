@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-web-streaming-fence-highlight.zh.md)
-
 ## Problem
 
 While a reply streamed, `MarkdownText` stripped the fence language before `CodeBlock` saw it, so code rendered as plain monospace with an empty language banner until the finalize swap recolored the whole reply at once ([#1499](https://github.com/deepseek-harness/deepseek-harness/issues/1499)). The plain arm was a deliberate cost guard, recorded in the [assistant-markdown note](2026-07-23-web-assistant-markdown.md): shiki tokenizes a document from the top, so highlighting a growing fence naively re-tokenizes the whole fence on every chunk — quadratic in fence length over the stream, the same cost class the [incremental markdown parser](../architecture/2026-08-06-web-markdown-incremental-ast-renderer.md) removes for block parsing. The fix has to deliver highlighting during streaming without reintroducing that cost, without transiently coloring under a wrong grammar while the info string is still mid-chunk, and without changing the settled render.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-28-windows-only-absent-probe-repair.zh.md)
-
 ## Problem
 
 `JsonlSessionPersistence.exists` treats ENOENT as absence, and before returning false it stats the path's parent so a session directory blocked by a regular file surfaces as a storage fault rather than as a missing session. Windows needs that: it reports ENOENT, not ENOTDIR, for `regular-file/child`. POSIX does not — `open(2)` specifies ENOTDIR when a component of the path prefix is not a directory, which the repair's own guard comment already recorded.

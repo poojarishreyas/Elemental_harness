@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-zstandard-jsonl-session-logs.zh.md)
-
 ## Problem
 
 The JSONL persistence backend keeps every `SessionEvent` verbatim, including high-volume `assistant/chunk` records. Raw text makes logs inspectable but spends storage and I/O on repeated JSON keys and model text. Compression must retain the existing append/fsync commit boundary, collision-safe first materialization, crash repair, and metadata-only listing; rewriting a whole compressed file after every turn would discard those properties.

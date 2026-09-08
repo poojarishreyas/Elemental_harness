@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-list-agents-residency-vocabulary.zh.md)
-
 ## Problem
 
 `list_agents` projected a continuable child's process residency as `running | idle | complete`. `complete` reads as a terminal unit of work with a result somewhere, but the underlying fact says only that no Activation is resident: the conversation is intact, `send_message` can continue it, and nothing about the child's outcome is being claimed. A model that reads `complete` reasonably looks for a result to collect or sends replacement work to a conversation it believes has ended.

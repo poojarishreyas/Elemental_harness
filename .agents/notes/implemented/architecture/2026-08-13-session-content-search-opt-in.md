@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-13-session-content-search-opt-in.zh.md)
-
 ## Problem
 
 The shipped bundles mounted the SQLite session-query provider with the full-text index live (`openAt: first-search`), so every default deployment carried a derived FTS index and the Web sidebar offered content search. Whether a deployment wants that index — its node:sqlite import, per-search source reconciliation, and derived storage — is a deployment choice, and the product default is to ship without it; the model-facing search tools were already opt-in and unmounted (the [not-shipped-default decision](../feature/2026-08-02-session-search-not-shipped-default.md)).

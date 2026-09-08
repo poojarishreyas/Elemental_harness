@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-user-questions
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 User-interaction Service Definition. It owns `ctx.userQuestions`, the service a model-facing tool or permission plugin uses when it needs to pause work and ask the human for a decision. Use it when a consumer must suspend an operation until the user answers.

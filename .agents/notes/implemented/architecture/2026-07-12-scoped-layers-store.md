@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-12-scoped-layers-store.zh.md)
-
 ## Problem
 
 Agent scoping ([decision](2026-07-08-agent-scope-contexts.md), [runtime design](2026-07-12-agent-scope-runtime-design.md)) gives scope-aware registries the same recurring shape: one global registration layer plus one exact agent layer. Seven registration facades use that shape: `tools.register`, `tools.restrict`, and `tools.guard` in `dsh-tools`; `SystemPrompt.section`, `SystemPrompt.tools`, and `SystemPrompt.variable` in `dsh-system-prompt`; and `CommandRuntime.register` in `dsh-commands`.

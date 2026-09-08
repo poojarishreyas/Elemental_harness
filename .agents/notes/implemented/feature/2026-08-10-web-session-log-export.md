@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-web-session-log-export.zh.md)
-
 ## Problem
 
 The Trajectory view had no way to hand a debugging artifact to a human: the raw session log lived on disk and in the host, the client history face served folded projections (not raw entries), and a session with subagents spans many independent session logs. A bug report needs the complete raw log of the whole tree, in a shape that survives being emailed around.

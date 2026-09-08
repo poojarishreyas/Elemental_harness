@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-composer-context-stack-order.zh.md)
-
 ## Problem
 
 Goal, Todo, and Queue contribute independently to the same `conversation.input.dock` list, but their registration order and spacing rules did not encode the composition matrix. The renderer therefore placed Todo before Queue and Goal, while both Queue and Goal carried negative margins intended for the composer boundary. When all three were present, Queue joined to Goal and Goal joined to the composer, reversing the design's hierarchy.

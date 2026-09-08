@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-even-out-shipped-tool-rosters.zh.md)
-
 ## Problem
 
 The two shipped `dsh` surfaces offered different tools for no recorded reason. Session checkpoints, tool-result pruning, the goal tools, and Ralph were in `tui.cordis.yml`; `tool-todo` and, later, web search were in `web.cordis.yml`. Neither surface offered session search, a string-replacement editor, or a repeat-tool guard, though all three exist as packages and none is surface-specific.

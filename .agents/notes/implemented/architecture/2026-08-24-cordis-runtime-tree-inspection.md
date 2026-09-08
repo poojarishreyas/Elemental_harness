@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-24-cordis-runtime-tree-inspection.zh.md)
-
 ## Problem
 
 The Inspector needs to present each Host and Client Cordis runtime as a tree in Chrome DevTools Elements. A Cordis Context or Fiber selected in Elements must also behave as a live Runtime object, while a Cordis object printed in Console must be revealable as the same semantic node. CDP identifiers cannot be the source model: `NodeId`, `BackendNodeId`, and `RemoteObjectId` have different owners and lifetimes, and a future model-facing runtime query must consume the same Cordis data without translating CDP.

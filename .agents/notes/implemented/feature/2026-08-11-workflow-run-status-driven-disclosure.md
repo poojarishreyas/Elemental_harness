@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-workflow-run-status-driven-disclosure.zh.md)
-
 ## Problem
 
 A durable workflow Chat node updates in place from its running prefix to a terminal record. The renderer must draw attention to new work, abnormal outcomes, and normal completion without repeatedly overriding a user's decision to reclaim conversation space.

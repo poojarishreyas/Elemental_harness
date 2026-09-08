@@ -5,8 +5,6 @@ kind: "package-group"
 
 # code-runtime/ — code-execution capability family
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The `code-runtime/` group provides program execution: a model writes one program that calls host-provided functions as ordinary async calls, and a runtime executes it in isolation and returns only what the program printed and returned. One package defines the shared capability (`ctx.codeRuntime`), a second executes TypeScript programs in a fresh Node worker thread, and a third owns the wire protocol between a Node host and a CPython subprocess for the Python backend. Every run is independent — no state carries from one program to the next — and failures come back as part of the result, so the caller can see why a program failed and feed that back to the model.

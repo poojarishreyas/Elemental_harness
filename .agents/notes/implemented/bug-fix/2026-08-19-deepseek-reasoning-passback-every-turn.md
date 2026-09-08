@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-19-deepseek-reasoning-passback-every-turn.zh.md)
-
 ## Problem
 
 `dsh-llm-deepseek` replayed `reasoning_content` in history only on assistant turns that also carried tool calls. DeepSeek's thinking-mode guide requires the field there and ignores it elsewhere, so withholding it on plain turns bought input tokens back with nothing observable lost against `api.deepseek.com`.

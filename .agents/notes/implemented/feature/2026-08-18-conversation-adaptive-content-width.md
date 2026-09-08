@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-18-conversation-adaptive-content-width.zh.md)
-
 ## Problem
 
 The conversation column's shared width axis (`--dsh-chat-content-width`) was the fixed figma constant 748px. On wide monitors (a 4000px display leaves a ~3500px column) the transcript occupied under a quarter of the column with dead margins on both sides. Every derived surface — the input card (W + 32px), dock cards, takeover panels, StatsLine, the back-to-bottom padding formula — rides this one variable, so any change had to keep the whole column's alignment relations intact. Alongside the adaptive default, users asked for direct control: hover the transcript's side margins to get a col-resize cursor and drag either edge, with both edges moving symmetrically.

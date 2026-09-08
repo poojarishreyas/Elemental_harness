@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-24-token-meter-surface-fold-plan-commit.zh.md)
-
 ## Problem
 
 `foldSurfaceTokens` rebuilt the meter's priced surface on every surface event: an append allocated `[...nodes, node]` and a replacement copied the whole array before splicing. The copy existed for one property — a throw must leave the caller's `ReplayState` untouched so a malformed event fails identically on every retry — but it charged every WELL-FORMED event O(surface) for it. Benchmarks on this fold showed the copy was ~99.9% of an append's cost (100µs at a 50k-node surface versus 0.1µs for the pricing itself), and successive appends accumulate O(S²) over a session's life, concentrated in exactly the long sessions users report as sluggish. The token meter folds inside the synchronous `session/event` publication path, so this cost lands on the agent loop's streaming appends.

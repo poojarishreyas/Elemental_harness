@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-broken-preset-roster-rows.zh.md)
-
 ## Problem
 
 With files as the only composition editor, hand-edit damage had two failure shapes and both were silent until the worst moment. A preset whose `agent.cordis.yml` no longer parsed listed as a perfectly ordinary row — selectable, copyable, settable as the default — and failed only when the next session tried to mount it; set as default, every new session failed to start. A directory whose composition file was deleted outright vanished from the roster while still occupying its id on disk: `copy` refused the name with "delete the existing preset first" and `remove` answered "not found" — two contradictory errors with no way out short of hand-deleting the directory.

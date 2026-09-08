@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-loader-smoke
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-loader-smoke` runs a real application bin and its `cordis.yml` through the Cordis Loader inside an isolated temporary directory, capturing stdout and stderr, so a smoke test exercises the true composition path — plugin loading, service wiring, and the agent loop — rather than a hand-built test context. `runFixtureTurn` drives one task through the composition's single root agent and returns the final assistant text and accumulated token usage. The package also provides the mode-aware launch resolver (`src` under tsx for zero-build dev, built `lib` under plain Node for CI) shared by package-local subprocess harnesses. It is support-tier test infrastructure, not a product API.

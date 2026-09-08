@@ -2,13 +2,11 @@
 
 Status: implemented
 
-English | [中文](2026-08-01-packaged-ripgrep-search.zh.md)
-
-> Supersedes [bash-backed grep/glob discovery](../../archived/feature/2026-07-09-bash-backed-grep-glob-discovery.md): the v1 decision's explicitly deferred alternative — directly spawning ripgrep — is now what ships.
+> Supersedes bash-backed grep/glob discovery: the v1 decision's explicitly deferred alternative — directly spawning ripgrep — is now what ships.
 
 ## Problem
 
-The `glob`/`grep` tools ran through the bash executor seam, which made a system `rg` install a host dependency. On Windows and container images there is no `rg` on `PATH` by default, so the tools silently vanished there; a deployment could only discover that from the load-time probe warning. The bash seam also forced the whole model-visible argument surface through one shell-quoting helper, because a shell sat between the tool and ripgrep — the [bash-backed note](../../archived/feature/2026-07-09-bash-backed-grep-glob-discovery.md) recorded that coupling as the v1 trade-off and named direct spawn as the reasonable follow-up if the shell-string domain ever proved too sensitive. It did: every model value had to survive POSIX single-quoting, the probe had to be scripted in tests, and the executor's own timeout classification duplicated what the cooperative tool-timeout policy already owns.
+The `glob`/`grep` tools ran through the bash executor seam, which made a system `rg` install a host dependency. On Windows and container images there is no `rg` on `PATH` by default, so the tools silently vanished there; a deployment could only discover that from the load-time probe warning. The bash seam also forced the whole model-visible argument surface through one shell-quoting helper, because a shell sat between the tool and ripgrep — the bash-backed note recorded that coupling as the v1 trade-off and named direct spawn as the reasonable follow-up if the shell-string domain ever proved too sensitive. It did: every model value had to survive POSIX single-quoting, the probe had to be scripted in tests, and the executor's own timeout classification duplicated what the cooperative tool-timeout policy already owns.
 
 ## Decision
 

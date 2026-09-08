@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-permission-default-for-new-sessions.zh.md)
-
 ## Problem
 
 The Web General-settings page displayed Permission as a disabled skeleton even though `dsh-permission-presets` already owned the preset table and current-session switch path. The Settings seam could persist a plugin-owned value, but the Web settings API exposed only configurable LLM-provider namespaces. More importantly, treating a user preference as a live global permission would make an existing session's execution policy change outside its durable log.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-remove-cli-demo.zh.md)
-
 ## Problem
 
 After [`dsh --profile headless`](../architecture/2026-08-06-app-owned-command-line.md) became the product one-shot command, `@deepseek-ai/dsh-cli-demo` remained a second application package for the same job. It carried another executable, argument grammar, app composition, cancellation lifecycle, text/JSON/stream-JSON output contract, built artifact, documentation surface, and test suite. The two entry points also assembled different trees, so a successful demo did not prove the shipped `headless` profile and users had to choose between overlapping commands.

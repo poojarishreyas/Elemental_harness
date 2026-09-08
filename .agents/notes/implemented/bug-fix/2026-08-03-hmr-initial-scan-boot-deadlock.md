@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-03-hmr-initial-scan-boot-deadlock.zh.md)
-
 ## Problem
 
 A `dsh` launch whose config-tree failed validation exited 13 (unsettled top-level await) with no diagnostic at all, and left the TUI's terminal state stranded on the shell — the exact symptom the [fail-loud release](2026-07-31-fail-loud-releases-the-terminal.md) fixed, reintroduced through a different mechanism after the [transactional config reload](2026-07-20-config-hot-reload-resilience.md).

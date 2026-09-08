@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-06-30-event-domain-semantics.zh.md)
-
 ## Problem
 
 The harness extends the agent loop through a Cordis event taxonomy (see [the microkernel event-taxonomy Agent Note](2026-06-11-microkernel-event-taxonomy.md)). As that taxonomy grew, the line between the three event domains blurred:
@@ -33,7 +31,7 @@ This vocabulary is the foundation for interception decisions, the durable `hook/
 - The loop no longer emits any boundary mirror; `closeStep` appends `step/end` only and `closeTurn` appends `turn/end` only. `Session.append` owns post-commit observer containment, so a throwing boundary observer cannot change the turn outcome or starve later consumers; an acceptance or internal validation failure still escapes before the boundary enters the log.
 - Tests that observed boundaries via the removed emits now observe the durable `turn/start`/`turn/end`/`step/start`/`step/end` session events — the behavior they pin (boundary ordering, step counting) is unchanged; only the feed they read moved to the canonical one. The tests that exercised a *throwing turn-boundary emit listener* were deleted, because that code path no longer exists (there is no emit to throw from). Per [AGENTS.md "tests document behavior, not golden truth"](../../../../AGENTS.md), the behavior and its test moved (or died) together.
 - The loop marks the step open (`stepOpen = true`) only after `append('step/start')` returns. Internal dispatch validation runs before the log push and may reject without opening a step; post-commit `session/event` observer failures are contained inside `Session.append`. The marker therefore represents exactly the committed boundary that owes a later `step/end`.
-- The full realization of this is [the simplification Agent Note "Stop mirroring durable boundaries as agent events"](../simplification/2026-06-20-remove-agent-boundary-mirror-events.md): all four boundary mirrors are removed and every consumer reads boundaries off `session/event`. `agent/steering` (not a boundary mirror) stayed outside that Agent Note's scope and was removed by its own follow-up, [Remove the `agent/steering` mirror emit](../../archived/simplification/2026-07-04-remove-agent-steering-mirror.md) — it mirrored the durable mid-turn steering `user/message`.
+- The full realization of this is [the simplification Agent Note "Stop mirroring durable boundaries as agent events"](../simplification/2026-06-20-remove-agent-boundary-mirror-events.md): all four boundary mirrors are removed and every consumer reads boundaries off `session/event`. `agent/steering` (not a boundary mirror) stayed outside that Agent Note's scope and was removed by its own follow-up, Remove the `agent/steering` mirror emit — it mirrored the durable mid-turn steering `user/message`.
 - The generated cordis event surface (the `docs/subsystems/` pages) no longer lists the mirror events.
 
 <!-- agent-note-format: alternatives-not-recorded (pre-format Agent Note) -->

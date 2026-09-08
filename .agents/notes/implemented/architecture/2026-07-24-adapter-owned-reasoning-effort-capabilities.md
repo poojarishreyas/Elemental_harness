@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-24-adapter-owned-reasoning-effort-capabilities.zh.md)
-
 ## Problem
 
 Reasoning strength was adapter configuration only, so a conversation could not discover or change the selected model's supported levels between requests. Promoting one adapter's level union into `dsh-llm` would make every provider and model adopt names it may not support, while a provider-specific options bag would make the loop unable to validate or durably reconstruct the effective request.

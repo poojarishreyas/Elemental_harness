@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-preview-cloudflare-pages-deploy.zh.md)
-
 ## Problem
 
 The browser worker preview exists to observe a pull request's frontend and host code running, so it needs a static host per pull request that outsiders cannot reach. GitHub Pages publishes privately only on GitHub Enterprise Cloud, which this organization has not settled, and one Pages site per repository cannot isolate pull requests. The first deployment run also exposed a packaging defect: on a clean checkout `pnpm install` never creates the `dsh-pack-vfs-image` bin link, so `build:preview` fails with `command not found` anywhere but a working tree whose install ran after a build.

@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-bash-sandbox
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-bash-sandbox` is the sandbox-consuming Bash executor: every command runs as a fresh `bash -c` process confined through the `ctx.sandbox` capability instead of with the harness process's full file authority. Each settled result carries the mode the command ran under, whether the sandbox denied a file operation, and how completely the selected runner enforced the requested mode. When no runner can enforce a confined mode, the call fails closed with a structured `SANDBOX_UNAVAILABLE` error rather than running unconfined. It is the confining sibling of `dsh-bash-local` — sharing its process mechanics — and the tool layer's escalation fields appear only while it is mounted.

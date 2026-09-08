@@ -5,8 +5,6 @@ kind: "package-library"
 
 # `@deepseek-ai/dsh-experimental-webworker-runtime`
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The browser worker host: the whole harness plugin tree runs inside one dedicated Web Worker, for preview deployments and packaging regressions ([experimental stance](../../../.agents/notes/implemented/architecture/2026-08-20-webworker-pack-lowering-and-preview.md)). The worker inflates a packed VFS image off its download and mounts it in memory, loads its modules through a CommonJS wrapper loader, and serves the page over a postMessage tunnel that speaks plain HTTP. Use it when a preview must run the packaged harness without a Node host.

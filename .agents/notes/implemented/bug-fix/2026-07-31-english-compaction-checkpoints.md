@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-english-compaction-checkpoints.zh.md)
-
 ## Problem
 
 A compaction checkpoint becomes part of the next model request's durable prefix. When a multilingual conversation leads the compactor to preserve its narrative material in the conversation language, the checkpoint can introduce a large amount of a language that is absent from the code, tool output, and existing reasoning prefix. That language then persists across later compaction cycles and can influence the conversation model's reasoning register.

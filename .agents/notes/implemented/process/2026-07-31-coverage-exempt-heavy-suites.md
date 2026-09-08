@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-coverage-exempt-heavy-suites.zh.md)
-
 ## Problem
 
 The CI coverage lane (`check:ci:coverage`) had its wall clock pinned by a handful of heavy test files: in a local 6-worker full-suite profile, 555 test files aggregated 1595 seconds, with `packages/typert/generator/tests/type-model.spec.ts` alone at 885 seconds and the top 10 files holding 84% of the aggregate. These suites share one shape — every case performs whole-workspace compiler analysis or drives real subprocess fixtures — and v8 instrumentation multiplies exactly that kind of runtime.

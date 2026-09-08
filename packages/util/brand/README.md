@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-brand
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-brand` makes structurally identical strings non-interchangeable at the type level: a `SessionId` cannot be passed where a `ToolCallId` is expected even though both are plain strings at runtime. `brandString<T>()` applies a nominal brand to one domain-owned string without shared runtime state and lets capability packages own their concrete id types without importing an unrelated capability.

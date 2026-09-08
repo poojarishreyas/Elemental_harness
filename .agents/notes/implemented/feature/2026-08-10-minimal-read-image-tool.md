@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-minimal-read-image-tool.zh.md)
-
 ## Problem
 
 The multimodal attachment work gave user uploads a complete durable path, but the model itself had no way to inspect an image on disk. `read` rejects binary content by contract, so an agent asked about a screenshot or rendered chart either failed or used a lossy workaround. A standalone attempt in PR #598 combined the tool with loop-level route scoping, per-route schema visibility, and new session-log concepts. Those features were not required to publish a logged image tool result.

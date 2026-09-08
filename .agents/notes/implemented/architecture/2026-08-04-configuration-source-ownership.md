@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-configuration-source-ownership.zh.md)
-
 ## Problem
 
 `$DSH_HOME/.env` had just [become an ordinary environment layer](2026-08-04-credentials-yaml-and-user-environment-layer.md), which left the harness resolving user-facing values from a flattened `process.env` that could no longer say where a value came from. Three consequences followed.

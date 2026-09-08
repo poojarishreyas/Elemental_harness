@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-01-goal-command-input-projection.zh.md)
-
 ## Problem
 
 Human commands execute outside the model turn and persist as `command/run` plus `command/done`. The Web transcript rendered only their result row. On a fresh session, `/goal` therefore cleared the composer and completed successfully while the page stayed on the empty hero; its result became visible only after later conversation content activated Chat. Appending an ordinary `user/message` from the handler would change model-visible history and command semantics.

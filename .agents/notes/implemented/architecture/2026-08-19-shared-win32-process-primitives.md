@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-19-shared-win32-process-primitives.zh.md)
-
 ## Problem
 
 The Windows ACL sandbox owns restricted-token, SID, DACL, grant, and workspace policy, but its process launch path also carried the generic Koffi ABI, command-line quoting, anonymous pipes, inherited stdio, Job setup, waits, and HANDLE cleanup. A second Windows process consumer would otherwise have to depend on sandbox policy or copy native resource logic, while fixes to allocation and failure cleanup would need to remain synchronized.

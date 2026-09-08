@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-webworker-node-face.zh.md)
-
 ## Problem
 
 The worker runs the web profile's Cordis configuration byte for byte — no worker-specific rows — so a browser's missing platform must be replaced at the module layer, where a proxied module keeps its identity and changes its implementation. That covers three fronts: the Node builtins the tree imports, the filesystem those builtins answer from, and a process layer for the bash tool. A structural `node:child_process` stub would let that tool mount and advertise itself to the model while every call fails.

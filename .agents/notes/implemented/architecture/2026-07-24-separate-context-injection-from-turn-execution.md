@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-24-separate-context-injection-from-turn-execution.zh.md)
-
 ## Problem
 
 The agent API represented supplementary model-facing input in three overlapping ways: callers attached `HookContext[]` through `SendOptions.contexts`, interception and tool hooks returned `additionalContexts`, and plugins called `agent.inject()`. These paths eventually wrote context into the same model history, but carried different placement, metadata, admission, queue, and turn-lifecycle rules.

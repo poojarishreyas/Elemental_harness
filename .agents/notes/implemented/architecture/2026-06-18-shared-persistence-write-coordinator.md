@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-06-18-shared-persistence-write-coordinator.zh.md)
-
 ## Problem
 
 The JSONL provider needs correctness-heavy write orchestration around its storage primitives: per-Session state, `session/created` adoption, prefix reads, write-behind control, per-id operation serialization, HMR seeding, and dispose drains. Keeping that lifecycle in the Service Definition prevents an out-of-tree provider from copying it. The removed first-party database provider demonstrated the duplication cost; the [JSONL-only persistence decision](../simplification/2026-08-30-jsonl-only-session-persistence.md) owns its removal.

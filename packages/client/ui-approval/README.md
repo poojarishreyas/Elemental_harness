@@ -4,8 +4,6 @@ kind: "package-reference"
 ---
 # @deepseek-ai/dsh-client-ui-approval
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Browser approval presentation over the Agent-scoped Remote Event waterfall. The plugin publishes each pending request through `ctx.uiSession`, takes over the Conversation composer, optionally renders correlated Tool detail, and returns the user's decision to the waiting Host request. Use it when a browser must collect approval for a waiting Host operation.

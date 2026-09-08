@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-24-web-per-turn-token-usage.zh.md)
-
 ## Problem
 
 Web Chat exposes cumulative session token usage near the composer, but that value cannot explain the cost of one completed Turn. A paged history window may begin inside a Turn, retries may consume several model calls, streaming and final events may repeat one attempt's usage, and optional cache fields do not prove an exact total. Displaying a partial subtotal as Turn usage would make recorded provider facts look more complete than they are.

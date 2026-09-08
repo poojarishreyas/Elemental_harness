@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-web-terminal-card.zh.md)
-
 ## Problem
 
 The bash tool declares `card: 'terminal'` for both its call and its result ([render-intent union](../architecture/2026-07-02-tool-render-intent-union.md)): the call view carries the command, an optional model-authored description, and the working directory; the result view carries the output, exit code, and terminating signal. That view already reaches the browser — host, connection, and runtime deliver it onto `ConversationSnapshot` as `callView`/`resultView` — and the former TUI rendered it as a `$`-prompt card with an exit line and a head/tail height cap.

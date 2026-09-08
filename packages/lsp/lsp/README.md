@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-lsp
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-lsp` provides the harness's language-server code navigation: an agent can go to a symbol's definition, find its references, jump to its implementations, or read hover documentation, and the code-navigation service (`ctx.lsp`) routes each query to the language-server provider that owns the file's extension. Providers register by branded id and file extension, so a provider swap never changes how navigation is requested or what the model sees. The service exposes exactly four read-only operations and no generic JSON-RPC escape hatch, and it contributes no prompt or tool schema itself — the model-facing `lsp` tool lives in `dsh-tool-lsp`. Compose it with a provider such as `dsh-lsp-stdio` and the tool to give agents precise navigation; this package does nothing on its own.

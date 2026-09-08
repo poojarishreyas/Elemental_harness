@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-08-08-cordis-web-dynamic-packages.zh.md)
-
 ## Problem
 
 The model needs to extend the current DSH process temporarily without modifying repository source, rebuilding the application, or refreshing the browser. An extension may run in the Host Node.js process, in a Client browser page, or as one plugin whose Host half retrieves data and whose Client half presents it.

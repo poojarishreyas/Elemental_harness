@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-10-sqlite-session-query-provider.zh.md)
-
 ## Problem
 
 The exact-read `ctx.sessionQuery` service deliberately has no derived index. Large persisted histories need full-text search without scanning every event on every query, while current live sessions need an overlay newer than the last durability checkpoint. Search also needs concrete ranking, snippets, filters, pagination, cancellation, and rebuild behavior.
@@ -12,7 +10,7 @@ Splitting those concerns across a provider coordinator and a database implementa
 
 ## Decision
 
-`@deepseek-ai/dsh-session-query` declares one abstract `ctx.sessionQuery` service whose exact reads, filters, and traces are concrete and whose two full-text methods are abstract. `searchSessions(request, exec?)` returns cursor-paginated `SessionSearchHit`s grouped by each session's strongest matching event; `searchEvents(request, exec?)` returns `SessionEventSearchHit`s within one logical session. Both requests require `query`, accept `limit` and an owned branded `SessionSearchCursor`, and support an optional abort signal. Session search accepts `sessionFilters` plus event metadata filters; event search accepts event metadata filters. Results expose bounded plain-text snippets but no provider identifier or numeric relevance score. The [unified service decision](../../archived/architecture/2026-07-23-unified-session-query-service.md) owns the single-key topology.
+`@deepseek-ai/dsh-session-query` declares one abstract `ctx.sessionQuery` service whose exact reads, filters, and traces are concrete and whose two full-text methods are abstract. `searchSessions(request, exec?)` returns cursor-paginated `SessionSearchHit`s grouped by each session's strongest matching event; `searchEvents(request, exec?)` returns `SessionEventSearchHit`s within one logical session. Both requests require `query`, accept `limit` and an owned branded `SessionSearchCursor`, and support an optional abort signal. Session search accepts `sessionFilters` plus event metadata filters; event search accepts event metadata filters. Results expose bounded plain-text snippets but no provider identifier or numeric relevance score. The unified service decision owns the single-key topology.
 
 `@deepseek-ai/dsh-session-query-sqlite` extends the interface service and is the sole concrete owner of `ctx.sessionQuery`. It depends on live `ctx.sessions`, observes optional `ctx.sessionPersistence` dynamically, and owns a dedicated derived SQLite database. There is no search-provider registry, coordinator, persistence event, or agent-loop integration.
 

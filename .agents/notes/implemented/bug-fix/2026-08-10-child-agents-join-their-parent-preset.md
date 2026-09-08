@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-child-agents-join-their-parent-preset.zh.md)
-
 ## Problem
 
 Tool and prompt-section visibility is inherited along `dsh-scope`'s parent chain, and an agent's scope key is minted with no parent. [Per-session agent presets](../architecture/2026-08-03-per-session-agent-presets.md) moved every model-facing row onto the agent plane and made `AgentPresets.mount()` the one thing that binds that parent link — from the api-proxy's session create, resume, and fork paths. The two in-process subagent drivers compose their children through `applyChildComposition()`, which installed only the per-child persona and tool filter, so a child's scope chain had length one and its registry view resolved the global layer alone.

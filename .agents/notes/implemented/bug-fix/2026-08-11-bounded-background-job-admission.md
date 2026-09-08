@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-bounded-background-job-admission.zh.md)
-
 ## Problem
 
 A model can start background Bash, PowerShell, PTY operations, and one-shot subagents in separate tool calls and later turns. The agent loop's `maxParallelToolCalls` limits only calls still executing inside one step; each background producer returns a job id immediately, so repeated starts can grow live processes or child work without bound.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-stable-snapshot-refresh-volatiles.zh.md)
-
 ## Problem
 
 ACP snapshot comparison normalizes generated UUIDs, cwd aliases, spill locators, embedded event times, and omitted-byte counts, but refresh write-back persisted the fresh raw values. A behaviorally unchanged refresh therefore rewrote fixtures with new randomness or host-specific path spellings even though the comparison contract considered both logs equal.

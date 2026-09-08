@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-shared-base-config-overlays.zh.md)
-
 ## Problem
 
 `dsh` shipped two full config trees that were 43 rows the same. `apps/server/cordis.yml` composed the web surface as 74 flat rows, while the TUI booted `examples/tui-agent/cordis.yml`, whose single `@deepseek-ai/dsh-tui-demo` row mounted twelve plugins and re-declared their configuration as its own twenty-key pass-through `Config`.

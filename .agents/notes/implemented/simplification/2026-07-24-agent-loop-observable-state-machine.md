@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-24-agent-loop-observable-state-machine.zh.md)
-
 ## Problem
 
 The agent loop exposed its control flow as a large set of Cordis events. Separate `pre-step` and `post-step` checkpoints bracketed a step, `session-prefix` and `step-result` transformed request and response messages, `request-error` decided whether a failed request retried inside its turn, and `turn-continuation` plus `turn-stop` composed competing continuation decisions.

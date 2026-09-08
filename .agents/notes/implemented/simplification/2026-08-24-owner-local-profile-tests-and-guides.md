@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-24-owner-local-profile-tests-and-guides.zh.md)
-
 ## Problem
 
 The top-level `examples/` tree mixed four unrelated roles: redundant application compositions, cross-package profile tests, package-specific Loader fixtures, and runnable user guides. Its umbrella workspace manifest existed primarily to make arbitrary nested Cordis files resolve packages, so test and documentation placement determined dependency resolution and made unsupported demo launchers look like product interfaces.

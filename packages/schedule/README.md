@@ -5,8 +5,6 @@ kind: "package-group"
 
 # schedule/ — Session-local reminders
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The schedule group provides session-local reminders for a running conversation: ask the agent to remind you later, at an absolute time, or on a fixed interval, and each reminder arrives as an ordinary message in the same conversation when it comes due. Its host package owns the three management tools and can publish the complete active-record set through the optional Session projection registry. The separate [`ui-schedule`](../client/ui-schedule/README.md) browser plugin renders that projection as a read-only current-state catalog, while [`ui-workspace`](../client/ui-workspace/README.md) marks ordinary and search rows whose best-effort list value is non-empty. That marker reports cached active state, not a live runtime guarantee. Reminders survive restarts but stay inside the session: there is no email, SMS, or push notification. This page maps the group; each package README owns its contract.

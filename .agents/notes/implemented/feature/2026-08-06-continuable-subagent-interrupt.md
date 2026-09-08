@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-continuable-subagent-interrupt.zh.md)
-
 ## Problem
 
 A running continuable subagent could not be stopped without destroying it. The continuation manager cancels child Agents only inside whole-Activation teardown (settlement, drain, scoped drain), `send_message`/`subagent.prompt` only add work, and the Web composer's Stop button was deliberately limited to ordinary sessions. A human watching a continuable child burn tokens on a wrong path had no lever short of killing the parent tree, and when the direct parent Agent was offline the child was entirely untouchable even though its Activation stayed live. One-shot runs have holder-owned disposal and task-kill; continuable children had no analogous current-turn control.

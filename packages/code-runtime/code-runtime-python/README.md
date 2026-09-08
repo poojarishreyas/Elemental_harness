@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-code-runtime-python
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-code-runtime-python` owns the versionless wire protocol between a Node host and a CPython subprocess for the [`dsh-code-runtime`](../code-runtime/README.md) seam: one JSON object per line on the child's fd 3, leaving stdout/stderr free for the program's own output. The package ships the host-side frame codec and hostile-frame validators (`src/protocol.ts`) plus the Python-side mirror of the same message vocabulary (`py/protocol.py`), so every consumer of the wire shares one vocabulary. It is the protocol layer for the Python backend — the package carries no subprocess execution path, so nothing here spawns `python3` outside the cross-language mirror test. The host treats every inbound frame as hostile, because model code has full access to fd 3 and can post anything through it.

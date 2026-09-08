@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-26-published-dependency-faces.zh.md)
-
 ## Problem
 
 A package may contain a browser bundle, a Host entry, shared TypeScript declarations, and Cordis injection metadata. Encoding all of those relationships as required npm peers made the published CLI expensive to install: npm installs peers automatically and repeatedly evaluates placement through deep, converging peer paths. Changing ranges or making the peers optional did not remove that traversal.

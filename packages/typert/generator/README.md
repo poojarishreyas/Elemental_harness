@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-typert-generator
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-typert-generator` turns source TypeScript into compiler-independent data and runnable artifacts at build time: it analyzes a workspace's package type trees, produces a `FaceModel` and type graph, and emits executable JavaScript with supported Zod schemas and a `TYPERT` reflection contribution, plus matching declarations. It is a build-time library, not a plugin — it never runs inside a live agent session. The repository's Host tsdown runs it automatically; a business package opts in by exporting `./typert` and `./client/typert` entries, and the generator validates those exports and published file lists. Static consumers can also call the analyzer directly for type inspection or catalog generation without publishing anything.

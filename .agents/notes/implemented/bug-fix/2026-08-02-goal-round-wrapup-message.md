@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-02-goal-round-wrapup-message.zh.md)
-
 ## Problem
 
 An autonomous goal round that reported `update_goal` `complete` or `blocked` concluded the physical turn at the tool result, so the model never spoke after the call. Sessions ended on a bare `update_goal` card, and internal testers read that as the agent stopping mid-sentence: the model's pre-call text routinely announces a report ("goal achieved, marking complete:") that never arrives, because the standard tool-use expectation is one more assistant message after a tool result and neither the goal-round prompt nor the tool description said the call was terminal. The hard stop came from the [goal-tool decision](../feature/2026-07-19-model-facing-goal-tools.md), whose turn-stop clause this note supersedes.

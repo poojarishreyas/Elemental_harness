@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-14-provider-routed-llm-adapters.zh.md)
-
 ## Problem
 
 `dsh-llm` registered adapters by exact model name. A plugin supplied a model list at Cordis startup, `LlmRuntime` stored one adapter per listed string, and `GenerateOptions.model` selected the adapter and the provider model at once. This worked while both shipping adapters targeted the same two DeepSeek models, but it conflated two independent decisions: which upstream provider owns a request, and which model that provider should run.

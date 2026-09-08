@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-oxlint-linter.zh.md)
-
 ## Problem
 
 The repository needs type-aware TypeScript correctness rules, consistent formatting, and file-local duplicate-logic checks across its owned source. ESLint supplied those checks through a JavaScript parser, a project service, and multiple plugins, but a clean lint run spent about one minute on the local migration baseline and required an 8 GiB Node heap, CI result caches, and separately tuned ESLint concurrency.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-session-archive-global-set.zh.md)
-
 ## Problem
 
 The session row menu in the sidebar workspace browser carried a purely visual "Delete session" placeholder (no handler). The product decision is **archive**, not delete: the session log and its workspace accounting stay untouched; the session merely disappears from every grouping surface (workspace groups, Ungrouped, search, the flat list). The archive record needs a home: an Ungrouped session belongs to no workspace entity, so a per-workspace field cannot carry it.

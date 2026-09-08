@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-pi-ai-route-default-input-modalities.zh.md)
-
 ## Problem
 
 Nothing in `settings.yaml` could describe a hand-declared pi-ai model as accepting images, and the adapter assumed text-only for every model the installed pi-ai catalog does not describe. Every model a deployment adds through the web UI's "add a custom provider" card is such a model, so an OpenAI-compatible gateway serving a vision model reported `inputModalities: ['text']` no matter what it actually served.

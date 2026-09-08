@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-trajectory-inspection-ledger.zh.md)
-
 ## Problem
 
 Trajectory has to make prose, machine payloads, token usage, timing, and nested tool activity readable in the same viewport. The earlier stacked Turn and Step cards preserved hierarchy but spent too much vertical space on repeated chrome, while a completely flat table would erase the causal structure that makes a trajectory useful. Role colors also risked borrowing success and warning semantics, which made visual decoration indistinguishable from runtime state.

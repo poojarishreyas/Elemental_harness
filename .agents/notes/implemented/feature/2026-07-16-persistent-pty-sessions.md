@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-16-persistent-pty-sessions.zh.md)
-
 ## Problem
 
 The harness can run foreground and background commands, edit files, and delegate work, but it cannot continue an interactive terminal conversation across tool calls. Each `bash` foreground run starts a fresh shell, so shell-local cwd, exported variables, virtual-environment activation, functions, job-control state, and interactive child processes end with that call.

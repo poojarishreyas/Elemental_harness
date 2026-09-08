@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-26-composer-gesture-editable-gate.zh.md)
-
 ## Problem
 
 Two Playwright gesture semantics silently changed when the composer became a Lexical `contenteditable` `<div>`, and both bit only under CI load. While the input machine is adjudicating or submitting a send — and in every locked state — the composer renders read-only by flipping `contenteditable` to `"false"` on the same element. On that element `fill()` throws immediately (`Element is not an <input>, <textarea> or [contenteditable] element`) instead of waiting through actionability, and `expect.poll(() => input.isEnabled())` is a no-op guard: Playwright's enablement check ignores both `aria-disabled` and `contenteditable` on a `<div>`, so it reports `true` throughout the read-only window. The exposed race is only a few frames wide — the permission-policy scenario stayed green for weeks until a Remote-routed subagent refactor stretched submit settling enough for CI to land inside it.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-19-web-index-injection-table.zh.md)
-
 ## Problem
 
 The web shell's boot HTML needs three kinds of injection: client-modules' boot protocol (the `__ModuleLoader__` registration queue inline script, the parser-blocking preload `<script src>` tags, the `__DSH_BOOT__` graph global) and ui-theme's first-paint theme script. The old mechanism was `webServer.tapIndex(html => html)` string transforms: each registrant regex-located `<head>`/`<body>` and spliced HTML on its own. The static worker deployment (the page is a build artifact; the host tree runs in a Web Worker) has no serve-HTML step at all, so the worker side hand-copied the same data into its `/__boot__` payload (`graph` + `theme` via `ctx.get`), and the page side re-implemented what the taps did (a facade installer, a theme applier, a preload loop) — one boot semantics, three implementations.

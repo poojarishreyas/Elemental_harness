@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-24-empty-model-response-is-retryable.zh.md)
-
 ## Problem
 
 Providers occasionally return a degenerate completion: a well-formed stream that carries a terminal `stop` finish and zero content blocks — no text, no reasoning, no tool calls. If an adapter maps this shape to a successful `{kind: 'stop'}` finish, the loop logs an empty `assistant/message` and ends the turn as `completed`. Retry never runs, no failure reaches the caller, and a driver such as goal-round-driver consumes a round without progress.

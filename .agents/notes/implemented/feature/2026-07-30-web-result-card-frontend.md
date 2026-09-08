@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-web-result-card-frontend.zh.md)
-
 ## Problem
 
 The `web_search` and `web_fetch` tools declare a `card: 'web'` result view ([web result card](2026-07-30-web-result-card.md)): a `kind`-tagged union carrying either the structured cited sources plus an optional provider answer (`kind: 'search'`) or the fetched URL and its HTTP status (`kind: 'fetch'`). That view already reaches the browser — host, connection, and runtime deliver it onto `ConversationSnapshot` as `resultView` — but the Web client ignored it: a completed web call rendered only as its flattened model-facing text, the same lossy render the contract note explains the structured view exists to replace. A `web_search` reached the reader as one free-text markdown line per source rather than a citation list of clickable sources, and a `web_fetch` as its markdown body with no retrieval summary.

@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-client-ui-subagent
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-client-ui-subagent` is the web client's subagent conversation feature: users browse and open subagent conversations from the parent session's header, continue them through reason-specific read-only composer states, and reference running children with the `@` source. From the parent session's header, users browse the complete subagent-origin descendant lineage — each row shows mode, running activity, token usage, and active-turn duration — and open any depth with the child's exact address. A one-shot child always opens a read-only composer identifying the transcript as a completed execution record; a continuable child routes follow-up prompts through its FIFO inbox while it runs. Subagent-origin Session rows are omitted from the ordinary sidebar, so the parent header catalog is their navigation entry point.

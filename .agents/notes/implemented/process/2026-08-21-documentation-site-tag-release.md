@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-21-documentation-site-tag-release.zh.md)
-
 ## Problem
 
 Every other public surface of this project advances only at a release tag. The npm sequence publishes from a `dsh-v*` tag through a reviewed manual dispatch, the Python wheels from a `python-v*` tag behind a publisher-repository check and two protected environments, and the public source repository advances only to each release commit. The documentation website deployed on every master push touching `docs/`, `website/`, the projector, or the lockfile, with no reviewer and no version check. That site is reachable without authentication even though the repository is private, so a merge published documentation to the internet within minutes — including pages describing work that no released artifact contained, and reference material generated from a source tree ahead of everything readers could obtain.

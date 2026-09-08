@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-reader-scroll-attribution-observed-top-ledger.zh.md)
-
 ## Problem
 
 ChatView's bottom-follow recognized only wheel/trackpad gestures as reader input: while pinned to the floor, a scroll event without matching wheel movement was treated as programmatic and snapped back. Touch panning, native-scrollbar dragging, and keyboard paging therefore could not leave the bottom of a streaming transcript — on a phone the tail was effectively locked. That wheel-only input classification was a deliberate deferral in the [sticky-composer note](2026-07-29-sticky-composer-conversation-scroll.md), which rejected a general input state machine "for this narrow fix" and left every other scroll source outside the model.

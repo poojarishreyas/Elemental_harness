@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-unified-image-request-pipeline.zh.md)
-
 ## Problem
 
 Durable image history, provider resolution, inline request size, and remote file reuse have different limits. Treating an admitted image as the bytes sent on every later request forced one byte cap and one raster to serve all four concerns. Large but ordinary input was refused, clean 16-bit PNG could pass into history and fail at DeepSeek, repeated base64 expanded long requests, and a provider rejection repeated because the same durable image stayed in every future request.

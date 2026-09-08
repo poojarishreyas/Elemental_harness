@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-default-presets-single-editor.zh.md)
-
 ## Problem
 
 The `standard`, `code`, and `cordis` presets exposed both the `read`/`write`/`edit` filesystem tools and `str_replace_editor`. The two interfaces overlap for ordinary file inspection and editing, so every request carried an additional tool schema without adding a distinct default capability. The `minimal` preset has a different composition contract: its exact two-tool roster intentionally includes `str_replace_editor` beside persistent `bash`.

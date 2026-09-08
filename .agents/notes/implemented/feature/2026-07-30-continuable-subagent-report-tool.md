@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-continuable-subagent-report-tool.zh.md)
-
 ## Problem
 
 Continuable in-process subagents can receive later parent messages, retain descendants, settle, and cold-resume, but the base lifecycle gives them no way to send selected content back to their direct parent. Their complete output already remains reconstructable from the durable child Session, so the missing capability is explicit delivery rather than result storage.

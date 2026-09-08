@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-persistent-bash-str-replace-editor.zh.md)
-
 ## Problem
 
 Some deployments need a one-call Bash schema whose shell state survives across model turns, while others need a Claude-style `str_replace_editor` independent of their terminal choice. Bundling the two tools or naming them after one benchmark would prevent reuse and blur configuration ownership.

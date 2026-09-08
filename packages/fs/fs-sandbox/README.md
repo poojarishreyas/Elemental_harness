@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-fs-sandbox
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-fs-sandbox` provides the sandbox-enforcing `ctx.fs` backend: it extends [`fs-local`](../fs-local/README.md) with every text-storage behavior intact and adds only a per-call mode fence on writes and edits, while reads always pass through. Under `read-only` every mutation is refused; under `workspace-write` a mutation is allowed only when the target sits under the session workspace or a platform temp root; under `danger-full-access` mutations run unfenced. Loading it instead of `fs-local`, together with the shared `ctx.sandboxPolicy` service, is the whole swap — the model-facing tools and the policy plugin are untouched. A denial is a structured `FS_SANDBOX_DENIED` error that the tools render as the familiar `[sandbox: file access denied under <mode> mode]` marker with a same-turn escalation hint. Choose it when a session's file mutations must be confined to its workspace.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-31-windows-coverage-flaky-test-budgets.zh.md)
-
 ## Problem
 
 The `windows node 24 / coverage` lane is excluded from `all-checks-passed.needs` because it is unstable, not because its verdict is unimportant. The instability is a set of timing-sensitive tests that pass on a quiet runner and fail on a contended one. Two failure shapes recur across many PRs (3184, 3185, 3179, 3181) and are unrelated to the PR diffs that trigger them:

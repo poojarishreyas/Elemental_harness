@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-25-session-list-browsing-and-manual-order.zh.md)
-
 ## Problem
 
 [Workspace UI Complete Product Flow](2026-07-25-workspace-ui-product-flow.md) shipped the first form of the grouped session list and explicitly scoped out operations such as Rename and drag ordering. The design file (figma 239-10458 and its companion screens) has since filled in those interactions: the list must switch to an ungrouped flat view, session rows need a hover detail card and an action menu, workspaces need renaming, and sessions need manual ordering inside their group.

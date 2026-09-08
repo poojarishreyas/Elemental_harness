@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-23-locale-owned-client-ui-copy.zh.md)
-
 ## Problem
 
 Typed locale namespaces and bilingual dictionary parity proved that registered dictionaries were complete, but they could not prove that presentation code used them. JSX text, accessibility attributes, formatter returns, and zero-Cordis primitive defaults could bypass `t` while every locale check remained green. The deferred and supposedly language-neutral exceptions recorded in the [initial full-rollout decision](2026-07-30-client-locale-full-rollout.md) accumulated into a mixed-language UI, especially in trajectory inspection and generic Tool cards.

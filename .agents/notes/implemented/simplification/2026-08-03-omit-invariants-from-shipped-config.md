@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-03-omit-invariants-from-shipped-config.zh.md)
-
 ## Problem
 
 `@deepseek-ai/dsh-invariants` and package-owned `./invariant` companions are optional development diagnostics. The shipped TUI mounted the service and four stateful companions while the shipped Web tree omitted them, so the two product surfaces had different diagnostic cost and failure behavior. A relational assertion failure could terminate an ordinary TUI run even though the always-on product boundary remained responsible for session validation and immutable history.

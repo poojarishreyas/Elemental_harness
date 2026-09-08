@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-30-jsonl-only-session-persistence.zh.md)
-
 ## Problem
 
 The product ships and exercises JSONL as its authoritative Session store, while the optional SQLite Session-persistence provider duplicates the same logical service over a second physical format. Every Session contract, event-envelope change, recovery rule, package graph, platform lane, and format transition therefore carries a second implementation and test matrix even though shipped profiles do not select it. Released Session-format migration also needs an exact per-Session source artifact that can be archived before replacement; the single-database provider would require a separate publication design without serving a current deployment.

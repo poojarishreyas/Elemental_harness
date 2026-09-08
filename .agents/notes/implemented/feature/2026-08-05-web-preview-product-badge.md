@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-web-preview-product-badge.zh.md)
-
 ## Problem
 
 The Web empty state does not identify the product as a preview. Users can enter the main session surface without seeing that the product is pre-release, while a deployment setting would misrepresent a product-wide lifecycle decision as an operator choice.

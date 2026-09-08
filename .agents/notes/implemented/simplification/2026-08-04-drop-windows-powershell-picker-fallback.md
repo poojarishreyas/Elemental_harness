@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-drop-windows-powershell-picker-fallback.zh.md)
-
 ## Problem
 
 The win32 branch of the native directory picker kept a two-tier PowerShell fallback under the koffi `IFileOpenDialog` child process: `pwsh.exe` first, then `powershell.exe` (Windows PowerShell 5.1), both running the same WinForms script with a `SetProcessDPIAware` opt-in. The chain existed to keep a working chooser when the koffi tier was "unavailable", but every trigger it plausibly protected was a failure of our own packaging or deployment, not of the operating system:

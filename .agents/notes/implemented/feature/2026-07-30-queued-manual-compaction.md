@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-queued-manual-compaction.zh.md)
-
 ## Problem
 
 Automatic compaction protects the context window, but an interactive user also needs a deterministic way to condense accumulated history before pressure policy fires. Sending `/compact` as prompt text would spend a model turn and let the conversation model reinterpret a direct control action. Implementing it inside one UI would duplicate command discovery, lifecycle logging, cancellation, and backend policy.

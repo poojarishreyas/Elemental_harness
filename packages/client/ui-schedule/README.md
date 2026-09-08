@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-client-ui-schedule
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 This package renders a read-only catalog of the current Session's active Schedule reminders in the Web header. It reads the complete `schedule` projection and issues no RPC or mutation. The browser derives status, local time, relative time, and ordering without adding those presentation values to durable state. The shipped Web bundle keeps the plugin disabled until the explicit Schedule overlay enables both the Host Schedule services and this client row.

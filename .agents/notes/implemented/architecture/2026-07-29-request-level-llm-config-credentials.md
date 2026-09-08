@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-request-level-llm-config-credentials.zh.md)
-
 > Scope: the first production consumers of `ctx.settings` (the two LLM adapter plugins), the new `packages/credentials/` capability family, and the `packages/util/atomic-write` extraction. The follow-up wire surface (`settings.*`/`credentials.*` RPC, secret-role masking, the web settings form) is separate work outside this note's scope.
 
 ## Problem

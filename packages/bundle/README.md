@@ -5,8 +5,6 @@ kind: "package-group"
 
 # bundle/ — profile plugin bundles
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 This group maps the configuration layers used by the Web backend. Each bundle declares `dsh.bundle.patch`; the server applies `dsh-base` and `dsh-web-app`, followed by user configuration patches.

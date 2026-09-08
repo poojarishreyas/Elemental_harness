@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-26-local-submission-echoes.zh.md)
-
 ## Problem
 
 A multi-image prompt spent seconds in client serialization plus host admission before its durable `user/message` existed, and the conversation showed nothing until then: the composer froze read-only, the message appeared only after the full pipeline, and the user could not tell whether the submission had started (#3003). The durable event cannot move earlier — Model-visible ⟺ logged requires the `user/message` to land only after every attachment persists — so the visible submission had to decouple from the durable one.

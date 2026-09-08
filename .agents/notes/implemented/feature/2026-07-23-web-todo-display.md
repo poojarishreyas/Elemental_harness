@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-23-web-todo-display.zh.md)
-
 ## Problem
 
 `todo_write` appends `todo/write` whole-list snapshots to the session log; the TUI renders a persistent plan panel (the automation-only ACP bridge deliberately omits todo presentation). The web client dropped the event entirely: the host mux stream already forwards every session event, but `todo/write` is not a surface type (it never folds into `ConversationSnapshot.nodes`), and no side-effect branch accumulated it — the browser had no consumption point and no display surface.

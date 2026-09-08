@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-filesystem-absence-observation.zh.md)
-
 ## Problem
 
 The event-gated filesystem policy originally records only successful reads and mutations as a target version. If a session reads a file and an external command deletes it, the first guarded mutation correctly fails stale, but the prescribed reread returns `FS_NOT_FOUND` before emitting `fs/observed`. The old positive version therefore remains forever: write keeps choosing `replaceIfVersion`, the provider keeps rejecting the missing target, and the model-facing “re-read the file, then retry” instruction becomes an unrecoverable loop.

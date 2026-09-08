@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-preset-authoring-agent-validates-its-own-composition.zh.md)
-
 ## Problem
 
 The `cordis` preset ships `editing-cordis-compositions`, the only guidance an agent has when it authors a preset. Four of its statements were false, and the two that carried the most weight pointed at the rule the skill itself calls "the rule that catches people".

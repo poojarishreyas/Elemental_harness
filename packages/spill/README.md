@@ -5,8 +5,6 @@ kind: "package-group"
 
 # spill/ — tool-output spill capability family
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The `spill/` group keeps oversized tool output out of the model's context without losing it: when a tool result exceeds a deployment's byte cap, the full text is saved to a spill artifact and the model sees a bounded preview plus a locator it can read or search later. The family splits into three packages — the storage service in `spill/`, the local filesystem backend in `spill-local/`, and the result policy in `spill-policy/` that decides when a final tool result is too large. Spilling is opt-in and best-effort: the policy acts only when `maxInlineBytes` is configured, and a storage failure leaves the original result visible. The group owns storage and result replacement only; preview mechanics live in `dsh-output-retention`, and provider resource caps remain separate.

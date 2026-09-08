@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-background-first-continuable-delegation.zh.md)
-
 ## Problem
 
 A continuable child already has a durable id, independent turns, follow-up messaging, and a manager-owned settlement notice. Treating an omitted `run_in_background` as foreground makes that lifecycle depend on the model restating `true` on every call. It also obscures the useful scheduling test: the parent should wait only when its next action requires the child's result.

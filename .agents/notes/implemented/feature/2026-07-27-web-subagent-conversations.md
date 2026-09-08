@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-web-subagent-conversations.zh.md)
-
 ## Problem
 
 Session-backed subagents have durable identities, persisted transcripts, and a direct-child catalog, but ordinary session lineage cannot distinguish them from forks or prove their descriptor mode and continuation authority. Generic Agent-bound Host operations can otherwise resume or drive a child outside its direct-parent continuation owner.
@@ -63,7 +61,7 @@ Viewing persisted history creates no mux subscription by itself. When a follow-u
 
 The ordinary `session.history` route is likewise observation-only for both ordinary and subagent sessions, but it does not carry the catalog address or grant continuation authority. Every ordinary route that needs an Agent resolves through the shared ownership fence before cold resume; `session.cancel` and `session.updateQueue` apply the same check directly because they intentionally query only attached Agents.
 
-The adapter stays behind the generated Remote namespace; `dsh-host-webserver` remains a carrier. Browser code imports the contract through the existing connection package and never reaches host `ctx`, preserving the [archived GUI RPC layering decision](../../archived/architecture/2026-07-19-gui-layering-and-rpc-protocol.md).
+The adapter stays behind the generated Remote namespace; `dsh-host-webserver` remains a carrier. Browser code imports the contract through the existing connection package and never reaches host `ctx`, preserving the archived GUI RPC layering decision.
 
 ## Client object layer and presentation
 

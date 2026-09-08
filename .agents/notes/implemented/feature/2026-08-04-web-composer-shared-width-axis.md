@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-web-composer-shared-width-axis.zh.md)
-
 ## Problem
 
 The web conversation column sized each surface independently: the transcript column, the input card, the todo/goal/queue dock cards, and the ask-question/approval/plan-review takeover cards each carried their own hardcoded max-width (736/752/776/800px variants) and their own side paddings. The surfaces drifted a few pixels apart at full width and diverged further on narrow viewports, where some panels kept clearance from the screen edge and others went flush. Separately, the composer's control row had no adaptive behavior — on a narrow card the permission trigger's label squeezed the row — and the overlay menus anchored to the card could render wider than the card itself, painting past its right edge.

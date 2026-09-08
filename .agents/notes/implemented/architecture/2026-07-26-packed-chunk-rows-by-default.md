@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-26-packed-chunk-rows-by-default.zh.md)
-
 ## Problem
 
 Provider streams produce many token-sized `assistant/chunk` delta events whose repeated JSON envelopes can outweigh their payloads. The session log must retain each chunk as a distinct logical event: live `session/event` delivery, sequence numbers, `sourceEventSeqs`, replay, cancellation evidence, and UI streaming all depend on those boundaries.

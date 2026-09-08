@@ -2,19 +2,17 @@
 
 Status: implemented
 
-English | [中文](2026-06-29-todo-write-tool.zh.md)
-
 ## Problem
 
 The harness gives the model bash and subagent tools but no way to record a structured task list. A todo list serves two co-equal purposes: it steers the model to plan multi-step work and keep the active work unambiguous, and it gives an interactive host a live progress checklist. Every reference coding agent surveyed (claude-code, opencode, codex, oh-my-pi, pi) ships some form of this; the harness had nothing.
 
 ## Decision
 
-Add a model-facing `todo_write(todos: [{ content, status }])` tool whose whole-list state lives on the event-sourced session log as a `todo/write` `SessionEventMap` variant owned by the todo package ([event ownership](../architecture/2026-07-20-todo-event-ownership.md)). Interactive hosts render from the durable event: the TUI folds it directly, the web client projects it into `ConversationSnapshot.todos` ([web todo display](2026-07-23-web-todo-display.md)), while the [automation-only ACP bridge](../../archived/simplification/2026-07-23-acp-automation-only-protocol.md) deliberately omits todo presentation.
+Add a model-facing `todo_write(todos: [{ content, status }])` tool whose whole-list state lives on the event-sourced session log as a `todo/write` `SessionEventMap` variant owned by the todo package ([event ownership](../architecture/2026-07-20-todo-event-ownership.md)). Interactive hosts render from the durable event: the TUI folds it directly, the web client projects it into `ConversationSnapshot.todos` ([web todo display](2026-07-23-web-todo-display.md)), while the automation-only ACP bridge deliberately omits todo presentation.
 
 ### Whole-list replace, three-state status
 
-The model sends the entire list every call; the new list replaces the old (last-write-wins on replay). This is the shape claude-code V1, opencode, and codex `update_plan` all use, and the shape the model is most trained on — no per-item ids, no delta protocol. `status` is exactly `pending | in_progress | completed`, the same triple as codex `update_plan`; it also matched the ACP `PlanEntryStatus` 1:1 while the bridge projected todo lists as `plan` updates, a mapping retired with the [automation-only ACP contract](../../archived/simplification/2026-07-23-acp-automation-only-protocol.md).
+The model sends the entire list every call; the new list replaces the old (last-write-wins on replay). This is the shape claude-code V1, opencode, and codex `update_plan` all use, and the shape the model is most trained on — no per-item ids, no delta protocol. `status` is exactly `pending | in_progress | completed`, the same triple as codex `update_plan`; it also matched the ACP `PlanEntryStatus` 1:1 while the bridge projected todo lists as `plan` updates, a mapping retired with the automation-only ACP contract.
 
 ### State on the session log, not a service
 

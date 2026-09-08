@@ -2,13 +2,11 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-per-subsystem-cordis-surface-regions.zh.md)
-
 ## Problem
 
 One subsystem's documentation was split across three homes: its hand-written subsystems page (introduction, data structures, verbs), its `ctx.<key>` slice of the flat generated `docs/cordis-catalog/services.md`, and its event scope's slice of the flat `docs/cordis-catalog/events.md`. A reader of shell.md had to open two more documents to see the service interface and events the page was describing, and nothing tied the three views together beyond hand-maintained links. The flat catalogs also sat outside the bilingual corpus (excluded from pairing because generated output is English-only), so the reference surface had no Chinese route at all.
 
-The [generated-catalog decision](../../archived/process/2026-06-20-generated-cordis-catalog.md) — generate from source, `@mode` tags cross-checked, fail-closed type-link coverage, the `ts cordis-catalog` fence — is not in question; what changed is WHERE the generated output lands.
+The generated-catalog decision — generate from source, `@mode` tags cross-checked, fail-closed type-link coverage, the `ts cordis-catalog` fence — is not in question; what changed is WHERE the generated output lands.
 
 ## Decision
 

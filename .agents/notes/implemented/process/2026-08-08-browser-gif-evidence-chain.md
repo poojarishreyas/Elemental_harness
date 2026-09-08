@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-browser-gif-evidence-chain.zh.md)
-
 ## Problem
 
 A browser-demo storyboard can contain individually truthful screenshots without proving one truthful execution. Reusing global application state can admit old settings or sessions, capture automation can accidentally combine frames from separate model runs, and a chat transcript can show a successful fallback without exposing the tool rejection that caused it. Fuzzy accessible-name matching can also accept prompt echoes or descendant text instead of the intended result.

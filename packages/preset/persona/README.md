@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-persona
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-persona` gives one agent its own persona: a preset mounts this composable row to register the `deployment:persona` system-prompt section, shadowing the deployment-wide persona for that session. It can also make that persona the session's complete system prompt, suppressing every other section, and can turn off dynamic runtime-context snapshots for the session. Mount it inside a preset composition — mounting it globally collides with the prompt registry's own persona registration and fails loud. Without this row, a preset could change an agent's tools but never its identity.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-manager-owned-subagent-settlement-delivery.zh.md)
-
 ## Problem
 
 Continuable background delegation was the one asynchronous operation a model could start but could not reach the end of. Every other shape has a retrieval primitive or a return value: a background bash command and a one-shot background subagent both settle through a Task that `job_output(wait: true)` can block on, a workflow and a foreground subagent return their result to the caller. A continuable background child returned only its durable id, and nothing existed that a parent could wait on or would be handed.

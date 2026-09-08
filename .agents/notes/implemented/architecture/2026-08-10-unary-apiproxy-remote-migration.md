@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-unary-apiproxy-remote-migration.zh.md)
-
 ## Problem
 
 The Host API Proxy duplicated simple unary operations across business Services, API Proxy interfaces, Zod schemas, route tables, client stubs, and Client callers. [Typert Remote calls](2026-08-02-typert-remote-method-calls.md) already let a business package own this class of call, but moving an endpoint without its lifecycle and projection policy could change observable behavior.

@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-cmdline
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-cmdline` lets your app own its command line: the launcher keeps only its own flags (`--profile`, `--patch`, the config dumps) and passes everything after them to your app verbatim, so your app decides its flags, its `--help` text, and its parse errors. Values you parse from those arguments win over any default written in the config, without writing anything back. Your app also gets a bounded way to ask for process exit, wired to the launcher's shutdown. Use it when you write an app bin that accepts its own flags; it adds no prompt, schema, or model-facing surface of its own.

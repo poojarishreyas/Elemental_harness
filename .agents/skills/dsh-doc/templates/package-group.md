@@ -16,8 +16,6 @@ kind: "package-group"
 ```markdown
 # <group>/ — <one-line subject>
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Three to five sentences: what the family provides, what a reader can DO with it, which package owns which half, and the main boundary.
@@ -37,12 +35,12 @@ One short orienting sentence, then the package map:
 
 | Package | Role |
 |---|---|
-| [`<pkg>`](<pkg>/README.md) | One-line role: what it contributes |
+| `<pkg>` | One-line role: what it contributes |
 
 <a id="related-documentation"></a>
 ## Related documentation
 
-- [Adjacent owner](../../<path>.md) — what it adds to this family.
+- Adjacent owner — what it adds to this family.
 
 <a id="dev-note"></a>
 ## Dev Note

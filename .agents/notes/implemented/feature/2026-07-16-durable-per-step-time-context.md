@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-16-durable-per-step-time-context.zh.md)
-
 ## Problem
 
 A request-only clock can tell the model the current time, but replacing that value in the system prompt removes the evidence behind earlier time-sensitive reasoning. Multi-step turns need requests to retain the readings used by preceding steps. The request must remain reconstructable after restart, and automatic compaction must account for the same timing context the model receives.

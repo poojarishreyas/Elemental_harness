@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-time-context
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-time-context` gives the model a clock: on eligible steps it appends a durable, source-attributed reading with the current time, the browser zone attached to the open request, and the elapsed time since the preceding model-visible message. It helps the model interpret otherwise-unqualified dates and times in the user's browser zone, and tells it to ask when zone provenance is mixed or missing. The plugin is opt-in: default compositions leave it disabled, and the Schedule Web overlay mounts it. A positive `refreshIntervalMs` reduces how often readings accumulate; omission or `0` injects at every eligible step.

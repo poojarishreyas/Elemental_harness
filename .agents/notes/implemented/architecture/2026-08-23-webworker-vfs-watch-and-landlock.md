@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-23-webworker-vfs-watch-and-landlock.zh.md)
-
 ## Problem
 
 The Web Worker preview boots the same Web profile and Agent presets as the Node host. Without a VFS change source, refusing `node:fs.watchFile` makes `skill-filesystem` return an incomplete observation and re-scan on every lookup, while an inert success leaves an existing root waiting forever for Chokidar's `ready`. Settings and credentials likewise need real external-edit events rather than a package-specific fake.

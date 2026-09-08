@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-identified-immutable-message-values.zh.md)
-
 ## Problem
 
 The harness had several message-shaped representations with different identity rules. Agent input acquired an inbox correlation id only when the loop accepted it, while durable user messages, assistant messages, tool results, and model-request messages could have no identity. Prompt admission therefore sat between creation and identity, and equivalent content was copied across live events, durable events, and model requests without one value that named the message throughout its lifetime.

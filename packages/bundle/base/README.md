@@ -5,8 +5,6 @@ kind: "package-bundle"
 
 # @deepseek-ai/dsh-base
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-base` supplies the Web backend with model access, tools, durable sessions, and workspace safety defaults. The Web profile includes this bundle first; later bundles and profile patches customize its defaults.

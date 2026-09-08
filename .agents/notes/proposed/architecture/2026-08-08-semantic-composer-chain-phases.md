@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-08-08-semantic-composer-chain-phases.zh.md)
-
 ## Problem
 
 The browser's `conversation.composer` chain orders every candidate by one global numeric `priority`, then elects the first selector returning a match. Question uses the default priority `0`, approval uses `1`, and the one-shot or unavailable-parent read-only subagent composer uses `-10`. A selected one-shot history can therefore show the read-only explanation while an answerable question or approval is pending underneath it.

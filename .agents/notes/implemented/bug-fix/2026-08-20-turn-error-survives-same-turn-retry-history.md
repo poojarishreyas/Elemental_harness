@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-turn-error-survives-same-turn-retry-history.zh.md)
-
 ## Problem
 
 The Web `turn-error` Definition suppressed its node permanently once the owning turn carried any `llm/retry` event. That rule encoded the retry model [bounded LLM request recovery](../architecture/2026-06-21-bounded-llm-request-recovery.md) originally shipped, where a retry closed the failed turn and opened the next numbered one: a turn with retry history could only be an intermediate failure whose facts already lived on the retry row, and the exhausted terminal failure landed in a later turn with no retry events.

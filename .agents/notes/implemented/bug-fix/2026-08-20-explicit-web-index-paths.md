@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-explicit-web-index-paths.zh.md)
-
 ## Problem
 
 An unconditional SPA fallback makes every unmatched GET or HEAD request look successful. A broken ordinary link and a missing JavaScript, stylesheet, source map, or manifest then receive the HTML shell with status 200, so browsers, caches, and monitoring cannot distinguish a valid page entry from an absent resource.

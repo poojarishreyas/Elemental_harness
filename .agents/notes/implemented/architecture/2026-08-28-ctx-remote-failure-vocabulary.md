@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-28-ctx-remote-failure-vocabulary.zh.md)
-
 ## Problem
 
 Every Remote owner package maintained its own failure surface: an `XxxErrorDetailsMap` interface, an `XxxError` union derived from it, and an exit mapping function that translated domain error classes (`UnknownPresetError`, `PresetMountError`, `SessionTitleInvalidError`, and their peers) into a wire failure value. `@deepseek-ai/dsh-typert-protocol` carried two failure classes at once — `TypertRemoteFailure` for a failure an owner reported and `TypertLookupFailure` for one a lookup resolver produced — while `@deepseek-ai/dsh-client-connection` kept a second typed view, `RpcErrorDetailsMap`, that hardcoded domain codes such as `agent-preset-not-found` and `session-not-found` into the carrier.

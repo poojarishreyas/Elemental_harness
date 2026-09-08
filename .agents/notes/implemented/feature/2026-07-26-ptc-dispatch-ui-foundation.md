@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-26-ptc-dispatch-ui-foundation.zh.md)
-
 > Scope: the host-side contract changes that let a UI render a PTC mode turn with the same fidelity as native tool calls — the foundation the other PTC mode UI notes build on. The [PTC mode foundation](2026-06-15-ptc.md) owns the transport design; this note owns the model-visible `description` parameter, the full-content `tool/code-dispatch` payload, and the temporary `DSH_TOOLS_MODE` enablement switch for the `dsh` config tree.
 
 ## Problem

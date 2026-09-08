@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-simplify-web-image-input-v1.zh.md)
-
 ## Problem
 
 The first durable Web image-input slice introduced required ordered multi-image intake alongside speculative surfaces for arbitrary CLI provider mounting, output-modality discovery, alternative text, provider-neutral visual token pricing, and browser lifecycle APIs with no cross-package consumer. Keeping the speculative surfaces would turn unchosen future behavior into public contracts and make the initial capability harder to review and maintain.

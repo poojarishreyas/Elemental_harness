@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-21-cross-session-references.zh.md)
-
 ## Problem
 
 Web users need to bring relevant work from another conversation into one new message without resuming, forking, or granting the source transcript authority over the current session. The harness already exposes exact session enumeration and raw event inspection, but every host independently parsing logs would duplicate compaction folding, provenance filtering, size limits, error behavior, and persistence. Encoding host markup directly into the agent message contract would also bind the core loop to one UI syntax.
@@ -12,7 +10,7 @@ Web users need to bring relevant work from another conversation into one new mes
 
 `@deepseek-ai/dsh-session-reference` is one context consumer service at `ctx.sessionReferenceResolver`. Its outer `agent/pre-step` listener parses canonical mentions in accepted direct user messages and calls `prepare()` without adding reference behavior to a host gateway. The service returns detached readable content plus an optional identified, frozen `UserMessage` snapshot; core agent packages do not parse session URIs or read another log.
 
-`dsh-session:<base64url(JSON.stringify(sessionId))>` is the canonical host-independent identifier. JSON string encoding precedes base64url so quotes, slashes, backslashes, Unicode, newlines, and every other JavaScript string value round-trip without delimiter ambiguity. Web receives that URI inside the Host-produced `@[label](uri)` mention and keeps it behind an atomic session chip; text-only clients may use the same inline mention. Explicit Markdown mentions reject malformed URIs. Bare text becomes a reference only for a non-empty base64url-shaped payload, whose decode must still be canonical; empty or punctuation-only uses remain ordinary discussion text.
+`dsh-session:<base64url(JSON.stringify(sessionId))>` is the canonical host-independent identifier. JSON string encoding precedes base64url so quotes, slashes, backslashes, Unicode, newlines, and every other JavaScript string value round-trip without delimiter ambiguity. Web receives that URI inside the Host-produced `@label` mention and keeps it behind an atomic session chip; text-only clients may use the same inline mention. Explicit Markdown mentions reject malformed URIs. Bare text becomes a reference only for a non-empty base64url-shaped payload, whose decode must still be canonical; empty or punctuation-only uses remain ordinary discussion text.
 
 The service uses `ctx.sessionQuery.readSurface(sessionId)`, which loads one live-preferred corpus observation, folds it with the session package's canonical surface algorithm, and returns a detached header, capture seq, and current nodes. FTS is not a dependency: discovery matches id, cwd, or the latest folded title, while message bodies remain outside the candidate layer. Non-empty queries batch title observations across the visible corpus with bounded persisted-log concurrency and cancellation; a dedicated title index can replace that discovery path without changing reference identity or preparation.
 
@@ -36,7 +34,7 @@ The unified Web `@` source combines session candidates with Host-backed file dis
 
 Web exposes file and session discovery through generated Remote methods on their owning services, as detailed in [Web file and session references](2026-07-27-web-file-and-session-references.md). Session picks are atomic chips backed by the Host-produced canonical mention. Ordinary `session.prompt` delivery carries that mention without a reference-specific API Proxy route. Replay associates the separate session-reference context with the direct message immediately before it and renders a compact source summary instead of exposing the snapshot JSON.
 
-The [automation-only ACP transport](../../archived/simplification/2026-07-23-acp-automation-only-protocol.md) deliberately does not mount session-query or session-reference services.
+The automation-only ACP transport deliberately does not mount session-query or session-reference services.
 
 ## Budget and retention
 

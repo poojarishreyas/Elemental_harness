@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-web-result-card.zh.md)
-
 ## Problem
 
 The `web_search` and `web_fetch` tools each declared a generic pending card (`presentCall`, `kind: 'search'`/`'fetch'`) but no `presentResult`, so a completed web call reached a UI only as the model-facing render text. For a web frontend that wants to render a citation list or a fetch summary, that text is lossy: `web_search`'s render collapses each source's `title`, `snippet`, and `publishedAt` into one free-text markdown line labelled by title OR hostname (`formatSearchOutput` in `packages/web/tool-web/src/search.ts`), so reparsing the render cannot recover the per-source fields; and `web_fetch`'s render carries `url` and `statusCode` only in a header line. The render-intent contract ([tagged union](../architecture/2026-07-02-tool-render-intent-union.md)) had no arm a web tool could declare to carry a structured result.

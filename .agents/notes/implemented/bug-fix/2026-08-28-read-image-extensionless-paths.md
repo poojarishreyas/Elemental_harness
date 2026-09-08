@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-28-read-image-extensionless-paths.zh.md)
-
 ## Problem
 
 `read_image` mapped `file_path` to a media type by extension alone and refused a path with no extension. Valid extension-less images therefore required a renamed copy before the model could inspect them. Normalized local attachment objects exposed to the model use content digests without extensions, so their published read-only paths triggered the same refusal.

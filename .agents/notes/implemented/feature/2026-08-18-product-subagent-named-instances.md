@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-18-product-subagent-named-instances.zh.md)
-
 ## Problem
 
 A Profile can mount one Cordis plugin package in multiple rows, but the Codex and Claude Code product providers previously registered every row under one fixed product name. A second row therefore failed as a duplicate before its distinct model, permission mode, environment, or process-release settings could become usable. Deriving an implicit name from those settings would create a second identity rule, while choosing a provider during a tool call would let model input select deployment authority.

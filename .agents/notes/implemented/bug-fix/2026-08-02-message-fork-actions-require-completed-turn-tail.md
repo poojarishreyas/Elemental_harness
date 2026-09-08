@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-02-message-fork-actions-require-completed-turn-tail.zh.md)
-
 ## Problem
 
 The Web conversation attached branch to the last assistant node with nonempty text in each turn. A later tool result, interrupted reasoning node, or terminal error did not take ownership because those rows have no content-text IconActions. The branch icon could therefore appear beneath an assistant response while more rows from the same turn remained below it. The Host correctly expanded that message anchor through the containing `turn/end`, but the placement made the action look like a message-level cut and the child visibly inherited the same-turn suffix.

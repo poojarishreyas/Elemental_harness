@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-web-session-search.zh.md)
-
 ## Problem
 
 The Web sidebar exposes session titles and Workspace membership but cannot retrieve a past conversation from words that appear only inside its messages. Scanning histories in the browser would require attaching or loading every session, duplicate the existing indexed-search service, and make cold persisted sessions both slow and easy to omit. The product also needs a predictable failure path: an unavailable derived index must not erase title matches that the client can compute locally.

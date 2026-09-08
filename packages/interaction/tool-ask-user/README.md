@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-tool-ask-user
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-tool-ask-user` gives the model one tool — `ask_user_question` — for asking the human a concise question when it needs confirmation, a choice, or missing information before continuing. The tool pauses until the first scoped answerer accepts the request, then feeds that answer back into the agent loop as an ordinary tool result, so no loop mechanics change. The tool returns the canonical `{ answers: [...] }` shape, rendered as compact JSON text. It renders no UI itself and does not know how input is collected; the Web client contributes its answerer through Remote Events. A runtime-owned child agent cannot ask the user; it must include the unresolved question in its final result.

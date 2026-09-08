@@ -1,7 +1,5 @@
 # Package a Web backend plugin
 
-English | [中文](publish.zh.md)
-
 The [plugin configuration tutorial](./config.md) mounts a local plugin through a configuration patch. This reference explains how a package contributes a reusable configuration layer to the Web backend.
 
 ## Bundle manifest

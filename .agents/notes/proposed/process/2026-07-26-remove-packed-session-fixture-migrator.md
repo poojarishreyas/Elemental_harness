@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-07-26-remove-packed-session-fixture-migrator.zh.md)
-
 ## Problem
 
 The repository's default writers and snapshot check keep session fixtures in the canonical packed-row layout. `pnpm run migrate:packed-session-fixtures` remains alongside that permanent enforcement only so in-flight branches carrying older fixture edits can merge current `master` and mechanically converge without re-recording model output.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-18-rail-search-outside-click-self-dismissal.zh.md)
-
 ## Problem
 
 The collapsed sidebar's rail search button arms the rail gesture (`searchOnExpand`), expands the search affordance (`searchExpanded`), and requests sidebar expansion — designed to land the user in a focused search input once the column slides open. In a real browser the gesture never completed: the sidebar expanded but the search box stayed closed and unfocused.

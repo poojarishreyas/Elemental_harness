@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-separate-source-launch-from-build.zh.md)
-
 ## Problem
 
 The TypeScript source launcher does not need a complete repository build for every invocation. The Web surface does need built frontend and client-plugin artifacts. Making one package script own both operations adds repository-wide build latency to repeated TUI, headless, and Web startup and obscures when browser artifacts are refreshed.

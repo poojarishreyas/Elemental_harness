@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-30-retain-ignorable-external-session-events.zh.md)
-
 ## Problem
 
 The session event envelope carries `ignorable?: true` so a reader can accept an unrecognized informational event without treating every vocabulary addition as a new session format. [PR #3087](https://github.com/deepseek-harness/deepseek-harness/pull/3087) removed the field after finding no first-party producer and made every unknown event required-on-read.

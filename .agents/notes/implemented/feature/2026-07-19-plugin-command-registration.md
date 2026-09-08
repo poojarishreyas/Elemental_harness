@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-plugin-command-registration.zh.md)
-
 ## Problem
 
 The TUI owns slash commands. Keeping command names, help text, autocomplete, dispatch, and cancellation inside the adapter makes every new command a TUI edit and prevents optional plugins from contributing commands. Treating slash input as an ordinary model prompt is also unsafe: a user-visible direct action can unexpectedly consume tokens or let the model reinterpret an unknown command.
@@ -12,7 +10,7 @@ A shared mechanism must remain a UI concern rather than a model tool or agent-lo
 
 ## Decision
 
-`@deepseek-ai/dsh-commands` in `packages/interaction/commands/` is the product command registry. `dsh-base` mounts it for consuming front ends; the [automation-only ACP app](../../archived/simplification/2026-07-23-acp-automation-only-protocol.md) and standalone `sdk-minimal` tree omit it. UI surfaces inject the service, while command producers depend only on the registry and any domain they operate.
+`@deepseek-ai/dsh-commands` in `packages/interaction/commands/` is the product command registry. `dsh-base` mounts it for consuming front ends; the automation-only ACP app and standalone `sdk-minimal` tree omit it. UI surfaces inject the service, while command producers depend only on the registry and any domain they operate.
 
 ### Registry contract
 

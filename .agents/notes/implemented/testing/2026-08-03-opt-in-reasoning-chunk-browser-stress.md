@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-03-opt-in-reasoning-chunk-browser-stress.zh.md)
-
 ## Problem
 
 Long reasoning streams continuously produce large numbers of `assistant/chunk` events. Each raw event must be ordered, logged, and folded into `PartialAccumulator` to preserve replay fidelity and the completeness of the final content; React, however, needs only the current accumulated result, not every intermediate state within one browser frame.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-gui-full-access-confirmation.zh.md)
-
 ## Problem
 
 Switching the web client to `danger-full-access` was a single click on a permission picker, with the preset shown as the title-cased machine name `Danger Full Access`. Full access reduces confirmation steps and lets the agent run sensitive operations, modify files, or execute external commands, so an accidental pick armed the most dangerous preset with no deliberate acknowledgement step.

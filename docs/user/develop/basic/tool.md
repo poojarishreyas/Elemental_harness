@@ -1,7 +1,5 @@
 # Build a tool
 
-English | [中文](tool.zh.md)
-
 This tutorial adds a `greet` tool to the Web UI. Complete [Your first plugin](./index.md) first and keep its `scratch-plugin` directory.
 
 ## Create the tool plugin

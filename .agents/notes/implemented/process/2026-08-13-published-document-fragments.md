@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-13-published-document-fragments.zh.md)
-
 ## Problem
 
 `verify-md-links` validates fragments with GitHub's Markdown heading ids, while the documentation website renders headings with VitePress. Punctuation-heavy headings and translated headings can therefore pass source validation but produce links to ids absent from the published HTML. A successful VitePress build validates target pages, not fragment ids.
@@ -14,7 +12,7 @@ English | [中文](2026-08-13-published-document-fragments.zh.md)
 
 Any fragment target heading whose GitHub id differs from its VitePress id carries an explicit GitHub-compatible alias. Authored English and translated pages place the alias before the heading; translated pages use the English id shared by the bilingual pair. Generated config, tool, and persistence catalogs emit the alias from their owning generator. Source Markdown validation remains independent and continues to reject links that do not resolve under repository rendering.
 
-The file path follows the source document's locale when a paired target exists, as defined by the [localized bilingual links decision](2026-08-18-localized-bilingual-links.md); the query and fragment suffix remain identical across the pair.
+The file path follows the source document's locale when a paired target exists, as defined by the localized bilingual links decision; the query and fragment suffix remain identical across the pair.
 
 ## Alternatives considered
 

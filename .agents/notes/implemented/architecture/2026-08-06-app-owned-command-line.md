@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-app-owned-command-line.zh.md)
-
 ## Problem
 
 After profiles, compositions were installable but their command lines were not. `apps/server` still declared the Web flag family (`--host`, `--port`, `--dev`, `--workspace-root`, `--trusted-host`) and the one-shot task positional, then derived patches for row ids it hardcoded (`webserver`, `api-gateway`, `connection`, `web-runtime`). An out-of-tree app such as [turtle-ui](https://github.com/deepseek-harness/turtle-ui) could contribute rows but had no way to accept a flag: `dsh --profile tui --resume <session>` had nowhere to be parsed, and `dsh --profile web --help` printed the launcher's help rather than the web app's.

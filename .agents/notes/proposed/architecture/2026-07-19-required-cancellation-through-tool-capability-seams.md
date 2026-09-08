@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-07-19-required-cancellation-through-tool-capability-seams.zh.md)
-
 ## Problem
 
 The implemented [tool registry cancellation contract](../../implemented/architecture/2026-07-19-cooperative-tool-cancellation.md) makes `exec.signal` required in every tool body, but many asynchronous capability interfaces reached from those bodies still accept an optional signal. A tool can therefore satisfy its own type while accidentally dropping cancellation at the next same-process call.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-same-session-goal-round-driver.zh.md)
-
 ## Problem
 
 The goal domain can retain an objective and the model-facing tools can mutate its lifecycle, but neither should decide when another model turn begins. A continuation driver must bridge active goal state to the ordinary agent loop without adding goal-specific branches to `dsh-agent-loop`, inventing a second conversation, or treating every human turn as an autonomous iteration.

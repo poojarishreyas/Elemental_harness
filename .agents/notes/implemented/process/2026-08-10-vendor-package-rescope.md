@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-vendor-package-rescope.zh.md)
-
 ## Problem
 
 The nine packages under `vendor/` kept their upstream npm names (`cordis`, `cosmokit`, `schemastery`, `@cordisjs/plugin-*`). That premise does not survive publication: every harness package declares `cordis` as a peer dependency, so a consumer installing `@deepseek-ai/dsh-*` must resolve it from the registry, which means publishing the harness publishes this framework layer too. Publishing it under the upstream names squats them on the registry, and where that registry proxies npmjs, the same-name entries shadow the real upstream packages and install the wrong framework into unrelated projects.

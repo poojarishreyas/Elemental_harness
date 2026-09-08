@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-session-telemetry
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-session-telemetry` captures session activity for outbound reporting: it projects session events into telemetry records, lets a deployment redact them, and hands them to a reporting backend that implements its contract. Deployments do not load this package directly — they load exactly one backend (the shipped OpenTelemetry backend is `dsh-session-telemetry-otel`), which registers `ctx.sessionTelemetry` and composes the capture coordinator. The seam owns capture, redaction, and the sharing disclosure; batching, retry, queueing, and loss policy belong to the backend's SDK and stop at `emit()`. Every mounted backend discloses its deployment-selected sharing policy so acknowledgement surfaces can report whether and how a session is shared. The contract and capture behavior come first; the implementation internals live in a collapsible developer section below.

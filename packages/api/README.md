@@ -5,8 +5,6 @@ kind: "package-group"
 
 # api/ — Remote API layers
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The `api/` group provides the application's Remote layer: a Client environment can call the business capabilities running on the Host — manage goals, run commands, list the plugin inventory, discover file and session references — as typed method calls, and receive the results or forwarded Host events. `remotes` decides which capabilities are exposed and how each call reaches the right session's agent; `gateway` carries the calls and their results between Client and Host. The stack runs over the application's shared Connection; streaming session data is deliberately outside it.

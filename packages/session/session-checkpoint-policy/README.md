@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-session-checkpoint-policy
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-session-checkpoint-policy` is a zero-config plugin that makes a persisted session durable at the moments that matter: before a model request reaches the adapter, before a top-level tool body can produce an external side effect, and at each step boundary so the preceding response and tool results are stored before the next request. Load it beside one persistence backend, and a crash after any checkpoint resumes with the recorded work — a request, a tool call, or a completed step — instead of losing it. The policy adds no prompt, tool schema, or configuration; checkpoint failures are fail-closed, so neither the adapter nor a top-level tool body runs when the durable write cannot be confirmed. Streaming `assistant/chunk` events get no per-chunk checkpoint, and a persisted call without a result records an unknown outcome rather than retrying automatically.

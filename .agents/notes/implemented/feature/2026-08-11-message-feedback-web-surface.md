@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-message-feedback-web-surface.zh.md)
-
 ## Problem
 
 [PR #2217](https://github.com/deepseek-harness/deepseek-harness/pull/2217) landed the durable message-feedback sidecar and its three Host Remote methods, but it was explicitly backend-only: no client package consumed `messageFeedback.list`, `put`, or `delete`, so the Web GUI had no way to record a rating. Its Agent Note deferred "client Remote aggregate mounting and UI" to a separate owner. Issue #1326 asks for the Web surface and was closed by that backend merge without the user-visible half existing.

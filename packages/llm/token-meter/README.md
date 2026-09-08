@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-token-meter
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `@deepseek-ai/dsh-token-meter` is the replay-aware token measurement service: `ctx.tokenMeter` advances one isolated fold per session from the durable event log, so compaction and other pressure-sensitive plugins share one accounting without depending on the compaction engine. With it you can measure current request and context pressure, price a single message, and — when the session-projection seam is mounted — read the `tokenUsage`, `contextPressure`, and `contextBreakdown` projections. It uses a fixed heuristic for text and routes without image pricing, applies adapter-declared visual-token pricing when available, and reuses provider-reported usage only when the request envelope matches exactly. It adds no prompt, message, schema, or tool of its own, and it never makes decisions for the loop.

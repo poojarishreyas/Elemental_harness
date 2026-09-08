@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-pre-plugin-theme-bootstrap.zh.md)
-
 ## Problem
 
 The web shell renders `Loading plugins…` before the browser-side plugin tree activates. ui-theme's token styles arrive with its dynamic client bundle, so the framework-free loading page uses a private light/dark fallback palette. Without an earlier write to `color-scheme` and `body[data-ds-dark-theme]`, a persisted dark preference would still render that page first with its light fallback and then switch to dark when ui-theme's ThemeRuntime and ui-layout's ThemePresenter activate.

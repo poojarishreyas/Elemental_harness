@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-16-explicit-turn-cancellation.zh.md)
-
 ## Problem
 
 Cancellation is a control capability with a shorter lifetime than an Agent driver. A free-form string cannot distinguish callers exhaustively, and a step-local controller cannot interrupt prompt submission, prompt assembly, continuation, or terminal turn policy. Storing `Error`, `AbortSignal.reason`, or backend-private objects would also expose unstable runtime details to durable replay.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-15-packed-session-history-transport.zh.md)
-
 ## Problem
 
 `session.page` and the opening `session.follow` snapshot serve a bounded logical Session-event interval to remote clients. Provider streams can place hundreds of thousands of token-sized `assistant/chunk` events in one incomplete tail. Expanding every persisted row and then serializing every logical event repeats the same envelope on the wire. Expanding a packed response at the Client boundary recreates the same event objects, journal entries, Location indexing, Definition matches, and State updates before conversation replay can finish.

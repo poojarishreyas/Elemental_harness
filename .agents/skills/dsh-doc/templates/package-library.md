@@ -18,8 +18,6 @@ kind: "package-library"
 ```markdown
 # @deepseek-ai/dsh-<name>
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Three to five sentences: what a caller can DO with the library, who consumes it, the smallest entry point, and the main boundary.

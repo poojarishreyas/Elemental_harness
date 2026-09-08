@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-anonymous-user-id
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Every harness home gets one anonymous id that telemetry, feedback, and deepseek requests attach to their records, so receiving systems can tell that records came from the same installation without learning who the user is. The id is a random UUID stored in `$DSH_HOME/.anonymous-user-id` (`~/.dsh` by default); it appears automatically the first time one of those features runs, stays stable across restarts, and is created fresh if you delete the file. Separate harness homes never share an id, and no machine or account detail goes into it. Use it whenever you want to correlate records from one installation without an account; it cannot join records across different homes.

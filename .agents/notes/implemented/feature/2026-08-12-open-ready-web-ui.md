@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-open-ready-web-ui.zh.md)
-
 ## Problem
 
 `dsh web` bound the HTTP server and printed its canonical local URL, but left the user to copy that URL into a browser even though the root README described the command as opening the Web UI. A browser handoff also cannot run at the server's bind callback alone: the API routes, browser plugin roster, and static fallback may still be mounting, so the first page request could observe an incomplete application that the process is about to reject.

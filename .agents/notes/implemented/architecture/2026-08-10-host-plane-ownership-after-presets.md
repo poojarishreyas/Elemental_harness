@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-host-plane-ownership-after-presets.zh.md)
-
 ## Problem
 
 [Per-session agent presets](2026-08-03-per-session-agent-presets.md) moved every model-facing row onto the agent plane, and each later fix has been one reader that assumed the world before the move. `tasks` came back to the host because a preset row outside its realm resolved it; `goals` never left for the same reason; a child agent's `toolFilter` was repaired once every model-facing tool became an ancestor contribution rather than a global one ([child agents join their parent's preset](../bug-fix/2026-08-10-child-agents-join-their-parent-preset.md)).

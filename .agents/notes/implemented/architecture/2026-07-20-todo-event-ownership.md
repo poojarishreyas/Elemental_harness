@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-todo-event-ownership.zh.md)
-
 ## Problem
 
 `SessionEventMap` is merge-extensible so each plugin can add durable records without making the core session package depend on every event producer. `todo/write` and its `TodoItem` payload are produced and interpreted by the todo domain, while core session only provides the generic append, replay, surface, and invariant extension mechanisms. Declaring todo-specific types or relationships in core would make the session spine own a plugin vocabulary it cannot produce or validate completely.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-13-bounded-cold-blank-verification.zh.md)
-
 ## Problem
 
 The Web session tree hides blank Sessions and reuses the selected blank entry as New Session. Attached Sessions can derive blankness from their in-memory event log, but `session.list` normally avoids loading every cold log. Treating every materialized cold Session as non-blank exposes empty Sessions left by older versions. Treating a projection-cache `blank: true` as current can instead hide a real conversation after the log advances and the fail-soft cache remains stale.

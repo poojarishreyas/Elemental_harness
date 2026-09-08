@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-user-explicit-skill-invocation.zh.md)
-
 ## Problem
 
 A `disable-model-invocation: true` skill is user-only by design: it never enters the model-facing catalog and the `skill` tool refuses to load it. Its only legitimate entry point is an explicit user gesture — yet the web client had none. `skills/list` filtered to the model-and-user intersection (hiding user-only skills from the menu), an entered `/name` line rode into the default prompt sink as plain text, and the model it reached was forbidden to load the skill — so it degraded to `read`-ing the SKILL.md file or ignoring the gesture (issue #1470). Even for ordinary skills, the plain-text reference made user invocation a collaboration cue the model could ignore, not a guarantee.

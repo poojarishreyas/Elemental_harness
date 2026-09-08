@@ -1,7 +1,5 @@
 # Web backend reference
 
-English | [中文](README.zh.md)
-
 The backend loads the fixed `web` profile and serves the browser application. [`src/args.ts`](../src/args.ts) owns configuration options; the [Web startup plugin](../../../packages/bundle/web-app/src/startup.ts) owns HTTP options.
 
 <a id="profiles"></a>

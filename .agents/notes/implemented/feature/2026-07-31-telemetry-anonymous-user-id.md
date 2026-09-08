@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-telemetry-anonymous-user-id.zh.md)
-
 ## Problem
 
 Session telemetry is mounted by default ([default-mount Note](2026-07-31-web-telemetry-default-mount.md)), but the OTel Resource carried only `service.name`/`service.version` — no user-level identity at all, so the collector could neither aggregate per user nor count active users. The only prior ruling on point was an unimplemented one to derive a user id by hashing the hostname/local IP. The OTel feed needed an anonymous user identity with clean semantics.

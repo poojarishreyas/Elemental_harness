@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-canonical-tool-output-contract.zh.md)
-
 ## Problem
 
 Tool bodies previously authored model-facing `ContentBlock[]` directly, optionally wrapping it with opaque `meta`. Native function calling therefore had a usable human projection, but a programmatic caller had no stable domain value: PTC mode flattened the blocks back into a string, dynamic tools repeated the content shape, and policy could replace presentation without any way to distinguish that change from replacing the operation's result. Several capability seams already returned richer provider values only to discard them at their model-facing tool boundary.

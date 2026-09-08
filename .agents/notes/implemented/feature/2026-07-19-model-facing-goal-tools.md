@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-model-facing-goal-tools.zh.md)
-
 ## Problem
 
 The persisted goal domain deliberately exposes lifecycle verbs to plugins, not directly to a model. A model still needs a small control API for discovering the current goal, creating one from human intent, and changing its lifecycle. Prompt guidance alone cannot establish who authorized a mutation: a subagent, injected plugin message, stale model turn, or resumed session could all produce the same tool arguments.

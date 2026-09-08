@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-07-28-storage-root-and-derived-medium-recovery.zh.md)
-
 ## Problem
 
 The persisted projection cache ([note](2026-07-27-session-projection-and-command-log.md), shipped as `dsh-session-projection-cache`) surfaced two gaps in the storage substrate it landed on. Both are properties of the domain-KV stack ([design](2026-07-24-domain-kv-storage-and-workspace.md)), not of the cache itself, and both bite the cache first because it is the first *derived* medium on that stack.

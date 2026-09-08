@@ -9,7 +9,6 @@ import { existsSync, globSync } from 'node:fs'
 import { resolve } from 'node:path'
 import {
   findReferenceViolations,
-  isArchivedAgentNotePath,
   uniqueRepoFiles,
   type ReferenceViolation as Violation,
 } from './repo-files.ts'
@@ -30,7 +29,7 @@ const PATTERNS = [
 
 /** Paths excluded from the scan: built output and vendored upstream source. */
 const isExcluded = (p: string): boolean =>
-  isArchivedAgentNotePath(p) || p.includes('/lib/') || p.endsWith('.d.ts') || p.startsWith('vendor/')
+  p.includes('/lib/') || p.endsWith('.d.ts') || p.startsWith('vendor/')
 
 /**
  * Directory names of every real package, `packages/<group>/<pkg>`. A broken

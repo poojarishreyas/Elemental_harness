@@ -5,8 +5,6 @@ kind: "package-library"
 
 # dsh-util-workspace-path
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Browser-safe path helpers shared by Workspace-facing client and controller packages. The package joins Workspace-relative paths, abbreviates POSIX home directories for display, and derives Workspace titles from POSIX or Windows paths. It has no Cordis service or runtime state.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-26-todo-parallel-in-progress.zh.md)
-
 ## Problem
 
 The [original `todo_write` design](2026-06-29-todo-write-tool.md) enforced at most one `in_progress` task per list, both in `execute` and in the durable-log invariant. That invariant assumes sequential work, but the harness runs genuinely parallel work — concurrent subagents through the delegation tool, background bash commands, workflow fan-out — and a list that can name only one active task cannot represent it. The model was forced to either mislabel parallel tasks as `pending` or merge them into one vague item, and the UI progress checklist under-reported what was actually running.

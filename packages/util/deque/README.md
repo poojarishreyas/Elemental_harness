@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-deque
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-deque` lets Host and browser packages drain long-lived in-process queues without moving every remaining entry after each removal. Callers append or prepend entries and remove them from the front with amortized constant-time operations. The deque owns entry order and backing-storage release; each consumer still owns wake-up, failure, cancellation, capacity, and overload behavior.

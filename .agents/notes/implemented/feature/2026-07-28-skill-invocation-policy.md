@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-skill-invocation-policy.zh.md)
-
 ## Problem
 
 The skill registry originally treated discovery as a model catalog: `ctx.skills.list()` removed model-disabled skills, while `ctx.skills.get()` remained an unfiltered trusted loader. That was enough for model-initiated loading, but it could not represent Claude-compatible skills that are advertised only to a person, only to a model, to both, or to neither. The TUI compounded the mismatch by deriving user autocomplete from the model-filtered list and allowing every exact name through `get()`.
@@ -29,7 +27,7 @@ These rules permit all four combinations:
 | `{ modelInvocable: false, userInvocable: true }` | excluded | included |
 | `{ modelInvocable: false, userInvocable: false }` | excluded | excluded |
 
-This decision extends the [skill system](2026-07-05-skill-system.md) and supersedes the invocation-policy limitation recorded by the [archived TUI skill slash command](../../archived/feature/2026-07-21-tui-skill-slash-command.md).
+This decision extends the [skill system](2026-07-05-skill-system.md) and supersedes the invocation-policy limitation recorded by the archived TUI skill slash command.
 
 ## Alternatives considered
 

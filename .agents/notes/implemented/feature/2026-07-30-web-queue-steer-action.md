@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-web-queue-steer-action.zh.md)
-
 ## Problem
 
 The Web composer originally queued every Enter submission while an agent ran. QueueDock already gives each pending message an addressable row, and the durable transcript already renders consumed steer events as user-style bubbles, but Web had neither an action connecting those two surfaces nor a direct composer gesture for choosing current-turn steering.

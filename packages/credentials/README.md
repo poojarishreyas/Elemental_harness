@@ -5,8 +5,6 @@ kind: "package-group"
 
 # credentials/ — credentials and authorization
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The `credentials/` group manages the secret values your configuration refers to by name: store an API key once, reference it from settings or `cordis.yml`, and rotate it without editing any configuration file. It provides the runtime part of the product that stores and looks up secrets (`credentials/`), the default on-machine credential file (`credentials-local/`), and the authorization flow registry (`authorization/`) for credentials that cannot be configured, because getting one means asking a human. A rotated key reaches the very next model request, and a per-run environment override (`DEEPSEEK_API_KEY=… dsh`) always wins over stored values. Secret values never enter configuration files you sync or render — only their names do, and the local file is readable by the same OS user, not by others.

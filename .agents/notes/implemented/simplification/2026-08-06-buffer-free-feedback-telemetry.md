@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-buffer-free-feedback-telemetry.zh.md)
-
 ## Problem
 
 Feedback-only telemetry must upload the session-log prefix only after recorded feedback. Retaining a deep-copied, redacted record for every projected event until that trigger duplicates the canonical session log and grows without a bound for a long-lived session that never records feedback.

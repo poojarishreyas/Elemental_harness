@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-lsp-stdio
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-lsp-stdio` turns configured local language-server commands into providers on `ctx.lsp`: give it a table of server commands and extension-to-language mappings, and agents get semantic code navigation over the files in those languages — definitions, references, implementations, and hover — served by real language servers. One plugin instance registers one isolated provider per configured server; each provider lazily starts one server process per workspace and opens the queried document transiently, so no document state accumulates between queries. Servers and sources always live in the mounted filesystem and subprocess execution world. It is a generic host, not a language-server catalog or installer — deployments configure commands explicitly. This package trusts its configured servers and adds no sandbox of its own.

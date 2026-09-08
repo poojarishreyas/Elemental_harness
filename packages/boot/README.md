@@ -5,8 +5,6 @@ kind: "package-group"
 
 # boot/ — shared app-bin boot glue
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The boot group provides what every dsh app bin needs to start: `app-boot` turns a `cordis.yml` plus your environment and patch layers into a running app with clear failure messages, and `cmdline` lets the app own its command-line flags and `--help`. With these packages you can run `dsh` or write a new application or test fixture that boots the same way. Both are libraries imported by `apps/server` and test-only Loader fixtures, never plugins a composition loads. This page maps the group; each package README owns its per-package contract.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-portable-execution-world-consumers.zh.md)
-
 ## Problem
 
 The filesystem and subprocess seams made file and ordinary process access replaceable, but PTY and LSP still reached host Node APIs directly. A remote execution provider therefore appeared to need separate PTY and LSP packages even though their domain behavior did not change. Those packages would be shallow adapters: each would duplicate an existing consumer merely to replace its file and process operations.

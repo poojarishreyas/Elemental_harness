@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-16-harness-level-loop.zh.md)
-
 ## Problem
 
 The concrete agent loop owns one turn: it drains admitted input, performs one or more model-and-tool steps, and stops. Substantial objectives often need an outer policy that can begin another turn, retain progress, stop at a budget, and remain intelligible to humans. A timed prompt, a same-session continuation, and a fresh-agent Ralph attempt all repeat work, but they do not share the same state, authority, memory, or lifecycle.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-independent-ci-consumer-build.zh.md)
-
 ## Problem
 
 The [larger-runner topology](2026-07-22-evidence-based-larger-hosted-runners.md) gave the static and built-consumer inventories separate jobs, but the static job owned their shared build. It uploaded the emitted tree only after every static gate completed, and the consumer job declared a job-level dependency before restoring that tree. Compiled-output snapshots and publication checks genuinely require a complete build; they do not require runtime-closure checks, documentation generation, or module-graph verification.

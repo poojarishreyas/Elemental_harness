@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-agent-teams.zh.md)
-
 ## Problem
 
 The subagent seam supplies fresh/fork providers, durable child Sessions, FIFO follow-ups, and cold-resumable Activations. Its direct-parent controls do not provide peer communication, a stable named roster, or shared task ownership. A coordinator can create several workers, but workers cannot address one another, durable follow-up intent lives only in target inboxes, and no common compare-and-set board prevents stale assignment updates.

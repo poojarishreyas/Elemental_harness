@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-unwrap-injected-content-envelopes.zh.md)
-
 ## Problem
 
 Two families of injected session content rendered into the model transcript wrapped in XML envelopes: `steering/message` as `<steering source="…">…</steering>` and `context/message` as `<context source="…">…</context>` (the latter with a `'raw'` opt-out that skipped the wrapper). The envelopes aimed to tell the model "this is injected, not the user speaking."

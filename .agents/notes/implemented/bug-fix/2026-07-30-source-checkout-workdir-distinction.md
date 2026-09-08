@@ -2,11 +2,9 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-source-checkout-workdir-distinction.zh.md)
-
 ## Problem
 
-The `harness:source` prompt section follows the [source-location decision](../../archived/feature/2026-07-21-dsh-system-prompt-source-path.md), but its original wording called the checkout “your own source code” without distinguishing that path from the session workspace. In a normal TUI configuration that does not state `{{cwd}}` in its persona, this may be the only fixed absolute path near the start of the system prompt. DeepSeek V4 could therefore answer “what's the workdir?” with the harness checkout instead of determining the session's current working directory.
+The `harness:source` prompt section follows the source-location decision, but its original wording called the checkout “your own source code” without distinguishing that path from the session workspace. In a normal TUI configuration that does not state `{{cwd}}` in its persona, this may be the only fixed absolute path near the start of the system prompt. DeepSeek V4 could therefore answer “what's the workdir?” with the harness checkout instead of determining the session's current working directory.
 
 A blanket statement that the checkout is not the working directory would also be false. `dsh meta` intentionally makes the source checkout both values.
 

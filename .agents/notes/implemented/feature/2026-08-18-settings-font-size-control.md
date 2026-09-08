@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-18-settings-font-size-control.zh.md)
-
 ## Problem
 
 The conversation's body text size was fixed (14px after the 0.875 markdown-ladder rescale). Users asked for a Settings control: a "字号大小" row under General → Appearance with a stepper, range 12–17, default 14, that resizes the transcript body text and the composer input text together.

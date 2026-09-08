@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-web-gui-feedback-loop.zh.md)
-
 ## Problem
 
 The Web agent could identify neither the GUI hosting its session nor the URL the user was viewing. The [runtime-context decision](2026-07-28-web-agent-runtime-context.md) supplies the first fact, but a GUI edit still had no executable acceptance target: source edits, artifact builds, a listening process, and the user's existing page were unrelated observations. Repository affordances made a wrong substitute look valid because `apps/web/package.json` exposed `vite` as its `dev` script and bare Vite returned HTTP 200 even though it could not inject `window.__DSH_BOOT__`.

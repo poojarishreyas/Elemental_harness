@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-26-subprocess-seam.zh.md)
-
 ## Problem
 
 `dsh-bash-local` bundled two capabilities that change for different reasons: *running a bash command* (command defaulting, timeout classification, model-friendly terminal environment, the stdout/stderr merge the bash tool renders) and *running and managing a child process* (detached process groups, bounded tail-keep output with spill files, the credential scrub and `DSH_*` merge order, SIGTERM→grace→SIGKILL escalation, kill-and-join disposal). The process half — `run.ts`, roughly half the package — had no seam of its own: a future non-shell runner (a direct-argv executor, a worker supervisor) would have to re-implement or reach into bash internals, and the shared `DSH_*`/`CollectedOutput` vocabulary lived in a package whose name promises shell semantics. The bundling also tied background-process lifetime to the executor's fiber: reloading the bash executor killed every live background process, unlike the sibling [job registry](2026-07-26-job-registry-seam.md), whose registrations deliberately outlive producer fibers.

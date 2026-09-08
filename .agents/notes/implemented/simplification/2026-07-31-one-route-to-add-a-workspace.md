@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-one-route-to-add-a-workspace.zh.md)
-
 ## Problem
 
 Both Workspace surfaces — the sidebar region header's `+` and the conversation hero's chip — offered two ways to get a Workspace: **Open local folder…**, which raised the composed directory flow, and **Create a new workspace**, which took a name and created `<workspaceRoot>/<name>`. The two overlapped: the browse occupant carries its own **New folder** affordance, so picking a directory already covered creating one. Two entries meant two vocabularies for one outcome, a name dialog with its own duplicate-name rule, and a create target the operator could neither see nor choose.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-22-unified-send-and-coalesced-user-messages.zh.md)
-
 ## Problem
 
 The agent's public driving surface had grown three near-parallel verbs — `send`, `steer`, `inject` — each with its own options type, its own live event story, and its own durable event. `send` and `steer` both queued a frozen inbox record and emitted `agent/queued`; `inject` bypassed the inbox and wrote a separate `context/message` durable event. The three verbs actually vary along only two independent axes: which queue an item joins (a whole new turn versus the active turn) and whether the item makes the model run. Encoding that 2×2 as three hand-written methods hid the symmetry, made "queue a turn without waking the driver" unreachable, and left `cancel()` with no way to abort a turn while preserving queued work.
@@ -48,6 +46,6 @@ The delivery surface is now one primitive plus three self-documenting presets, a
 ## Related
 
 - [one-send-one-turn](../simplification/2026-07-17-one-send-one-turn.md) — the one-claimed-message-per-turn rule this builds on.
-- [remove-agent-steering-mirror](../../archived/simplification/2026-07-04-remove-agent-steering-mirror.md) — the precedent for collapsing a mirrored live event.
+- remove-agent-steering-mirror — the precedent for collapsing a mirrored live event.
 - [explicit-turn-cancellation](2026-07-16-explicit-turn-cancellation.md) — the cancel-cause signal `keepInbox` extends.
 - [identified immutable message values](2026-07-28-identified-immutable-message-values.md) — the message identity and representation contract that now underlies this routing decision.

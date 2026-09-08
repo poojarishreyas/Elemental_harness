@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-18-in-job-partitioned-coverage.zh.md)
-
 ## Problem
 
 Native Windows coverage was the longest feedback path in the complete pull-request inventory. Keeping the instrumented suite in one single-worker Vitest process avoided the worker loss and Node 24 CJS lexer failures seen with larger in-process pools, but a failure could take more than fourteen minutes to appear and the gate runner withheld the child output until completion.

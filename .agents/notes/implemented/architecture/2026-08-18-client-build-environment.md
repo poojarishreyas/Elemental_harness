@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-18-client-build-environment.zh.md)
-
 ## Problem
 
 Browser business packages need deployment builds to select static behavior, but the Web client has two artifact paths that do not contain one another: Vite builds the static shell, while the shared tsdown preset builds dynamically loaded plugins. Replacing an environment expression in only one path would give the same business expression different results depending on its package type.

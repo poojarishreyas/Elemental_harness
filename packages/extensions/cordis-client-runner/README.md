@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-cordis-client-runner
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-cordis-client-runner` lets a page run the browser half of a dynamic Cordis package: it answers the host's run requests, loads the browser-half source into the page as a live plugin, and removes it when the host retracts the run. A person approves or declines a run — or starts one directly — and the result this package reports back becomes the `cordis_run` tool result the model reads. Nothing loads at activation and nothing is restored after a refresh; a page runs a dynamic package only when someone answers a run request or asks for it here.

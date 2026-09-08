@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-in-repository-landlock-release.zh.md)
-
 ## Problem
 
 The `@deepseek-ai/node-addon-landlock-run` source already lives beside its DeepSeek Harness consumers under `native/landlock-run`, but it previously kept a separate pnpm workspace and lockfile and depended on a standalone repository for npm publication. Harness packages consumed a fixed registry version, so one pull request could change the launcher contract and its consumer without testing those changes together. The source repository's native workflow could rehearse the package, but it did not publish the artifact it tested.

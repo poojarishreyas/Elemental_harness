@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-production-dsh-excludes-product-subagent-providers.zh.md)
-
 ## Problem
 
 `@deepseek-ai/dsh` receives the `@deepseek-ai/dsh-base` dependency closure. Including the Codex and Claude Code subagent providers there makes every production install download optional product integration code and large platform CLI payloads, even when neither integration is used.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-25-rename-code-mode-to-ptc.zh.md)
-
 ## Problem
 
 The tool-registry presentation mode that exposes tools through a generated SDK and the `run_code` transport shipped under the name Code Mode, while the client preset that selects it already shipped as "PTC mode" (locale `presetPtcName: 'PTC mode'`, zh `PTC 模式`). One feature had two names: config values, plugin and event names, files, and documentation said `code`/`code-mode`, and the user-facing name said "PTC mode". A pre-release rename must update every reference together — no compatibility aliases.

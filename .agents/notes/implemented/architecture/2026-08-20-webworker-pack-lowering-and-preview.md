@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-webworker-pack-lowering-and-preview.zh.md)
-
 ## Problem
 
 The browser worker can neither compile modules at load nor be served by the product webserver: every module body must arrive runnable, and the page must be a static artifact. Both surfaces drifted early. The loader carried a fallback compiler, so a collector gap surfaced as a slow boot instead of a broken image — and `acorn` rode into `lib/worker.js` through the package barrel, a parser a runtime that only wraps pre-lowered bodies never needs. The preview was a second HTML template beside the served one, a page the served index could silently drift away from.

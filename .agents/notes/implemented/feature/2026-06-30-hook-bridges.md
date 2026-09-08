@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-06-30-hook-bridges.zh.md)
-
 ## Problem
 
 The harness's extension surface is its typed interception points ([the interception extension-points Agent Note](2026-06-30-interception-extension-points.md)): a "native hook" is just an ordinary cordis plugin subscribing to `agent/session-start`, `agent/pre-step`, `tools/pre-execute`, `tools/post-execute`, `agent/turn-stopping`, `subagent/start`, or `subagent/end`. But users arrive with **existing** Claude Code (CC) and Codex hook configs — a `hooks.json` (or a settings file's `hooks` key) full of shell-command hooks — and want those to run unmodified. This Agent Note introduces the two **bridge plugins** that translate that external shell-hook protocol onto the typed extension points, built on the shared wire-protocol library ([the hook-protocol-lib Agent Note](2026-06-30-hook-protocol-lib.md)).

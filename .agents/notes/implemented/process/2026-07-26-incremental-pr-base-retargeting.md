@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-26-incremental-pr-base-retargeting.zh.md)
-
 ## Problem
 
 A PR base can advance while its current tip is being merged into the PR branch. Restarting from the newer tip discards completed conflict resolution and validation. Rewriting a merge that is already pushed also erases reviewable history.

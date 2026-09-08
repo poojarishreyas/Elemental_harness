@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-client-test-runtime
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-client-test-runtime` gives a browser feature spec a real jsdom test bench: it assembles a Cordis context, the renderer-owned slot registry, and the production `UiSession` adapter around typed Session and Workspace Controller doubles. Feature suites exercise declaration, registration, scoping, stores, injection, rendering, updates, and disposal without copying production renderer or adapter logic. Suites publish Session lifecycle state, Workspace state, projection values, and Conversation events through typed fixtures, then use local DOM snapshot roots, scoped Testing Library queries, and fail-loud service checks. It is not part of the product plugin graph (no `dsh.client`); feature packages depend on it in `devDependencies` only.

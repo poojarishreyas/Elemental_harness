@@ -18,8 +18,6 @@ kind: "package-bundle"
 ```markdown
 # @deepseek-ai/dsh-<name>
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Three to five sentences: what a profile gains from this layer, which profiles already include it, how a user adds or removes it, and the main boundary.

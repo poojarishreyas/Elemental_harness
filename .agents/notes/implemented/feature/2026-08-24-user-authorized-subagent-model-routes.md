@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-24-user-authorized-subagent-model-routes.zh.md)
-
 ## Problem
 
 Registering an LLM adapter makes its routes reachable, but does not authorize an Agent to choose every reachable model for a child. A single enabled preference over the live adapter registry expands silently when another provider or model appears. The product needs an explicit, stable authorization decision without rendering a potentially large model directory into every parent request.

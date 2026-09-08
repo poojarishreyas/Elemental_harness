@@ -2,9 +2,7 @@
 
 Status: implemented
 
-English | [中文](2026-08-22-standard-acp-automation-controls.zh.md)
-
-> This note supersedes only the prompt-only protocol inventory in [ACP as an automation-only protocol](../../archived/simplification/2026-07-23-acp-automation-only-protocol.md). That decision's prohibition on ACP becoming a second product UI remains authoritative.
+> This note supersedes only the prompt-only protocol inventory in ACP as an automation-only protocol. That decision's prohibition on ACP becoming a second product UI remains authoritative.
 
 > The [Web-only application decision](../simplification/2026-09-04-web-only-application.md) supersedes this note’s public SDK, headless, and ACP server entry points. Independent rationale for shared runtime mechanisms, external ACP subagent clients, and test design remains applicable.
 

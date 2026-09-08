@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-session-log-version-mechanism.zh.md)
-
 ## Problem
 
 Session logs must be upgradable after release, and the runtime that ships first is the floor for every later decision: whatever refusal and degradation behavior is missing from the first released reader can never be added to the copies users already run. Release issue #1901 required at minimum that an old runtime reading a newer session format reports "unsupported" instead of misreading it. The pre-change reader did the opposite on both axes: `assertVersion` rejected any version mismatch with one direction-blind message, and the JSONL decoder passed unknown event types through untouched, so reconstruction silently skipped them — resuming a gutted session with no diagnostic at all.

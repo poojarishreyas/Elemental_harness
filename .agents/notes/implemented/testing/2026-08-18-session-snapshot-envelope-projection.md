@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-18-session-snapshot-envelope-projection.zh.md)
-
 ## Problem
 
 Committed session snapshots copied the persistence envelope on every body row. The monotonic `seq` and wall-clock `time` fields, or `seq0` and `time0` on packed rows, made a local event insertion renumber or retime a large suffix even when its payloads were unchanged. These fields are required by the durable runtime log, but their repetition made reviewed snapshot diffs describe storage mechanics instead of changed behavior.

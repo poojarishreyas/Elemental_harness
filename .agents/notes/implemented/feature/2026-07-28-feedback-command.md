@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-feedback-command.zh.md)
-
 ## Problem
 
 A user who notices something wrong mid-session has nowhere to put that observation. Telling the model wastes a turn, changes the conversation the user was having, and buries the remark in derived history where no later reader can find it. Writing it outside the session loses the context that makes it meaningful — which session, at which point, against which work.

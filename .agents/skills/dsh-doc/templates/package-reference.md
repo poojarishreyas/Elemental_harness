@@ -16,8 +16,6 @@ kind: "package-reference"
 ```markdown
 # @deepseek-ai/dsh-<name>
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Three to five sentences on what a user or agent can DO with the package: outcomes, when to choose it, main cost, most important boundary. Never its role, type, or internal identity.
@@ -50,7 +48,7 @@ The smallest mount that works, as a `cordis.yml` snippet, plus the config table:
 |---|---|---|
 | `<field>` | `<default>` or `required` | One-line meaning |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-<name>) is the exhaustive source for every accepted field.
+The generated configuration catalog is the exhaustive source for every accepted field.
 
 -----
 

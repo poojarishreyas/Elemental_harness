@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-util-values
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-util-values` gives runtime packages one implementation for lossless JSON values, immutable object graphs, structural JSON equality, and exhaustive closed-union failures. Callers can validate untrusted values, detach a JSON snapshot, freeze a published value, compare JSON-compatible data, or terminate an unreachable branch without importing a capability package. The helpers hold no shared registry, constructor identity, or mutable module state.

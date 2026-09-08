@@ -5,8 +5,6 @@ kind: "package-group"
 
 # packages/goal
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The goal group gives an agent session one durable completion objective that survives restarts, resume, and fork: the goal service keeps the goal state and lifecycle durable, the model tools let the agent create and update goals, the `/goal` command gives the human direct goal control without a model turn, and the continuation driver turns an active goal into sequential rounds of automatic work. Goal state lives in the session log, so nothing in the group keeps a separate store. Only one goal is current at a time, and a goal is state, not a scheduler — automatic continuation is an opt-in consumer you mount deliberately.

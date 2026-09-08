@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-28-web-connection-recovery-control.zh.md)
-
 ## Problem
 
 The Web Client automatically rebuilt its Remote event generation and physical WebSocket after a failure, but the page exposed neither the outage nor a user recovery action. Its logical-generation and physical-socket retry loops could also drift: a `retry #N` message could describe another logical generation while the browser still waited on the same physical connection candidate. The Host sent an idle WebSocket Ping only every 30 seconds, and a user could not request a fresh attempt after restoring the Host or network.

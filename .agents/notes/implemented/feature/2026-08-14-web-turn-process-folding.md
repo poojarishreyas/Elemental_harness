@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-14-web-turn-process-folding.zh.md)
-
 ## Problem
 
 A model Turn can expose System prompt, Context injection, reasoning, several Assistant replies, Tool calls, and Retry rows before its final answer. Keeping that whole trajectory at full height obscures the answer, while moving independent Chat Nodes under a parent disclosure would remount stateful Tool renderers and disturb chronological evidence. The compact view must hide completed process work without hiding the only evidence available while a Turn is still thinking, using a Tool, retrying, or ending without an answer.

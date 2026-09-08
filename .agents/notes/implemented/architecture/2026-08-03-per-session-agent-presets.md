@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-03-per-session-agent-presets.zh.md)
-
 ## Problem
 
 One `dsh` process serves many sessions, but the composition that decides what an agent *is* — its tools, persona, prompt sections, delegation backends — is fixed for the whole process by the `cordis.yml` the launcher booted. A deployment that wants a benchmark-minimal agent beside a full coding agent has to run two processes, and the shipped workaround (`apps/server/config/minimal.cordis.yml`, a `--config` overlay that disables tool rows) changes every session at once.

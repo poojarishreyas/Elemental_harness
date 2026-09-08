@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-third-party-memory-mcp-examples.zh.md)
-
 ## Problem
 
 A direct vendor integration made one provider's API, configuration, health behavior, and tool semantics part of DSH. That was too much product surface for a capability already expressible through MCP, and it would require repeating the same adaptation for every memory system. Users instead need a small, inspectable way to opt into one external memory server while preserving the generic MCP boundary.

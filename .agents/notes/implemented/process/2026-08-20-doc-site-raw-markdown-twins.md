@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-doc-site-raw-markdown-twins.zh.md)
-
 ## Problem
 
 The documentation site serves rendered HTML only, so an agent reading the docs has to scrape VitePress markup or fall back to the repository, where links and image references follow source layout rather than public routes. Claude's platform documentation set the convention this feature adopts: append `.md` to any page URL for the page as raw Markdown, with a root `llms.txt` as the agent-facing index. [The site projection](2026-07-13-documentation-site-projection.md) rewrites every page's links for the public site already, so the gap was serving that projection as plain Markdown.
@@ -18,7 +16,7 @@ An index route renders as a directory URL, so "append `.md`" lands on `<dir>.md`
 
 Each production entry point resolves the VitePress configuration, requires `outDir` to be a proper child of the site root, and requires its nearest existing parent to resolve inside the real site root. It unlinks a link-shaped output without traversing its target and removes a real output directory before bundling. This project-owned preparation covers MPA builds, which do not empty their final output directory, and prevents removed routes or assets from surviving a rebuild. The later raw-twin pass treats files created by the current VitePress build as occupied: a twin or image may never overwrite one, such as a `public/` copy, and a name collision fails the emission.
 
-`llms.txt` is generated from the publication manifest at the site root: both locale trees in sidebar order, one `- [label](<base><route>): <section>` row per page, links site-absolute under the deploy-time `DOCS_BASE`. Locale homes stay out — the file itself is the agent entry point.
+`llms.txt` is generated from the publication manifest at the site root: both locale trees in sidebar order, one `- label: <section>` row per page, links site-absolute under the deploy-time `DOCS_BASE`. Locale homes stay out — the file itself is the agent entry point.
 
 The dev server serves the same surface for navigations and header-less clients. A middleware in the doc-projector plugin projects `.md` requests from their canonical sources per hit and generates `llms.txt` on demand, so `docs:dev` matches production without a rebuild; an in-page `fetch()` (`Sec-Fetch-Dest: empty`) deliberately still reaches Vite in dev, while production static hosting answers it with the raw file.
 

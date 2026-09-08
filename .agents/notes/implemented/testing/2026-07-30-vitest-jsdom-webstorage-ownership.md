@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-vitest-jsdom-webstorage-ownership.zh.md)
-
 ## Problem
 
 The supported Node range includes releases that reserve a process-wide `globalThis.localStorage`. Node 26 exposes that property as `undefined` without `--localstorage-file`; Vitest sees the reserved key and does not project jsdom's isolated `Storage` object over it. Component suites then fail before exercising product behavior, while the primary Node 24 coverage lane remains green because that runtime does not reserve the key by default.

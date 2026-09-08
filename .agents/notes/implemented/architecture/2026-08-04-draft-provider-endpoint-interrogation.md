@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-draft-provider-endpoint-interrogation.zh.md)
-
 ## Problem
 
 Once a pi-ai route became [a declaration rather than a catalog lookup](2026-08-03-pi-ai-declared-provider-catalog.md), a person adding an OpenAI-compatible gateway had to know its model ids before they could configure it. The adapter no longer constrains them to an installed catalog, which is the point, but it also means nothing tells the user what the endpoint actually serves — and most of these endpoints do publish that list at `GET /models`.

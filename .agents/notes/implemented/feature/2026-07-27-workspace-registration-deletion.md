@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-workspace-registration-deletion.zh.md)
-
 ## Problem
 
 A Workspace registers an existing code directory so the GUI can name it and order its Sessions. That record does not say that Harness created or owns the directory, and the Session log is an independent persistence object. Treating the row's Delete action as recursive source deletion or Session deletion would destroy data outside the record's ownership boundary.

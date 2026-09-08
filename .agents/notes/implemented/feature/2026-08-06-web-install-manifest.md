@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-web-install-manifest.zh.md)
-
 ## Problem
 
 The Web build has a document title and favicon but no manifest from which a browser can discover a stable installed identity, launch boundary, or installed presentation. Adding that metadata can also imply capabilities the app does not provide: a service worker suggests an offline contract, while a single language or palette value misrepresents a bilingual UI with resolved light and dark themes.

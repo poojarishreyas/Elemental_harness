@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-19-web-markdown-wide-table-view.zh.md)
-
 ## Problem
 
 `MarkdownText` rendered every GFM table at its natural width (`.tableScroll table { width: max-content; max-width: max-content }`, `packages/client/ui-primitives/src/markdown/MarkdownText.module.css`), so any table wider than the 748px message column could only be read through horizontal scrolling. A three-column table whose cells could comfortably wrap still forced a scroll, and a genuinely wide table could never use more than the message column even when the transcript around it had hundreds of spare pixels. Issue #1761 (with external feedback dsh-external/issues#520) asks for wrap-first adaptation and a wider view for tables that need it. The deepsuite chat product solved the same problem CSS-first; per review direction this change mirrors that solution instead of the interactive expand-dialog approach first drafted here.

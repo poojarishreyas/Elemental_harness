@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-user-bubbles-drop-the-branch-action.zh.md)
-
 ## Problem
 
 Every user and consumed-steering bubble rendered the branch control under the completed-turn-tail gate of the [completed-turn-tail decision](../bug-fix/2026-08-02-message-fork-actions-require-completed-turn-tail.md). On those bubbles the gate is effectively permanent: a turn-opening user message is followed by its own turn's nodes, and a consumed steering message is mid-turn by construction, so the control could enable only when the turn ended with no node after the message at all — a cancel before the first model event. Readers therefore saw a control that never enables, with a tooltip promising a state the button cannot reach. The affordance also misled when read at all: a fork at a message seq cuts at the containing `turn/end`, so "branch at my message" includes the answer below it — the opposite of the branch-to-re-ask reading a control on one's own bubble suggests.

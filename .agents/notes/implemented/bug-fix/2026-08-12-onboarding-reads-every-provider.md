@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-onboarding-reads-every-provider.zh.md)
-
 ## Problem
 
 The first-run step and the Models page both asked one question — is `deepseek-official`'s credential stored? — of a join that describes every provider. Two defects followed from that single reading.

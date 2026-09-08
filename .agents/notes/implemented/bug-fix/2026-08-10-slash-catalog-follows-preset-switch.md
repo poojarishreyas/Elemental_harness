@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-slash-catalog-follows-preset-switch.zh.md)
-
 ## Problem
 
 Presets moved the rows that decide what a session's `/` menu contains. The Web composition disables host-plane `skill-filesystem`, `tool-skill`, `plan-mode`, and `command-compact`; a preset supplies them, so which commands and skills exist is a property of the session's composition rather than of the deployment.

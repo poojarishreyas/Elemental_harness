@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-24-provider-retry-policies.zh.md)
-
 ## Problem
 
 One process may route model requests to providers with different reliability and cost constraints. A single transient classifier and finite retry budget cannot express a deployment that wants bounded recovery for most providers but requires one provider to keep retrying every model-request failure until the request succeeds or the caller cancels it.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-client-tool-presentation-ownership.zh.md)
-
 ## Problem
 
 Client Runtime already paired Tool call/result events by `callId` and could recover root/subcall topology from Code Dispatch events, but the Chat view also owned Tool placement in the conversation flow, recursive call-tree composition, Tool-name dispatch, the Generic fallback, card models, and first-party Tool renderers. `ui-conversation` therefore had to interpret every business Tool name; moving individual React components did not change that ownership, and removing atomic renderers left subcalls without a presentation owner.

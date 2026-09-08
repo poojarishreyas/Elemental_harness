@@ -2,13 +2,11 @@
 
 Status: implemented
 
-English | [中文](2026-08-25-sparse-first-party-prompt-section-orders.zh.md)
-
 ## Problem
 
 Repository-owned system-prompt sections declared unrelated numeric literals across more than twenty packages. The main tool sequence occupied consecutive values from 100 through 117 and then used half-step values for insertions. A later change could therefore collide with an existing section without seeing the complete allocation.
 
-Equal orders used stable JavaScript sort behavior, which made plugin activation order the effective tie-breaker. The [Cordis/workflow prompt-order fix](../../archived/bug-fix/2026-08-24-system-prompt-section-order-ties.md) showed that clean compositions can activate the same plugins in different orders and produce different request headers and snapshot results. Fixing one collision locally did not prevent another package from reusing that value.
+Equal orders used stable JavaScript sort behavior, which made plugin activation order the effective tie-breaker. The Cordis/workflow prompt-order fix showed that clean compositions can activate the same plugins in different orders and produce different request headers and snapshot results. Fixing one collision locally did not prevent another package from reusing that value.
 
 The shell guidance also followed filesystem guidance even though shell commands have the broadest execution and failure semantics. A model should read the shell result obligation before the narrower instructions that route file work to dedicated tools.
 

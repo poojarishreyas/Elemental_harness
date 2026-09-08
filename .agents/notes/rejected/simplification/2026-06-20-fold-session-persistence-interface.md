@@ -2,8 +2,6 @@
 
 Status: rejected — the separate persistence Service Definition package is the intended modular role split for the durable-persistence capability seam. Folding it into `dsh-session` would reduce package count at the cost of a cleaner backend boundary.
 
-English | [中文](2026-06-20-fold-session-persistence-interface.zh.md)
-
 ## Problem
 
 `dsh-session-persistence` is a Service Definition package whose main concepts are already owned by `dsh-session`: `SessionHeader`, `SessionEvent`, `SessionId`, `session/event`, and `session/flush`. The package adds the abstract `SessionPersistence` service, the shared write coordinator, and contract helpers. Provider packages depend on it, and `agent-loop` has to optionally find a sibling service for resume.

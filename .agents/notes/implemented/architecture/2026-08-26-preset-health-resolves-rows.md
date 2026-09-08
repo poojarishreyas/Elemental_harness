@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-26-preset-health-resolves-rows.zh.md)
-
 ## Problem
 
 A preset the roster listed as healthy could still be impossible to compose. Discovery's health check proved the composition parsed in the loader dialect and held named rows, and deliberately stopped there — it resolved no plugin name and applied no config.

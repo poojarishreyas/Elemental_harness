@@ -5,8 +5,6 @@ kind: "package-group"
 
 # packages/experimental
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The experimental group contains prototype capabilities that are not part of any official release: they run on the real harness, but their contracts can change and they carry no support promise. The group holds Agent Teams, the cross-realm Inspector, and the browser-worker runtime and image packer used by preview deployments. Use these packages to try an unreleased capability; they carry no stability promise, and released products must not depend on them.

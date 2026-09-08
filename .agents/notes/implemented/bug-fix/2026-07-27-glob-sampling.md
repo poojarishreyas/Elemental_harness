@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-glob-sampling.zh.md)
-
 ## Problem
 
 Asked what a workspace contained, an agent described one subfolder as if it were the whole project. The workspace held 22 top-level entries and 11,485 files. `glob {"pattern":"*"}` matched 10,030 paths, but all 100 inline paths sat under one recently unpacked subtree, so the model never saw the other 21 entries.

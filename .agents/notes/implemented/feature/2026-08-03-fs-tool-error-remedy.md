@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-03-fs-tool-error-remedy.zh.md)
-
 ## Problem
 
 Guarded `write` and `edit` failures reach the model with messages that state the condition but not the only correct recovery: `FS_STALE_VERSION` ("file changed since it was read") and `FS_NOT_OBSERVED` ("edit requires reading … first"). The model must guess that the recovery is a re-read (or a first read) followed by a retry, and the retry/permission/UI layers that route on the structured code see the same message text. The provider-owned messages are part of the storage seam's machine-oriented vocabulary ([filesystem capability seam](../architecture/2026-06-17-filesystem-capability-seam.md)), so the remedy cannot live there without leaking model-facing wording into every consumer of `FsError`.

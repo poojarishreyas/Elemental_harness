@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-web-tool-row-unified-expand-and-inspect.zh.md)
-
 ## Problem
 
 The chat view's tool rows had drifted into per-surface interaction dialects: ToolRow expanded through a leading-icon toggle and only for calls with an args body, the bash sample had its own expand affordance, todo/ask-question rows expanded raw args only, single-file tools were not expandable at all, and a call's OUTPUT was reachable only through the details panel. A failing bash command (exit≠0 settles `isError:false`) showed no collapsed-row failure signal. There was also no path from a chat row to its trajectory record, and switching chat → trajectory → chat lost the reader's scroll position because the tab ring unmounts inactive views.

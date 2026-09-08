@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-24-session-log-snapshot-corpus.zh.md)
-
 ## Problem
 
 The keyless snapshot corpus uses ACP as the controller for many scenarios whose asserted behavior belongs to the assembled Agent, tools, persistence, or another product interface. This makes an automation protocol look like the owner of backend behavior, retains test-only application entrypoints beside the supported `dsh` launcher, and scatters recorded sessions among example, SDK, Web, and script directories.

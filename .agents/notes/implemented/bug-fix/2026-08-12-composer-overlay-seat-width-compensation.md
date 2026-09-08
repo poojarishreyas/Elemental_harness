@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-composer-overlay-seat-width-compensation.zh.md)
-
 ## Problem
 
 The [composer-tab gutter reservation](2026-08-04-composer-tab-gutter-reservation.md) made the column's scroller reserve a scrollbar gutter unconditionally, so the composer seat measured the same width in Chat and in a view with a composer overlay. The cost was paid by every overlay view: the view's content column ended 8px short of the column's right edge, because the scroller reserved a gutter for a bar it never draws — the trajectory ledger owns its own scrollers and the outer box never scrolls.

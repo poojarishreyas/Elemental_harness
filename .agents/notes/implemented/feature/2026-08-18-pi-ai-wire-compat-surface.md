@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-18-pi-ai-wire-compat-surface.zh.md)
-
 ## Problem
 
 pi-ai shapes every request from the provider id and the baseURL — which role carries the system prompt, which field caps output, whether `store` and `stream_options` go out, whether tool definitions carry `strict`. For an endpoint its detection does not recognize, the answer is "this is OpenAI itself": `detectCompat` returns `supportsDeveloperRole: true`, `maxTokensField: "max_completion_tokens"`, `supportsStore: true`. A hand-declared route is by construction an endpoint pi-ai does not ship, so every such route received OpenAI's own request shape.

@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-client-ui-cordis
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-client-ui-cordis` gives a web client the browser surfaces for dynamic Cordis packages: a frame-wide panel that operates every definition the host holds, tool cards that render `cordis_define`, `cordis_run`, `cordis_stop`, and `cordis_undefine` calls in the conversation, and an `@pluginId` input source that completes the session's defined plugins. The panel is global on purpose — a model-driven run blocks on a person's approval, and that approval must be reachable no matter which session is in view. The package authors nothing the model sees: everything it operates comes from the browser runner and the host's inventory, and the cards render call and result content the conversation already logged.

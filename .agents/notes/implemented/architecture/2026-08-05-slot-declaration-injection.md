@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-slot-declaration-injection.zh.md)
-
 ## Problem
 
 Client plugins may contribute to a slot before or after the plugin that declares it. Cordis service injection cannot express this dependency: a service is only an indirect ordering signal, client manifest dependency rows do not sequence activation, and a slot can disappear and return while every related service remains mounted. Registering immediately therefore races an undeclared slot, while waiting on an unrelated service couples independently reloadable features.

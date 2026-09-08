@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-27-process-table-snapshots.zh.md)
-
 ## Problem
 
 A terminal readiness poll asks the platform three questions: the shell's descendant tree, its POSIX session membership, and whether each tracked descendant is still running. When each question reads the process table independently, the poll's cost scales with the number of descendants the running command spawned.

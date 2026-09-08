@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-30-windows-refs-store-block-clone-install.zh.md)
-
 ## Problem
 
 The self-hosted Windows VM's workspaces moved from the NTFS `E:` volume to the ReFS `F:` volume. `git clean -ffdx` on the NTFS volume deleted the ~70k-file node_modules tree in tens of minutes and forced a full reinstall on every run, driving disk writes past the volume's sustained bandwidth. ReFS metadata operations are orders of magnitude faster, so the workspace move restored fast checkout, but it exposed a second failure.
@@ -16,7 +14,7 @@ The pnpm build that `pnpm/action-setup` installs into its `dest` omits the `@ref
 
 ## Decision
 
-The Windows install steps in [ci.yml](../../../../.github/workflows/ci.yml) (the four pull-request native jobs) and [ci-master.yml](../../../../.github/workflows/ci-master.yml) (`serial-windows`) branch on the workspace filesystem, using clone only on ReFS:
+The Windows install steps in ci.yml (the four pull-request native jobs) and ci-master.yml (`serial-windows`) branch on the workspace filesystem, using clone only on ReFS:
 
 ```pwsh
 $drive = (Split-Path -Qualifier $env:GITHUB_WORKSPACE).TrimEnd(':')

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-skill-catalog-hot-refresh.zh.md)
-
 ## Problem
 
 Skill summaries are model routing input, but local skills can appear, disappear, or be renamed after a session starts. IDEs, Git operations, shell commands, and other processes can all mutate `.agents/skills` without going through the harness filesystem tools. A startup-only catalog leaves the model unaware of new skills and able to call deleted names. Treating every instruction-body edit as a catalog revision would instead couple progressive loading to unnecessary prompt churn.

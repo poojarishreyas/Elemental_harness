@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-06-approval-seam.zh.md)
-
 ## Problem
 
 Two callers need one closed decision — "may this specific action proceed?": `tools/pre-execute`'s `ask` decision (including the Claude-Code hook bridge's `permissionDecision: ask`) and the [sandbox Agent Note](2026-07-06-sandbox.md)'s post-denial one-shot escalation retry. A shared seam keeps them from inventing separate outcome vocabularies, channel routing, cancellation, and audit trails, while guaranteeing that a deployment with no answerer can never grant an unanswerable request. The answerer may be an interactive host or an automated controller.
@@ -69,7 +67,7 @@ The seam also owns the session-scoped `'ask' | 'never'` policy described by [the
 
 The ACP bridge answers only for an exact agent object owned by its session map. It sends `session/request_permission` with the existing `callId`, advertises one-shot allow/reject options, maps cancellation separately, and never grants an unknown option. Foreign or call-less requests delegate; a failed client RPC becomes `unavailable`. Hooks and `tools/pre-execute` decide whether a call asks at all. This channel is machine policy between an automated client and its agent, not ACP presentation.
 
-The answerer routes through the bridge's exact-agent ownership check described by [the automation-only ACP Agent Note](../../archived/simplification/2026-07-23-acp-automation-only-protocol.md), preserving the per-session permission ownership required by [archived record: the multi-session Agent Note](../../archived/feature/2026-06-14-acp-multi-session.md).
+The answerer routes through the bridge's exact-agent ownership check described by the automation-only ACP Agent Note, preserving the per-session permission ownership required by archived record: the multi-session Agent Note.
 
 #### Audit, and what the model sees
 
@@ -135,5 +133,5 @@ In-repo precedents this design copies or contrasts with:
 - The `fs/write-intent` gate (`packages/fs/fs/`) — the documented single-occupancy decision-slot waterfall semantics (first answer wins, delegate via `next()`) the answerer contract reuses.
 - `hook/invoked`/`hook/result` — the log-only audit-pair precedent `approval/asked`/`approval/decided` follows; [the hook-bridges Agent Note](2026-06-30-hook-bridges.md) ships `permissionDecision: ask`, the first producer.
 - [The interception extension-points Agent Note](2026-06-30-interception-extension-points.md) — the `tools/pre-execute` `allow`/`deny`/`ask` vocabulary whose `ask` this seam services.
-- [The automation-only ACP Agent Note](../../archived/simplification/2026-07-23-acp-automation-only-protocol.md) — the exact-agent ownership check against the session map that the answerer routes through; [archived record: the multi-session Agent Note](../../archived/feature/2026-06-14-acp-multi-session.md) — the per-session permission-ownership blocker this implements.
+- The automation-only ACP Agent Note — the exact-agent ownership check against the session map that the answerer routes through; archived record: the multi-session Agent Note — the per-session permission-ownership blocker this implements.
 - The opportunistic `ctx.get()` consumption pattern (`tool-bash`'s owner-token lookup, the loop's persistence probe) — how `dsh-tools` consumes the seam without gating its fiber on it.

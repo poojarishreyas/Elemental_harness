@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-21-model-readable-image-paths.zh.md)
-
 ## Problem
 
 An uploaded image becomes an opaque durable `ImageAttachmentRef`. Image-capable models receive its request preview, but the prior descriptor gives them no filesystem location for later image operations. Agents consequently search the workspace and temporary directories or ask the user where the file is. The request preview and stored normalized attachment may both differ from the upload, so their dimensions, format, and byte size cannot establish the upload's original properties.

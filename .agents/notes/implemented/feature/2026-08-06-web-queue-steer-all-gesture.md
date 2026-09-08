@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-web-queue-steer-all-gesture.zh.md)
-
 ## Problem
 
 While a primary session runs, the Web queue accumulates messages the user typed with plain Enter (or queued while the busy-Enter preference was Queue). Flushing them into the current turn required clicking the per-row 插话发送 button once per message; an empty composer draft had no keyboard gesture at all — the input machine rejects empty drafts, so Enter and Cmd/Ctrl+Enter were both no-ops. With several queued messages, steering them one by one is the obvious multi-click friction, and the empty-draft accelerated chord is the natural slot for "steer everything".

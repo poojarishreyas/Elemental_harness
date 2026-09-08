@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-web-latency-throughput-metrics.zh.md)
-
 ## Problem
 
 The Web chat records per-step LLM timing (`stepStartTime` / `firstTokenTime` / `completedTime`) and per-step usage, and the trajectory view exposes them per step, but the chat surface answers neither "how responsive was this turn" nor "how fast is this session going": the assistant footer shows only the turn wall time, and the stats line folds only wall-time totals.

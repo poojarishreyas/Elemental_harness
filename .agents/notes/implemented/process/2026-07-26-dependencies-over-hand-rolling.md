@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-26-dependencies-over-hand-rolling.zh.md)
-
 ## Problem
 
 The harness hand-rolls a lot of infrastructure that mature external packages already provide. Some of that is deliberate — vendored Cordis ([vendoring decision](2026-06-11-vendor-cordis-as-source.md)), the [twin LLM adapters](../architecture/2026-06-13-twin-llm-adapters.md), schemastery as the config-schema standard — but much of it accreted from an unstated "avoid new dependencies" reflex: the repo-wide external dependency list stayed tiny while packages grew their own SSE parsers, protocol framers, retry loops, and glob matchers. Nothing in `AGENTS.md` actually stated a dependency policy, so agents inferred one from the existing pattern, and the inferred rule ("don't add deps") is stricter than anyone decided. That is the "Not Invented Here" fallacy operating by default: every hand-rolled clone of a well-maintained library is code we test, document, review, and debug ourselves, with none of the ecosystem's accumulated edge-case fixes.

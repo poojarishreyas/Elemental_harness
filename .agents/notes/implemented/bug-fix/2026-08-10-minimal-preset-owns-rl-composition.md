@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-minimal-preset-owns-rl-composition.zh.md)
-
 ## Problem
 
 The shipped Web configuration offered two owners for the Claude SWE-compatible RL agent: a process-wide `core-web.cordis.yml` patch and the per-session `minimal` preset. Once [agent presets](../architecture/2026-08-03-per-session-agent-presets.md) became the agent-composition boundary, the preset's scoped `deployment:persona` shadowed the overlay's corrected global persona with stale coding-agent text. The overlay test mounted no preset, while the preset test booted without the overlay, so neither exercised the composition users selected.

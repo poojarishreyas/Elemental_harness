@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-tool-fs-search
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-tool-fs-search` provides the model-facing filesystem discovery tools — `glob` and `grep` — backed by a packaged ripgrep binary, so no host `rg` install and no filesystem backend are needed. Each call runs ripgrep itself with a fixed argument set and returns workdir-relative results, and the tools are always available because every carrier packages ripgrep. Results are bounded by configurable caps, and a capped result is saved in full through the optional spill store when one is mounted. Choose this package when the model should discover files by pattern or search file contents; text file reading, writing, and editing are the sibling `dsh-tool-fs` package's job.

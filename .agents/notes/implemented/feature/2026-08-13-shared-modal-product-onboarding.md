@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-13-shared-modal-product-onboarding.zh.md)
-
 ## Problem
 
 First-run onboarding mixed two interaction models: a viewport takeover for product context and a credential prompt that redirected users into Settings before they could enter a key. That made a short, ordered flow feel like two unrelated surfaces and left onboarding UI ownership split across packages. The product still needs a versioned testing-stage notice before provider setup, but restoring it must not add a second independent overlay or change the Host settings and credential boundaries.
@@ -30,4 +28,4 @@ First-run onboarding mixed two interaction models: a viewport takeover for produ
 
 ## Consequences
 
-A fresh loopback profile sees the specified internal-testing notice, then an inline DeepSeek key dialog only when no provider is usable. Acknowledgement remains versioned in `settings.yaml`, secrets remain write-only in `.credentials.yaml`, and already-ready or unsupported deployments render no onboarding chrome while readiness loads. The Models package now owns product-onboarding presentation as well as provider configuration; its README and browser coverage make that broader responsibility explicit. This decision restores a concise testing-stage notice after the historical [full-viewport beta notice removal](../../archived/simplification/2026-08-13-remove-first-run-beta-notice.md) without restoring that notice's telemetry copy or takeover layout.
+A fresh loopback profile sees the specified internal-testing notice, then an inline DeepSeek key dialog only when no provider is usable. Acknowledgement remains versioned in `settings.yaml`, secrets remain write-only in `.credentials.yaml`, and already-ready or unsupported deployments render no onboarding chrome while readiness loads. The Models package now owns product-onboarding presentation as well as provider configuration; its README and browser coverage make that broader responsibility explicit. This decision restores a concise testing-stage notice after the historical full-viewport beta notice removal without restoring that notice's telemetry copy or takeover layout.

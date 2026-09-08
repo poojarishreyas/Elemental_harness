@@ -1,7 +1,5 @@
 # Use the Web UI
 
-English | [中文](index.zh.md)
-
 Start the Web UI through the [root README](../../../README.md#run); the command prints its URL. This guide begins after that server is running. The backend process uses its invoking directory as the default filesystem location, but a fresh Web UI has no selected workspace until you add one.
 
 ## Configure a model

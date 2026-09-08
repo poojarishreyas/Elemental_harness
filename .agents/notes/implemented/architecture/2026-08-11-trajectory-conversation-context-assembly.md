@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-trajectory-conversation-context-assembly.zh.md)
-
 ## Problem
 
 Trajectory maintained an independent Session History source and folded the complete loaded Event window into Assistant, Tool, message, Request-header, and Compaction state. Chat already assembled the same Event families through registered Conversation Definitions. The two paths duplicated business correlation and pagination behavior, and a Trajectory structural update copied or rescanned work proportional to the raw Event count even when one business object changed.

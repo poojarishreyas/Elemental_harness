@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-cmdline-seam-trim.zh.md)
-
 ## Problem
 
 The app-owned command line ([note](2026-08-06-app-owned-command-line.md)) shipped with three seams that were wider than their consumers needed: a vendored in-memory row-activation state machine (`Entry.enableRuntime` plus `enableRow` exported from `dsh-cmdline`, a command-line package owning a Loader concept) whose only purpose was the `--dev` conditional reload row, a vendored `EntryConfigResolver` protocol symbol whose only implementer was Include, and a launcher that still recognized the `headless-runner` row to pick SIGTERM exit codes, gate user-patch watching, and provide a `headlessIo` seam duplicating `ctx.appExit`.

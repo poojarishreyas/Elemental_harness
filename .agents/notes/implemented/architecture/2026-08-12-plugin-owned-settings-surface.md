@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-plugin-owned-settings-surface.zh.md)
-
 ## Problem
 
 A plugin that registered a settings namespace could not reach the browser configuration page, and both gates that stopped it lived in this repository.

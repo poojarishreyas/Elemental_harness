@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-command-row-copy-contract.zh.md)
-
 ## Problem
 
 The web command row renders `title · summary` from one logged [command lifecycle pair](../../proposed/architecture/2026-07-27-session-projection-and-command-log.md): the title was the dispatched line rebuilt from `command/run` (`/permission workspace-write`) and the summary was `command/done`'s verbatim `text` (`Permission preset: workspace-write.`). Both halves were written without knowing about the other, so the row said the command name twice and its argument twice — the single worst case being the row a user gets for every Access-chip pick.

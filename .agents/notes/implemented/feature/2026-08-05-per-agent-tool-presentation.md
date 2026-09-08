@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-per-agent-tool-presentation.zh.md)
-
 ## Problem
 
 Agent presets compose an agent's tools per session, but not the FORM those tools reach the model in. PTC mode — one `run_code` tool plus a generated TypeScript SDK, replacing a call sequence with one program — was a deployment-wide `mode` field on the host's `dsh-tools` row. A deployment either ran every session in PTC mode or none, so the obvious product shape ("代码模式" beside 标准/极简/创造 in the preset picker) had nothing to hang on.

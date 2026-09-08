@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-unified-github-label-taxonomy.zh.md)
-
 ## Problem
 
 Pull request labels answer two independent questions: what kind of change the work makes and which durable repository domains it materially affects. Mixing those dimensions or retaining synonymous plain and namespaced labels makes queries ambiguous, while a closed area inventory forces new domains into inaccurate categories.

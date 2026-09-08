@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-07-24-domain-kv-storage-and-workspace.zh.md)
-
 ## Problem
 
 The host's only persistence surface is the session event log (`packages/session/session-persistence`: append-only, one file per session). Anything that does not belong to a single session has nowhere to live, and two shipped needs exist:

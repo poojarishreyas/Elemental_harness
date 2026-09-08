@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-27-explicit-workspace-path-aliases.zh.md)
-
 ## Problem
 
 `tsconfig.base.json` is the resolution facade for the whole repository: every package project extends it, both aggregates read it, and every Vitest config points `vite-tsconfig-paths` at it. Two of its aliases carried one candidate per package *group* rather than one per package — `@deepseek-ai/dsh-*` listed 49 candidate globs and `@deepseek-ai/dsh-*/invariant` listed 45.

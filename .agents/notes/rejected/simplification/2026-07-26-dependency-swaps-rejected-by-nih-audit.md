@@ -2,8 +2,6 @@
 
 Status: rejected — every swap below fails the net-simplification bar on evidence; recorded so the survey is not re-run from scratch
 
-English | [中文](2026-07-26-dependency-swaps-rejected-by-nih-audit.zh.md)
-
 ## Problem
 
 A repository-wide "Not Invented Here" audit (2026-07-26, ten parallel surveys covering every package group, scripts/, native/, vendor/ edges, python/, test infrastructure, and CI) asked of each hand-rolled surface: would a maintained external package or Node builtin delete it with a net win under the [dependency policy](../../implemented/process/2026-07-26-dependencies-over-hand-rolling.md)? The positive findings became their own proposed notes. The negative verdicts carry equal value — each names a plausible-looking swap whose hand-rolled shape is load-bearing — but would otherwise live only in a PR body. This note freezes them.
@@ -16,9 +14,9 @@ Adopt the following dependency swaps. Rejected — per-item evidence below; a fu
 
 - **`vscode-jsonrpc` for LSP base-protocol framing/correlation** (`lsp-stdio`): the swappable core is ~255 of ~1,800 src lines; the package cannot express the configured `maxMessageBytes` incoming-size bound (restoring it means rebuilding the deleted framing), inverts the cancel-grace teardown semantics (`raceAbort` rejects immediately then tears down; vscode-jsonrpc keeps the promise pending), errors on pre-header stdout banners real servers emit, and is CJS in an ESM-everywhere repo. The [LSP seam note](../../implemented/architecture/2026-07-15-lsp-capability-seam.md) assigns JSON-RPC ownership to `dsh-lsp-stdio`; this audit is the explicit on-record weighing of the dependency it lacked.
 - **`vscode-languageserver-types` for lsp-stdio's wire-type subset**: ~80 type lines and ~45 guard lines, but upstream guards differ in both directions (accept `uri: undefined` the repo must reject; require `targetRange` the repo tolerates absent), and the initialize-result shapes live in `vscode-languageserver-protocol`, dragging `vscode-jsonrpc` in as a runtime dep — ~1 MB for 80 spec-exact lines.
-- **`json-rpc-2.0` for `dsh-sdk-jsonrpc-server`**: deletable correlation/dispatch is real (~100–130 lines) but the NDJSON wire must stay bit-identical for the hand-rolled Python SDK client, the package is single-maintainer, and the [archived GUI RPC note](../../archived/architecture/2026-07-19-gui-layering-and-rpc-protocol.md) already treats this package as a frozen narrow surface. `vscode-jsonrpc` is a worse fit still (Content-Length framing, cancellation vocabulary the protocol lacks).
+- **`json-rpc-2.0` for `dsh-sdk-jsonrpc-server`**: deletable correlation/dispatch is real (~100–130 lines) but the NDJSON wire must stay bit-identical for the hand-rolled Python SDK client, the package is single-maintainer, and the archived GUI RPC note already treats this package as a frozen narrow surface. `vscode-jsonrpc` is a worse fit still (Content-Length framing, cancellation vocabulary the protocol lacks).
 - **`jsonrpcclient` for the Python SDK client**: v4 builds/parses messages only — ~20 lines — while the 500 lines that matter (subprocess lifecycle, threaded reader, id correlation, bidirectional server-role responses) stay; the library is in low-maintenance mode.
-- **`eventsource-parser` for apiproxy's `readSse`**: only ~15 lines of framing are deletable, both wire ends are in-repo so spec conformance is moot, and it would add a dep to a browser-safe package. (Contrast with the [archived llm-deepseek dependency decision](../../archived/simplification/2026-07-26-eventsource-parser-for-deepseek-sse.md), where a real provider sits across the wire.)
+- **`eventsource-parser` for apiproxy's `readSse`**: only ~15 lines of framing are deletable, both wire ends are in-repo so spec conformance is moot, and it would add a dep to a browser-safe package. (Contrast with the archived llm-deepseek dependency decision, where a real provider sits across the wire.)
 
 **Retry, timers, async:**
 
@@ -41,14 +39,14 @@ Adopt the following dependency swaps. Rejected — per-item evidence below; a fu
 
 - **`write-file-atomic` for fs-local/storage-json atomic writes**: the packages lack the private 0700 staging dir, Win32 DACL copy/`ReplaceFileW`, AbortSignal support, and parent-dir fsync — each the point of the hand-roll. The koffi Win32 bindings themselves are justified by the [Windows durable-publish note](../../implemented/architecture/2026-07-05-windows-jsonl-durable-publish.md).
 - **`fzstd`/native zstd packages for JSONL frame scanning**: `node:zlib`'s builtin zstd already does the compression ([zstd note](../../implemented/architecture/2026-07-19-zstandard-jsonl-session-logs.md), which explicitly rejected an external native dependency); the remaining `scanZstdFrames` locates RFC 8878 frame boundaries *without decompressing* for torn-tail repair, which no package exposes.
-- **`picomatch`/`tinyglobby`/`ignore` for fs search**: no glob engine exists — both discovery tools shell out to ripgrep per the [bash-backed discovery note](../../archived/feature/2026-07-09-bash-backed-grep-glob-discovery.md).
+- **`picomatch`/`tinyglobby`/`ignore` for fs search**: no glob engine exists — both discovery tools shell out to ripgrep per the bash-backed discovery note.
 - **`istextorbinary`/`chardet` for text detection**: the hand-roll is a ~15-line NUL-sample plus fatal `TextDecoder`; heuristic packages are larger and would change which files the model can read (model-visible `FS_NOT_TEXT` drift).
 - **`shell-quote` for POSIX single-quoting**: two 1-line quoting helpers with exhaustive tests versus a maintenance-mode package with a CVE history and different escaping output — a safety boundary is the wrong place to save one line.
 - **`strip-ansi` for pty sanitization**: the pty sanitizer is a streaming state machine with split-sequence carry across chunks and OSC `133;D` prompt-marker extraction (the shell-readiness signal); stateless strippers replace ~20 inner lines while all state machinery stays. `stripVTControlCharacters` also demonstrably leaks unterminated-OSC payloads the session-title normalizer must strip (anti-spoofing).
 - **`pidtree`/`ps-tree` for the pty process inspector**: bare PID trees; the code needs start-time identity against PID reuse plus `/proc` stdin-wait detection no package does.
-- **`execa` for the subagent-subprocess dispose ladder**: `forceKillAfterDelay` covers SIGTERM→SIGKILL but not the stdin-EOF-first cooperative tier or the reject-if-no-exit-edge contract; adopting it here rewrites spawn sites while keeping the ladder. (Test-infrastructure spawn plumbing is different — see the [archived execa test-infrastructure decision](../../archived/testing/2026-07-26-execa-for-test-subprocess-plumbing.md).)
+- **`execa` for the subagent-subprocess dispose ladder**: `forceKillAfterDelay` covers SIGTERM→SIGKILL but not the stdin-EOF-first cooperative tier or the reject-if-no-exit-edge contract; adopting it here rewrites spawn sites while keeping the ladder. (Test-infrastructure spawn plumbing is different — see the archived execa test-infrastructure decision.)
 - **`tree-kill` for acp-snapshot teardown and lsp process kill**: the lines are drain-ordering/error-propagation, not tree traversal; lsp/bash already use detached process groups + taskkill.
-- **node-pty everywhere for the TUI test driver**: the archived [Windows-TUI note](../../archived/feature/2026-07-20-windows-tui-support.md) explicitly rejected node-pty-on-every-host; it was already the Windows leg.
+- **node-pty everywhere for the TUI test driver**: the archived Windows-TUI note explicitly rejected node-pty-on-every-host; it was already the Windows leg.
 
 **Servers and HTTP:**
 

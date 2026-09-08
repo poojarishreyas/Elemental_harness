@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-21-out-of-process-subagent-minimal-diagnostics.zh.md)
-
 ## Problem
 
 An ACP or DSH SDK child can stop because it reached a remote limit, denied a required permission, ended with a non-completed child turn, lost its protocol transport, or exited as a process. The shared result historically reduced these outcomes to a stop reason such as `error`, while startup and cleanup rejection messages could expose the original exception. A parent could not choose between narrowing the task, adjusting permission policy, or repairing the child deployment without Host logs.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-session-completed-done-dot.zh.md)
-
 ## Problem
 
 A session the operator delegated work to and then left (switched to another conversation) gives no signal when it finishes. Its running indicator stops, but the row then looks identical to any idle session, so the operator must poll the list or discover the finished work late. The pending-interaction amber dot covers sessions that need input, not sessions whose work is simply done.

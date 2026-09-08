@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-composer-context-meter-breakdown.zh.md)
-
 ## Problem
 
 The Web chat's stats line showed context occupancy as one inline figure (`Context N% of X`) among its billing groups. That answers "how full" but not "what fills it": nothing showed how the window divides between the system prompt, tool schemas, and conversation, and the one-line row has no room for that detail. The available numbers also live in two vocabularies — the provider-exact billed prompt size from `contextPressure` versus the token-meter's fixed character heuristic — and no existing surface could present composition without conflating them.

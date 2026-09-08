@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-face-named-client-test-files.zh.md)
-
 ## Problem
 
 `packages/client/*/tests/` holds tests for both compile faces. Most cover a Client package's browser half and belong to `tsconfig.client.json`; a few cover the Host half of a split package — the carrier's node-half specs — and can only type-check in `tsconfig.host.json`, because a Host-face spec reaching Host source needs the Host projects those files live in.

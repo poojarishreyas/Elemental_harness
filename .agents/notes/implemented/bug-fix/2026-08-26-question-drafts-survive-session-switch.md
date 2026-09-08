@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-26-question-drafts-survive-session-switch.zh.md)
-
 ## Problem
 
 `conversation.composer` is a strict Session-scoped slot, so selecting another Session unmounts its question entry. The generic `QuestionFlow` kept its current question index, selected labels, custom text, and skip flags in React component state. A still-pending request therefore returned with empty answers after an A → B → A Session switch even though the pending carrier remained owned by Session A.

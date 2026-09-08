@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-session-snapshot
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 This package provides pure helpers for the Web browser test scaffold: manifest parsing, identity redaction, session normalization, prompt and tool-schema snapshots, fixture refresh, and workspace comparison. The browser scaffold owns backend startup and user interaction; the internal base driver retains core session replay coverage.

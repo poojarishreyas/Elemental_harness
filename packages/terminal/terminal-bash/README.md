@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-terminal-bash
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-terminal-bash` starts a persistent interactive shell under the deployment's sandbox policy: the session stays alive across tool calls, readiness for input is detected, and bounded line-oriented output is retained for reads. It provides the `shell` backend type and supports bash on POSIX and pwsh on Windows through a `shellDialect` setting. The same backend composes with local or remote execution worlds through the mounted subprocess provider. Full-screen terminal applications are outside its line-oriented contract.

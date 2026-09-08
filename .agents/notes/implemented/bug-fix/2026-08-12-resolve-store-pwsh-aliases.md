@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-resolve-store-pwsh-aliases.zh.md)
-
 ## Problem
 
 `resolvePwshPath` documented that Microsoft Store installs resolve through PATH, but its existence probe was `existsSync`, which stats a candidate and therefore follows reparse points. The Store's `%LOCALAPPDATA%\Microsoft\WindowsApps\pwsh.exe` is an app execution alias whose target directory ACL refuses stat (EACCES), so `existsSync` missed it and resolution silently fell through to Windows PowerShell 5.1 on hosts whose only PowerShell 7 is a Store install.

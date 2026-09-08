@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-web-remote-markdown-images.zh.md)
-
 ## Problem
 
 Assistant Markdown can name diagrams and screenshots with standard image syntax, but the Web renderer replaces every image with italic alt text. Even absolute HTTP(S) destinations therefore lose ordinary Markdown behavior.

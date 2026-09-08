@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-unlink-fixture-junctions-before-delete.zh.md)
-
 ## Problem
 
 The install-lefthook and translation-pairing fixtures junction the repository's real `scripts/`, `node_modules`, and tsx package directories into fixture trees so installer probes resolve through them. Windows recursive deletion can treat a junction (a MOUNT_POINT reparse point) as a directory and follow it into its target; Git's `worktree remove` did exactly that and deleted the repository's tracked `scripts/` and tsx package (the incident's instrumentation pinned the deletion to that step). A fixture cleanup that trusts its deleter therefore deletes the repository's own sources instead of the fixture.

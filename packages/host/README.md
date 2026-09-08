@@ -5,8 +5,6 @@ kind: "package-group"
 
 # host/ — web-GUI host half
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The `host/` group provides the web GUI's plain HTTP server, the SPA dist server that serves the built Web shell, the workspace-directory picking seam with its native, browse, and adaptive composition packages, and the read-only plugin inventory projection. All seven packages are product packages; the browser transport lives in [`client/`](../client/README.md), and the composed application is [`apps/server`](../../apps/server/README.md) booting the [`dsh-base` bundle](../bundle/base/cordis.patch.yml) that serves the web app under `apps/web/`. The picker backends replace one another behind the shared seam.

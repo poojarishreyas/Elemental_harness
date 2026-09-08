@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-28-trigger-menu-stale-while-revalidate.zh.md)
-
 ## Problem
 
 Every keystroke inside an open `@`/`/` trigger menu launches a new candidates fetch. The menu reducer's `hit` case used to reseed the groups to pending-empty, so the list collapsed to a skeleton for the 100–460ms fetch round trip and repainted on every character — a visible flicker on each refinement keystroke (#3234).

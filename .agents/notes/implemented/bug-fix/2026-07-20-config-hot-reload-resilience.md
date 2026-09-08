@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-config-hot-reload-resilience.zh.md)
-
 ## Problem
 
 An invalid `cordis.yml` edit must not kill a running agent, but preserving the process is insufficient when a valid-looking update partially replaces the Loader tree before a later entry fails. Callers also need to observe a rejected live update without treating the same error as an unhandled boot failure. Personal configuration adds a second requirement: HMR must observe one exact file outside its module roots, including a file or parent directory created after startup.

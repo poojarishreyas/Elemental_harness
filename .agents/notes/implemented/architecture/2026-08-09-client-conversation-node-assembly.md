@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-client-conversation-node-assembly.zh.md)
-
 ## Problem
 
 Client Session owned transport windows, connection state, and pending interactions while also interpreting Assistant, Tool, message, command, compaction, retry, and turn-tail events in a centralized transcript fold. Adding one business node required changes to Session switches, history replay, indexes, caches, and React grouping; business identity, state evolution, and final presentation had no independent owner.

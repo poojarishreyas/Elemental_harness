@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-06-20-branded-ids.zh.md)
-
 ## Problem
 
 The harness brands `ToolCallId` (`packages/llm/llm/src/brand.ts`) and the shared agent/session `SessionId` (`packages/core/session/src/types.ts`) using `Branded<B> = string & { readonly [BRAND]: B }` and the stateless `brandString<T>()` constructor from `@deepseek-ai/dsh-brand` at `packages/util/brand/` — see its [README](../../../../packages/util/brand/README.md). `dsh-brand` also states the governing policy: *"Branding is for ids that cross package boundaries and could plausibly be confused; not every string needs a brand."* That policy is right; the problem is that it is only half-applied. Two gaps let a structurally-identical-but-semantically-wrong string slip through the type checker.

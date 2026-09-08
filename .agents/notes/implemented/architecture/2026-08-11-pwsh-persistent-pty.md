@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-pwsh-persistent-pty.zh.md)
-
 ## Problem
 
 The harness had no persistent shell on Windows. The persistent `bash` stack was POSIX-only by construction: `@deepseek-ai/dsh-subprocess-local` threw at terminal allocation (`createProcessInspector()` rejected win32), `@deepseek-ai/dsh-terminal-bash` was bash-shaped (`/bin/bash` defaults, `PS1`/`PROMPT_COMMAND` environment markers), `@deepseek-ai/dsh-tool-bash-persistent` wrapped commands in bash syntax, and every pty test skipped on win32. The one-shot `pwsh` tool (`@deepseek-ai/dsh-tool-pwsh` over `@deepseek-ai/dsh-pwsh-local`) already ran on Windows, but each call started a fresh `pwsh -Command` process: cwd, `$env:` variables, functions, and interactive children ended with the call, and its README recorded "No persistent shell or PTY" as deferred work.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-25-scriptable-llm-wire-fault-server.zh.md)
-
 ## Problem
 
 Adapter unit tests use local HTTP servers to classify individual provider failures, while retry tests use an in-process scripted `LlmAdapter` to prove closed-step recovery. Neither boundary provides a reusable server for running the shipping HTTP adapter, agent loop, and retry policy together, and neither lets a developer point an existing app at deterministic transport faults by changing only its base URL and API key.

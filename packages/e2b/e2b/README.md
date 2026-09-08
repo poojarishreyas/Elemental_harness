@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-e2b
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-e2b` provides one shared remote Linux sandbox for the E2B provider family: the agent's file operations, shell commands, and terminals all run inside this sandbox instead of on your machine. The sandbox is created when the family starts and deleted automatically when the configured lifetime expires or the app shuts down — anything it held disappears with it. You configure three things: an API key, a remote working directory, and the sandbox lifetime. Use it together with `dsh-fs-e2b` and `dsh-subprocess-e2b`; on its own it adds no user-visible features. Nothing here reaches the model, and no shipped composition enables this family by default.

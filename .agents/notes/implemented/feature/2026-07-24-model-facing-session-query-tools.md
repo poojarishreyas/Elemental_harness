@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-24-model-facing-session-query-tools.zh.md)
-
 ## Problem
 
 The unified `ctx.sessionQuery` service exposes exact reads, filters, relationship traces, and full-text search over live-preferred session logs, but models cannot use that service directly. Giving a model the provider request types would also expose unstable pagination cursors, trusted corpus scope, storage-shaped time values, and result records that are more convenient for programmatic consumers than for reasoning. Large traces and event payloads introduce a separate output-size concern, but solving that concern inside this consumer would duplicate the harness-wide spill mechanism and make session-query tools disagree with other tools.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-api-browser-trust-boundary.zh.md)
-
 ## Problem
 
 The web GUI host serves `/api` over plain loopback HTTP (default `127.0.0.1:3080`; the CLI rejects `--host 0.0.0.0`), and the surface includes remote-code-execution-grade methods — `session.prompt` drives an agent that runs bash. A browser turns the operator into a confused deputy against such a local API in two classic ways: a malicious page fires a "simple" cross-site POST (`text/plain` — sent without a CORS preflight) whose side effects execute even though the response stays unreadable, and a DNS-rebound origin talks to the socket as if same-origin, making CORS inapplicable entirely, with only the `Host` header betraying the attacker's domain. Before this decision the system's only browser-trust check (`isTrustedNativeDialogRequest`: loopback socket + same-origin + loopback Host) guarded exactly one cosmetic route — `host.pickDirectory`, whose native dialog pops on the host's screen — while every consequential method was unguarded. Guarding per-RPC also could not survive the in-app directory browser, whose whole point is serving legitimately remote clients that a loopback rule would refuse.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-doc-site-carries-its-images.zh.md)
-
 ## Problem
 
 `scripts/project-doc-site.ts` rewrote every repository-relative target that the publication manifest does not publish into a GitHub URL, and for an image that meant `https://raw.githubusercontent.com/<owner>/<repo>/<ref>/<path>`. Nothing in the site build copies files: `srcDir` is the disposable `.generated` tree, VitePress sets no `publicDir` (its default, `<srcDir>/public`, is inside the tree the projector deletes on every run), and only Markdown is written there.

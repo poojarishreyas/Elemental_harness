@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-28-remove-hero-input-glow.zh.md)
-
 ## Problem
 
 The New Session hero painted a decorative backdrop ellipse (`HeroGlow`, figma 313:14109) under the input card: a blurred blue gradient sized `1051/776` of the hero box so its `stdDeviation="50"` blur scaled with the card. On the shipped token sheets the ellipse read as stray blue tint rather than intentional chrome, and its by-construction bleed past the conversation column forced clipping scaffolding onto the column itself.

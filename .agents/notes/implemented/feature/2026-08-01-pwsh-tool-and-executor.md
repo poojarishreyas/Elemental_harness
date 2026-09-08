@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-01-pwsh-tool-and-executor.zh.md)
-
 ## Problem
 
 The harness spoke one shell dialect on every platform: `bash`. Windows hosts could run it only through WSL or Git-Bash shims, and the shipped `dsh-bash-local` executor is POSIX-only (`bash` hardcoded, process-group semantics POSIX). The Windows roadmap — defaulting hosts to `pwsh`, later pwsh TUI/GUI rendering — had no execution foundation: there was no PowerShell implementation of the bash executor seam and no model-facing tool that taught the PowerShell dialect. The bash tool is also larger than a Windows-first profile strictly needs — the persistent-PTY twin in particular is bash-shaped surface the `pwsh` tool still does not carry. The original minimal profile also left out background jobs and sandbox escalation: background arrived with the [parity decision](2026-08-02-pwsh-tool-bash-parity.md), and the sandbox surface (denial rendering plus `sandbox_permissions` escalation) arrived with the [Windows ACL sandbox decision](2026-08-08-windows-acl-restricted-token-sandbox.md) — the minimal tool was sized for the danger-full-access Windows posture, and that premise ended when the sandbox PR re-enabled confinement and approval on Windows.

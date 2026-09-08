@@ -2,11 +2,9 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-package-regrouping.zh.md)
-
 ## Problem
 
-The two-level `packages/<group>/<pkg>` hierarchy ([original decision](../../archived/architecture/2026-06-20-package-hierarchy.md)) had drifted since June: 167 packages sat in 42 groups, and several group boundaries no longer matched how the packages actually cluster.
+The two-level `packages/<group>/<pkg>` hierarchy (original decision) had drifted since June: 167 packages sat in 42 groups, and several group boundaries no longer matched how the packages actually cluster.
 
 - `ui/` mixed four unrelated planes: the human terminal channel (`tui`), the SDK's JSON-RPC server half (`jsonrpc`, whose peer dependency on `dsh-sdk-protocol` binds it to the SDK wire stack), the human-interaction seams (`user-questions`, `user-approval`, `permission`, `tool-ask-user`, `commands`), and channel-neutral boot glue (`app-boot`). Its own README narrated the mixture instead of stating a role.
 - The session family was fragmented across five groups — `session-persistence/`, `session-projection/`, `session-query/`, `session-title/`, and `telemetry/` — although the measured dependency edges tie them together (query → persistence, title → projection, projection → persistence; see [docs/module-graph.md](../../../../docs/module-graph.md)).

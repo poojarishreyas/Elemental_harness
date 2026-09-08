@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-15-agent-initiator-scope.zh.md)
-
 ## Problem
 
 The harness has two useful but different notions of context. A Cordis `Context` selects services, registration ownership, and lifetime; `agent.ctx` is the flat registration scope owned by one live Agent. Agent and Session identity instead describe the subject of an asynchronous operation. Changing a root `ctx.agent` to mean “whichever Agent is running” would conflate those meanings and fail when one process drives Agents concurrently.

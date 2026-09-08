@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-typert-registry
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-typert-registry` makes generated Typert artifacts queryable at runtime: each package's reflection — services, events, and objects — its live Zod schemas, and Remote invocation descriptors live under stable keys that consumers can query or resolve on demand. Registrations are atomic and fiber-scoped: a contribution lands whole or not at all and is withdrawn automatically when the registering component unloads. The same service hosts the lookup and scoped-Context provider registries that Remote calls resolve through. It performs no TypeScript analysis and generates no schemas; the generator and the loader handle those.

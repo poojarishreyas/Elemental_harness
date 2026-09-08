@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-19-projection-cache-per-session-files.zh.md)
-
 ## Problem
 
 The persisted projection cache was one global `session_projcache.json` — a `sessions` table in a single file at the storage root. Every throttled checkpoint rewrote the whole file containing every session's rows, so write amplification grew with session count, and one malformed file took the entire cache down at once.

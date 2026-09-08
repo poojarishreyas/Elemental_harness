@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-web-stop-preserves-queue.zh.md)
-
 ## Problem
 
 The Web stop button reached `session.cancel`, which mapped to broad `agent.cancel({ kind: 'user' })`. During an active turn, ordinary composer submissions are already accepted as independently addressable Queue occurrences. Broad cancellation discarded every occurrence when the user intended to stop only the current generation, conflating turn interruption with the Queue's explicit delete operation.

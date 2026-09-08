@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-web-agent-runtime-context.zh.md)
-
 ## Problem
 
 The shared CLI base configured an empty deployment persona, the Web overlay did not replace it, and the Web launcher added no source or interaction-surface section. A session header recorded its working directory for tools and persistence, but the model prompt did not state that directory or identify the DeepSeek Harness Web GUI. A request such as “change this page's theme” therefore made the agent search the selected project for an unspecified page, even when the user meant the GUI running the session.

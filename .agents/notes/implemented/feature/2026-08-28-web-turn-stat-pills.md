@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-28-web-turn-stat-pills.zh.md)
-
 ## Problem
 
 A completed assistant Turn ended with two stacked footer rows: a `Turn usage` DisclosureRow above the icon actions, and a meta line inside the actions row carrying clock, run time, TTFT, and decode speed as plain text. The disclosure expanded inline and shifted the transcript below it, the meta line mixed audience tiers — casual readers want the clock and run time while token buckets and latency percentiles are diagnostic — and the two-row footprint repeated under every Turn of a long transcript.

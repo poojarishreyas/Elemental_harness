@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-26-stable-turn-process-order.zh.md)
-
 ## Problem
 
 Turn-process eligibility changes as Assistant output streams, becomes a final answer, or is invalidated by a Tool call, Retry, or later Step. Ordering existing Chat Nodes from that mutable range moved the initial System prompt and pre-User Context across the opening User, so one logical row appeared at different transcript positions during a Turn.

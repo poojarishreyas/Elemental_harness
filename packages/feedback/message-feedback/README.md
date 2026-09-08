@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-message-feedback
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-message-feedback` lets product surfaces offer per-message feedback: a user marks an assistant message positive or negative and can attach a short note, and the rating stays with that message. Ratings are stored with the session, survive restarts, and never enter model history or telemetry. Product surfaces read, create, and change ratings through the `messageFeedback` service, whose `list`, `put`, and `delete` operations are the whole surface. The one deployment setting is the maximum note length (`maxNoteBytes`), which the Web bundle sets to 8192. Browser controls live in a separate client package; this package provides the service itself.

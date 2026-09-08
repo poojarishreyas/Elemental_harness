@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-06-18-session-surface.zh.md)
-
 ## Problem
 
 The event log is authoritative, but history manipulation had no durable shared mechanism. Without one, plugins such as compaction would rewrite derived requests through order-sensitive listeners without recording which events each replacement used. Every new history manipulation would also require changes to `deriveMessages()`.

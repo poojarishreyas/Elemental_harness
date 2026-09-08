@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-api-remotes-generated-contract-build.zh.md)
-
 ## Problem
 
 Typert must generate `/remote` declarations and runtime contributions from the Host's `@Remote` methods before the Client's `api-remotes/src/client/index.ts` can typecheck and bundle those contributions. If the root build hands both the Host and Client Project Reference graphs to tsc together, the Client compiles before the generated artifacts exist. Adding a separate contracts preprocessing step would instead compile the generator again outside the normal Host graph and let stale artifacts hide incorrect dependencies.

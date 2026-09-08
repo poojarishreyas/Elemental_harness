@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-fs-e2b
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-fs-e2b` runs the agent's file operations inside the remote sandbox: the agent can read files, list directories, write new files, overwrite or edit existing ones, and get accurate metadata — all in the same remote world where its commands run. It needs no configuration; mounting it moves file work off the host machine. Use it together with `dsh-e2b` and `dsh-subprocess-e2b` so files and commands share one remote working directory. The host machine's files are never touched, and results look to the model exactly like local file results. Choose the local filesystem package instead when files should live on the host.

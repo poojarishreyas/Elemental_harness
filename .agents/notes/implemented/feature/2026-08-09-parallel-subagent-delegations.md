@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-parallel-subagent-delegations.zh.md)
-
 ## Problem
 
 A model that wants fan-out batches several `subagent` calls into one assistant message — that batch is the parallel intent. The delegation tool declared no `isConcurrencySafe` classifier, so the fail-closed scheduler ([parallel tool-call Agent Note](2026-07-10-parallel-tool-call-execution.md)) treated every foreground delegation as an exclusive barrier: nine cards in the GUI, one child running, eight queued behind it for its full runtime.

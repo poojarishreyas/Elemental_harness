@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-18-model-selected-subagent-routes.zh.md)
-
 ## Problem
 
 `dsh-tool-subagent` can configure child `AgentOptions`, and both in-process providers merge those values over the parent Agent's LLM selection. The model-facing tool could not request a different provider, model, or reasoning effort for one suitable subtask. Loading one distinctly named delegation tool per LLM route duplicates schemas and turns a per-call scheduling choice into deployment configuration.

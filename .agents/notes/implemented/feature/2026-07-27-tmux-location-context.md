@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-tmux-location-context.zh.md)
-
 ## Problem
 
 An agent running inside tmux has no way to tell the model where it is: which session, window, and pane the process occupies, and how the window is laid out. A user directing several panes wants the model to orient itself to its own location so instructions like "the pane below" or "this window" resolve. The location must reach the model as durable, reconstructable context, not a system-prompt value rewritten in place, and must cost nothing when the location has not changed.

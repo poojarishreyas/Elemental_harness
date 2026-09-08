@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-copy-only-preset-authoring.zh.md)
-
 ## Problem
 
 The agent-preset settings page carried a web YAML editor: `agentPreset.write` accepted arbitrary composition text, the page held a textarea with no completion, highlighting, or diff, and the shape check leaned on the Loader's own `entryListSchema` — whose dialect includes `!!js`, so "shape-checked text" was still arbitrary code on the next mount. Weak as an editor, wide as a capability, and the source of the editor-vs-roster races the section had to defend against.

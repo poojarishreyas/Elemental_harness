@@ -2,15 +2,13 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-web-telemetry-default-mount.zh.md)
-
 ## Problem
 
 The telemetry seam and OTel backend ([revival Note](2026-07-23-session-telemetry-otel-revival.md)) had never been wired into any deployment composition since completion: no roster row, no switch, no cadence ruling, and zero observability over user sessions for the internal deployment. A deployment decision was needed: which surfaces report, to where, on what cadence, how to opt out, and how CI stays isolated.
 
 ## Decision
 
-The shared dsh base bundle (`packages/bundle/base/cordis.patch.yml`) mounts the `session-telemetry-otel` row with a baked-in production endpoint, so every base-backed profile has one consistent telemetry capability. The standalone [archived record: `sdk-minimal` profile](../../archived/architecture/2026-08-24-standalone-sdk-minimal-profile.md) deliberately omits that row. The [default-off decision](2026-08-10-telemetry-default-off.md) originally kept the mounted row in `DISABLED` mode; the [feedback-gated default](2026-08-25-feedback-gated-telemetry-default.md) now resolves an unset mode to `FEEDBACK_ONLY`, uploading only when the user records `/feedback`. The endpoint alone still does not authorize reporting. Web and headless use the [bounded, escalating process-shutdown controller](../bug-fix/2026-08-03-cli-signal-shutdown-escalation.md) on SIGINT/SIGTERM, giving an enabled backend's three-second shutdown deadline time to drain before the five-second launcher bound.
+The shared dsh base bundle (`packages/bundle/base/cordis.patch.yml`) mounts the `session-telemetry-otel` row with a baked-in production endpoint, so every base-backed profile has one consistent telemetry capability. The standalone archived record: `sdk-minimal` profile deliberately omits that row. The [default-off decision](2026-08-10-telemetry-default-off.md) originally kept the mounted row in `DISABLED` mode; the [feedback-gated default](2026-08-25-feedback-gated-telemetry-default.md) now resolves an unset mode to `FEEDBACK_ONLY`, uploading only when the user records `/feedback`. The endpoint alone still does not authorize reporting. Web and headless use the [bounded, escalating process-shutdown controller](../bug-fix/2026-08-03-cli-signal-shutdown-escalation.md) on SIGINT/SIGTERM, giving an enabled backend's three-second shutdown deadline time to drain before the five-second launcher bound.
 
 | Ruling | Value | Rationale |
 |---|---|---|

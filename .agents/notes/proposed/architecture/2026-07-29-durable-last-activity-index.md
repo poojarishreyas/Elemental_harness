@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-07-29-durable-last-activity-index.zh.md)
-
 ## Problem
 
 A cold (persisted, unattached) session has no authoritative stored answer to "when did the user last prompt here". `dsh-host-apiproxy` serves `updatedAt` from the optional projection cache's `lastPromptAt`, falling back to `createdAt`, and the Web client sorts its Session tree by that value. The cache is fail-soft and checkpointed asynchronously, so a missing or delayed row makes a recently prompted Session sort too old.

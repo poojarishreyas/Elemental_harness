@@ -5,8 +5,6 @@ kind: "package-library"
 
 # dsh-util-time
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Zero-dependency zone vocabulary for the wire boundaries that accept a caller's time zone. `canonicalClientTimeZone` admits `UTC` or an IANA `Area/Location` name and answers the platform-canonical spelling of it, so an alias never reaches a durable record: a zone identity is stored on messages and re-derived later by another process, where an alias would not compare equal. The library validates and canonicalizes only — it formats no time and owns no failure vocabulary, because each boundary throws its own domain code.

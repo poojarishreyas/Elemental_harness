@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-jobs-local
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-jobs-local` runs background jobs inside the harness process: work keeps running while the agent moves on, and the owning agent can read, wait on, list, and cancel it, with completion delivered as an in-session notice when `dsh-tool-jobs` is also mounted. It implements the `dsh-jobs` contract with in-memory records handed out as fresh snapshots, never live state. A per-owner concurrency limit (default 10) bounds how many jobs one agent can have running or stopping at once; jobs die with the harness process and are not durable across restarts.

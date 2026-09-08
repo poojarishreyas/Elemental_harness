@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-25-workspace-ui-product-flow.zh.md)
-
 ## Problem
 
 [Domain KV Storage and the Workspace Entity](../../proposed/architecture/2026-07-24-domain-kv-storage-and-workspace.md) defines the persistent Workspace entity, path conventions, and ordered Session ledger, but not the Host wiring, historical-data initialization, or GUI flow. The GUI presents both Workspaces and Sessions; users must be able to type immediately after entering New Session, even when no Host Session or Host Workspace exists yet.

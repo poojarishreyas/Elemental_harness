@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-ptc-language-dispatch.zh.md)
-
 ## Problem
 
 PTC mode generated one SDK flavor: TypeScript. `ToolRuntime` hard-coded `renderToolsSdk` for the `tools:sdk` section and `requireCodeRuntime` rejected any `ctx.codeRuntime.language !== 'typescript'`. Adding a CPython backend means a program's source language is no longer fixed: the same visible tool registry must project a Python SDK when a Python runtime is loaded, and the model-facing `run_code` schema strings ("Execute a Python program …") must match the SDK section's language so the model never sees a TypeScript instruction over a Python runtime.

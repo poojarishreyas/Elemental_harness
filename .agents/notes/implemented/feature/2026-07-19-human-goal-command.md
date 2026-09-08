@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-human-goal-command.zh.md)
-
 ## Problem
 
 The same-session goal domain and model tools provide the state machine and semantic natural-language path, but they are not a sufficient human UX. A user needs to inspect the exact current phase and round budget without asking the model, explicitly pause or clear work without spending a model turn, and rearm a restored active goal after the required post-resume human decision. Implementing those actions independently in each UI would duplicate parsing, let the surfaces drift, and risk routing an unknown or unavailable command into the model.
@@ -40,7 +38,7 @@ Generic slash input, status text, and errors are not persisted. Successful goal 
 
 `dsh-base` mounts the goal domain and model-tool owners as explicit rows, while the standalone `sdk-minimal` tree omits the complete stack. This explicit composition choice is important for SDK one-shot callers: their result API settles one correlated physical turn and must not silently become a long-running logical goal operation.
 
-The TUI app bundle makes the opposite product choice. It defaults `goals` to the owner defaults and mounts the goal domain, model tools, same-session driver, command registry, and this producer; `goals: false` removes the stack coherently. The Web bundle keeps the goal domain and driver on the host for remote access, disables the host command producer, and mounts the producer in the `standard`, `code`, and `cordis` agent presets; `minimal` omits both the command and model goal tools. A preset switch does not mutate host-owned goal state, and the Web GoalBar retains direct edit, pause, resume, and clear controls. The [ACP automation app](../../archived/simplification/2026-07-23-acp-automation-only-protocol.md) also defaults the goal domain and model tools but deliberately omits command services. The Python SDK runtime closure ships this producer, commands, and the goal stack so an external `cordis.yml` can compose the same command.
+The TUI app bundle makes the opposite product choice. It defaults `goals` to the owner defaults and mounts the goal domain, model tools, same-session driver, command registry, and this producer; `goals: false` removes the stack coherently. The Web bundle keeps the goal domain and driver on the host for remote access, disables the host command producer, and mounts the producer in the `standard`, `code`, and `cordis` agent presets; `minimal` omits both the command and model goal tools. A preset switch does not mutate host-owned goal state, and the Web GoalBar retains direct edit, pause, resume, and clear controls. The ACP automation app also defaults the goal domain and model tools but deliberately omits command services. The Python SDK runtime closure ships this producer, commands, and the goal stack so an external `cordis.yml` can compose the same command.
 
 ## Testing
 

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-17-settings-describe-mirror.zh.md)
-
 ## Problem
 
 A cold web boot issued `settings.describe` fifteen times inside ~200ms, and the count grew by two with every client plugin that owned a preference. Two mechanisms stacked: `SettingsScopeBinder.bind()` started a full-document read per bound scope (six scopes in the product composition, plus the plugin-directory tab, the welcome gate, and the models onboarding join), and `onConnected` emits `connection/reset` on the FIRST connection too, so every one of those readers immediately re-read the answer it had fetched milliseconds earlier. Each reader also carried its own invalidation subscriptions and its own `refreshIfLoaded`-style guard, and fifteen independent reads could in principle land on fifteen different document revisions.

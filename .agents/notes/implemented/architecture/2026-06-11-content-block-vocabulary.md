@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-06-11-content-block-vocabulary.zh.md)
-
 ## Problem
 
 The harness needs one internal language for messages that the loop, session log, and all plugins speak.
@@ -22,7 +20,7 @@ In-session context injection (`context/message`) and mid-turn steering originall
 ## Consequences
 
 - Reasoning has a core home without provider-specific shapes.
-- Multimodal blocks return only with coordinated adapter, UI, and compaction support; see [the drop-image Agent Note](../../archived/simplification/2026-07-04-drop-image-content-block.md).
-- Cache hints and assistant prefill remain absent until a shipping adapter can honor them; see the [producer-less variants](../../archived/simplification/2026-07-04-prune-producerless-vocabulary-variants.md) and [inert request knobs](../../archived/simplification/2026-07-04-drop-inert-request-knobs.md) Agent Notes.
+- Multimodal blocks return only with coordinated adapter, UI, and compaction support; see the drop-image Agent Note.
+- Cache hints and assistant prefill remain absent until a shipping adapter can honor them; see the producer-less variants and inert request knobs Agent Notes.
 - Every adapter pays a translation cost; the first real adapters have since validated the streaming protocol, and new adapters should continue proving their provider-specific mapping in adapter-local tests.
 - IDs that cross package boundaries are branded (`ToolCallId`, the shared agent/session `SessionId`) — nominal typing at zero runtime cost.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-02-todo-first-composer-context-order.zh.md)
-
 ## Problem
 
 The composer context stack rendered Goal before Todo even though the Harness design orders the current task plan before its ongoing goal and pending Queue. Todo also used the Queue wrapper's 776px width as its visible card width, while Goal and the Queue panel rendered on the shared 752px card column. The result inverted the intended information hierarchy and left Todo wider than both adjacent panels.

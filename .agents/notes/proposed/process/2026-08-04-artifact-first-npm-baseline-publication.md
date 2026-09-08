@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-08-04-artifact-first-npm-baseline-publication.zh.md)
-
 ## Problem
 
 Runnable source in the monorepo does not prove that published packages are runnable. Workspace links, TypeScript paths, tsx source loading, and residual `lib/` files in the working tree can supply files or dependencies that are absent from a published tarball. Existing built-artifact tests still read `lib/` directly from the working tree, so they do not verify what `package.json#files` selects or the layout produced by package-manager installation. An execution that succeeds in development mode can therefore be published without a required bundle chunk, declaration, configuration file, or asset.

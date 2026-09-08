@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-03-web-search-source-scroll.zh.md)
-
 ## Problem
 
 The `web_search` result card (`WebBlock`, `packages/client/ui-primitives/src/WebBlock.tsx`) rendered its source list with a head/tail collapse: past a `maxSources` count (16 in the details panel, 8 in the chat row via `CHAT_WEB_MAX_SOURCES`) it drew the first `ceil(max/2)` sources, an `… 其余 N 条来源` expand button, then the last `max - ceil(max/2)`, mirroring `TerminalBlock`'s output cap. A user reading the card saw `来源列表已截断` and assumed the frontend had dropped sources it was holding.

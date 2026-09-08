@@ -5,8 +5,6 @@ kind: "package-group"
 
 # packages/workspace
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The workspace group provides the durable project list behind a host UI: one product package, `workspace`, that names user directories as projects, keeps them in a stable order, and groups each project's sessions under it. With it, a UI can show a sidebar of projects with their sessions, hide a session from the grouping without deleting it, and remove a project — removal never deletes the folder or the session histories, which become ungrouped. The group is host-side only: no tools, prompts, or session events, so the model and the agent loop never see it. Use it when the product shows a persistent workspace or project surface; it needs a session store and a persistence backend alongside it.

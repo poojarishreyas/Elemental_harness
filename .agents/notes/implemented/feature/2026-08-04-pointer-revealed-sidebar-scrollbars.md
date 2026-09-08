@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-pointer-revealed-sidebar-scrollbars.zh.md)
-
 ## Problem
 
 The sidebar's session list overflows after a handful of sessions, and from that point its scrollbar is drawn permanently — in a column that is at rest most of the time, next to rows whose own chrome only appears on hover. It is the one piece of always-on furniture in the sidebar, and nothing about it is actionable until someone reaches for it. The product ask (2026-08-04) is to draw it only while the pointer is over the sidebar, with a short tail so it does not blink out on the way past.

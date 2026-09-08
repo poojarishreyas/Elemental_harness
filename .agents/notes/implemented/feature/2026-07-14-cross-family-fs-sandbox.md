@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-14-cross-family-fs-sandbox.zh.md)
-
 ## Problem
 
 `SandboxMode` claims file effects, but originally only `ctx.shell` enforced it. The fs tools (`write`/`edit`) mutate the host filesystem in-process through `ctx.fs`, where an OS argv wrapper is mechanically meaningless — [the sandbox Agent Note](2026-07-06-sandbox.md) § In-process tools records this and left cross-family enforcement as a deferred phase with an open question: whether in-process enforcement stays per-seam or becomes a uniform harness capability. This Agent Note is that phase, and answers it: one shared policy home, per-seam enforcement at each family's correct altitude.

@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-plan-mode
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-plan-mode` adds plan mode to the agent: while it is active, the agent explores and designs before executing, guided by instructions the deployment writes, and presents the finished plan for your approval before carrying it out. You enter plan mode with `/plan` (optionally with a message or images) and leave it with `/plan off`; the finished plan arrives as a review where you can approve it or send the agent back to keep planning. Plan mode is guidance, not enforcement: every tool stays available, so sandbox mode and approval prompts remain the way to impose limits. Choose it when the agent should think before acting, and plan mode carries over when a session resumes or forks.

@@ -5,8 +5,6 @@ kind: "package-group"
 
 # subprocess/ — subprocess capability family
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Every child process and terminal session the harness runs — bash commands, language servers, persistent shells, and out-of-process subagent backends — starts, observes, and terminates through one shared service (`ctx.subprocess`), with a local provider running them on the host machine. It is not a standalone product feature: the consuming capability seams decide what each process means, and command semantics, deadlines, and model-facing presentation stay with them. The group provides executable lookup, bounded output capture with spill recovery, whole-tree termination, and a scrubbed starting environment for every child.

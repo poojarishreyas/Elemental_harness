@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-web-markdown-incremental-ast-renderer.zh.md)
-
 ## Problem
 
 `MarkdownText` re-parsed the whole accumulated reply on every streaming publish: react-markdown's string-only API builds a fresh unified processor per render and runs micromark → mdast → hast → React over the full text, so per-chunk main-thread work grew linearly with the reply and the stream's cumulative cost grew quadratically. The existing mitigations (frame batching, the isolated streaming tail, the plain fence arm) bounded how often and how widely that work ran, never how much text each run re-parsed. Fixing it needs AST-level input — freezing settled blocks and re-parsing only the source tail — which the string-only wrapper structurally cannot express.

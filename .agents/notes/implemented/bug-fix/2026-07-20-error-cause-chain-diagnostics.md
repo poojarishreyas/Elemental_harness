@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-error-cause-chain-diagnostics.zh.md)
-
 ## Problem
 
 A TUI run against an unreachable DeepSeek endpoint failed with the single notice `fetch failed` and no further detail. Two independent gaps produced that dead end:

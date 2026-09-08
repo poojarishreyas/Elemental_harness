@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-pi-ai-per-model-reasoning-declarations.zh.md)
-
 ## Problem
 
 Under the declared-provider catalog ([[2026-08-03-pi-ai-declared-provider-catalog]], which deliberately kept reasoning out of the configurable fields), a hand-declared pi-ai route's models materialized with `reasoning: false`, so `getSupportedThinkingLevels` short-circuited to `["off"]`: the composer offered no effort picker for them, and the route-level `reasoning` default — the only reasoning knob a profile had — made every request to such a model fail with `UNSUPPORTED_REASONING_EFFORT` before network I/O. The same route-level knob was also the wrong altitude for catalog routes: one provider's models disagree about which levels they accept (deepseek ships `[off, high, max]` beside catalog models with `xhigh`), so a single per-route level could not be set without breaking part of the route, which is why the Models page stopped writing it entirely (#1860) and left `settings.yaml` with no way to align efforts per model.

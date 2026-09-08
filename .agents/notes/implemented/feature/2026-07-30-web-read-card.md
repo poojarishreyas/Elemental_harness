@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-web-read-card.zh.md)
-
 ## Problem
 
 The `read` tool returns a canonical output object `{ path, offset, lines: [{ number, text }], totalLines }`, but its presentation collapsed that structure. `presentCall` declared a `GenericCallView` (`kind: 'read'`, a follow-along location) and `presentResult` returned a `GenericResultView` whose only content was the model-facing text with its `<path>…</path><type>file</type><content>…</content>` envelope stripped. A UI receiving that view saw one flattened text block: the line numbers were baked into the text as `N: ` prefixes, the file's language was unknown, and `totalLines` was gone. There was no way for a capable client to render a read the way it renders a diff — a line-numbered, syntax-highlighted code view with the line-number gutter separate from the content.

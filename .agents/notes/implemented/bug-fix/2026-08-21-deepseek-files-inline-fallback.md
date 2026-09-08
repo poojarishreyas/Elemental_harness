@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-21-deepseek-files-inline-fallback.zh.md)
-
 ## Problem
 
 The direct DeepSeek vision route uses provider file ids so repeated requests do not resend image bytes. An unavailable, unsupported, or stalled Files endpoint can prevent chat before the model request begins even though the same endpoint still accepts inline image data. A fallback that retains the 128MiB Files budget would exceed the inline request-body limit, while a fallback that independently transforms images could send different pixels from the failed file-id attempt.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-26-web-trigger-menu-presentation-polish.zh.md)
-
 ## Problem
 
 The Web composer's `/` and `@` trigger menu carried several presentation defects that made the reference flow harder to read and operate. Candidate rows spelled their kind as a localized text prefix (`Folder · name/`, `Session · label`) that duplicated the section title and pushed the name right. Pointer hover used a CSS `:hover` tint while keyboard navigation drove the reducer-owned highlight, so two rows could look focused at once. The drillable-folder affordance was a raw `›` text glyph, unlike every other chevron in the composer, and nothing told the user that Tab drills into the highlighted folder. The pending-source state was a bare "Loading…" text row. The editable `@dir/` text a drill leaves behind rendered a folder icon before the `@`, visually double-marking a token that is not a settled chip. The composer placeholders never mentioned that `/` and `@` exist ([#3080](https://github.com/deepseek-harness/deepseek-harness/issues/3080)).

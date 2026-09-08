@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-load-pre-react-loop-sessions.zh.md)
-
 ## Problem
 
 The react-loop simplification changed durable events while retaining `SESSION_FORMAT_VERSION` 0. Stored sessions from the change's base contain `steering/message` and `turn/start.trigger`; their terminal reasons also use coarse `aborted`, separate `disposed`, and two older error payloads. Current surface and turn invariants cannot replay those records directly.

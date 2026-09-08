@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-23-client-cross-package-value-dependencies.zh.md)
-
 ## Problem
 
 The Client package splits in [PR #2728](https://github.com/deepseek-ai/deepseek-harness/pull/2728) and [PR #2911](https://github.com/deepseek-ai/deepseek-harness/pull/2911) left 15 `dsh.client.external` requests in feature-plugin manifests. Those requests turned ordinary value imports into synchronous module-table ordering constraints, even when the consumer needed only a type, a small pure conversion, or access to an already-injected Cordis service.

@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-client-ui-plan
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 This package renders the plan-mode status chip in the Web GUI: when the host-computed projection's effective target is plan mode, the composer shows a warn-colored "Plan ×" button that turns plan mode off; otherwise the seat stays empty. Plan mode itself — the `/plan` command, the committed `plan/mode` state, the projection unit, and the policy section — belongs to `dsh-plan-mode`; this package only renders the projection and sends what a user could equally type. The model exits plan mode through the stable `exit_plan_mode` tool; its plan review uses the composed Web question channel.

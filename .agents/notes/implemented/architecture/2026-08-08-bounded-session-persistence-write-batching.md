@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-bounded-session-persistence-write-batching.zh.md)
-
 ## Problem
 
 Streaming responses can emit many `assistant/chunk` events in a short interval. The persistence coordinator previously scheduled a provider append as soon as an idle queue received one event. Events arriving while that append was active shared a follow-up batch, but a fast provider could still produce many small durable appends. Each JSONL append creates and syncs a Zstandard frame or raw suffix.

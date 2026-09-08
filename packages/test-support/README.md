@@ -5,8 +5,6 @@ kind: "package-group"
 
 # packages/test-support
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The test-support group gives repository tests deterministic, keyless ways to exercise the real product. It includes Loader application harnesses, session-log snapshot adapters, a replay LLM plugin, and a scriptable OpenAI-compatible fault server. Each package is support-tier infrastructure; a package moves out of this group when it gains a product contract and product consumers.

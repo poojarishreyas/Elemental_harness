@@ -5,8 +5,6 @@ kind: "package-group"
 
 # terminal/ — persistent PTY capability family
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The `terminal/` group gives agents persistent, owner-scoped terminal sessions: shell and REPL state — cwd, exported variables, activated environments, running interactive children — survives across tool calls. Three packages cover the family: `terminal/` provides the owner-scoped session service behind `ctx.terminals` (sessions get opaque ids, and every operation stays fenced to the owning agent); `terminal-bash/` starts an interactive bash or pwsh shell under the shared sandbox policy; and `tool-terminal/` exposes six model-facing tools with bounded results. A terminal complements the one-shot bash and filesystem tools: use it when work needs interactive stdin or cross-call state. Sessions are process-local and do not survive a harness restart.

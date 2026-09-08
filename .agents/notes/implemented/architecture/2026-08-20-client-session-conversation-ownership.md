@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-client-session-conversation-ownership.zh.md)
-
 ## Problem
 
 The Web Client once placed Session and Workspace objects, event windows, Conversation assembly, React hooks, the Slot registry, and the Store engine in one general Runtime. Protocol state, business projections, React bindings, and page presentation shared one dependency hub, so a change in any layer could spread across the entire frontend.

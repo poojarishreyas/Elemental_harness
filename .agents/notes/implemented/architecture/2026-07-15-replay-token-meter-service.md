@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-15-replay-token-meter-service.zh.md)
-
 ## Problem
 
 Context pressure is useful outside compaction. A compaction backend, an overflow guard, or a future request-policy plugin can all need the same answer: how many tokens does the durable request consume? Keeping that fold inside `dsh-compaction-basic` duplicates replay logic, makes measurement unavailable without compaction, and encourages callers to reuse stale accounting.

@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-client-ui-message-feedback
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 This package adds per-message feedback to the Web GUI: a Like/Dislike pair plus an optional note, contributed as the `feedback` entry of the finalized assistant message's action strip. It renders on the closing assistant message of each turn — earlier steps of a multi-step turn produce tool rows rather than a rateable body. One controller per Session backs every message control in that Session, so a single list read seeds the whole transcript. Feedback is a sidecar: ratings and notes never enter the session log, the model context, or telemetry.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-themed-scrollbars-and-reserved-gutter.zh.md)
-
 ## Problem
 
 `design-platform.css` declares four `--dsw-alias-scrollbar-*` tokens (`bg-l1`, `bg-l2`, `hover-l1`, `hover-l2`) in both palettes, and no rule anywhere in the client read them. A defined token with no consumer is not a theme: every scrolling region rendered the user agent's own scrollbar, which knows nothing about the palette, so the dark theme showed a light native bar against dark surfaces.

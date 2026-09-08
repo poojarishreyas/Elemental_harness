@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-fix-pwsh-terminal-overlay-dup.zh.md)
-
 ## Problem
 
 `apps/web/tests/pwsh-terminal.e2e.ts` fails on every platform with `TypeError: duplicate loader entry id: tool-pwsh`, thrown from `vendor/loader/src/config/group.ts:64` while applying the web composition. The failing seed lane boots the full shipped bundle plus a test overlay, so the E2E never reaches its rendering assertion and every `check:ci:snapshot`/`test:web` run reports a red web test even though the feature under test is unrelated to the change under review.

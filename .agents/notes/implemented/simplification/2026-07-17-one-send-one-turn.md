@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-17-one-send-one-turn.zh.md)
-
 ## Problem
 
 Suppose a caller submits message A and then message B with two `Agent.send()` calls. Implicit batching can put A and B in one turn simply because both are waiting when the driver reads its queue. The caller made two calls, but the loop silently turns them into one unit of work.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-full-session-turn-step-counts.zh.md)
-
 ## Problem
 
 The web chat stats strip folded `StatsLine`'s loaded conversation window (`deriveStats` over `chat.legacy.nodes`) for every non-token figure: the "N turns · M steps" counter, the LLM and tool wall times, and the TTFT/throughput averages. History is paged 50 messages at a time, so each 加载更早 (Load earlier) click grew the window and every figure with it — 7 turns · 44 steps became 10 turns · 89 steps after one page, and the LLM duration climbed the same way. The product expectation is whole-session figures independent of how much history a client has loaded. Token accounting in the same strip already had the correct architecture: the durable `tokenUsage` projection.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-unified-json-value-schema-dsl.zh.md)
-
 ## Problem
 
 Tool parameters used a small author DSL while subagent/workflow structured output used a separate raw JSON Schema subset and validator. The two vocabularies disagreed about roots, scalar constraints, and validation, so a typed canonical tool-output contract would either duplicate both paths again or accept schemas that some projection could not enforce.

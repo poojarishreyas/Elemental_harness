@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-win32-process
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 Low-level Win32 process library consumed by the Windows ACL sandbox. It owns the repository's one Koffi binding table for reusable restricted-process, stdio, and Job Object operations; it is not a Cordis service and does not choose sandbox policy or public child behavior. Read this page when maintaining the sandbox's native process path or checking its handle-lifetime limits.

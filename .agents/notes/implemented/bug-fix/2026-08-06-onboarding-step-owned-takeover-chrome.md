@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-onboarding-step-owned-takeover-chrome.zh.md)
-
 ## Problem
 
 The settings shell mounted the onboarding takeover chrome — a body-portaled overlay with an opaque `--dsw-alias-bg-layer-1` stage, a blur mask, and `#root` set inert — the moment a `settings.onboarding` step was registered and not yet locally completed. Every step decides whether it actually needs to show by loading a private fact first (WelcomeNotice: the acknowledgement bit through its settings join; DeepSeekOnboardingDialog: credential readiness through the Models join) and renders `null` while that fact is in flight. Rendering `null` could not suppress the chrome, because the opaque stage was painted by the shell around the slot outlet, not by the step.

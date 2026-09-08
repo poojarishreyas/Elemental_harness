@@ -125,7 +125,7 @@ After a clean mount-validation, ask the user to start a session on the new prese
 
 Codex and Claude Code providers are independent optional Profile Bundles. Install only the products a Profile needs, then restart the Profile so its Host registers those providers:
 
-Manage external plugin dependencies in the Web profile package manifest. Add installed bundles to `dsh.profile.bundles` and restart the backend; see the [backend reference](../../../apps/server/reference/README.md).
+Manage external plugin dependencies in the Web profile package manifest. Add installed bundles to `dsh.profile.bundles` and restart the backend; see the backend reference.
 
 Each Bundle owns its Host availability; the preset separately grants one Agent its ordinary delegation tool. Never move a product provider into the preset and never add a product-specific settings field. Removing one package withdraws only that provider on the next Profile start.
 

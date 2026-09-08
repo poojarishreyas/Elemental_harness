@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-private-agent-send.zh.md)
-
 ## Problem
 
 The public `Agent.send()` method exposed the concrete loop's routing matrix even though production callers use only the semantic `followup()`, `steer()`, and `inject()` operations. Its fourth combination, `next-turn` with `wakeup: false`, had no consumer beyond tests. Keeping that latent capability public also required alternate `Agent` implementations and test fakes to accept implementation-level routing policy.

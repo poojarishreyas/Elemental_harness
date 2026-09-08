@@ -1,7 +1,5 @@
 # Web backend
 
-English | [中文](README.zh.md)
-
 This application starts the backend for the Web GUI. It loads the fixed `web` profile, serves the browser application, and keeps agents, tools, approvals, and saved sessions in the shared runtime. The package has no public command bin.
 
 ## Run

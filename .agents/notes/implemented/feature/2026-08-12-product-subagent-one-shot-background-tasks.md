@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-product-subagent-one-shot-background-tasks.zh.md)
-
 ## Problem
 
 The Codex and Claude Code providers already run one self-contained task and return one final answer, while `dsh-tool-subagent` already adapts any one-shot provider to the generic background Job runtime. The shipped product-tool rows disabled that route, so an agent could only wait for the product answer even when the delegation was independent of its next action.

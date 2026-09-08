@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-client-ui-settings-plugin-inventory
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-client-ui-settings-plugin-inventory` contributes the read-only **Plugin list** tab to the Web Settings Plugins section. The tab lazily calls `ctx.remote.pluginInventory.list()` the first time it is selected and renders the inventory in two collapsible groups. The agent-preset group comes first, open by default: a display-only switcher pill over the roster opens on the default preset, and each composition row is a compact disclosure card carrying its enablement — including `conditional` for a disabled gate the Host could not evaluate — with provenance facts behind the disclosure. The global group follows collapsed, its header carrying the entry count and a failure count; expanded, failures float first, and an entry disabled globally but enabled by at least one preset is marked as preset-provided in place — its details name the enabling presets — instead of reading as plainly disabled. Search filters both groups, forces the collapsed groups open, and points at matches sitting in unselected presets. Loading, empty, no-match, and generic failure states stay local to the mounted component, and a failed read can be retried without exposing transport details; without a roster the tab renders the global plane alone, expanded.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-tool-call-file-open-in-os.zh.md)
-
 ## Problem
 
 Chat tool rows treated the whole summary line as a click target that opened the right-hand details panel, with a hover background on the row. For filesystem tools the useful action is opening the mentioned file in the operating system's default application, not inspecting the raw tool payload in a sidebar.

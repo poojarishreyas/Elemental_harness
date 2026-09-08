@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-current-sandbox-policy-context.zh.md)
-
 ## Problem
 
 The sandbox policy already enforced and logged each session's file-effect mode, but a fresh model request did not contain that state. In a Web session under `read-only`, write and edit schemas remained visible, so the model claimed it could write and learned otherwise only after a denied call. After `/permission danger-full-access`, the next request carried the approval-policy change but still omitted the sandbox mode. Denial results were therefore the first model-visible policy source even when the user asked about capability before any operation.

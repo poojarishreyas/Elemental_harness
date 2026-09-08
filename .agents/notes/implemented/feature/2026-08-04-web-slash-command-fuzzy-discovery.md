@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-web-slash-command-fuzzy-discovery.zh.md)
-
 ## Problem
 
 The web command menu required a command-name prefix, so discovery failed when a user remembered the significant letters but not their exact positions. Broadening menu matching could make discovery easier, but command execution must remain exact and deterministic: an approximate line must never execute a nearby command.

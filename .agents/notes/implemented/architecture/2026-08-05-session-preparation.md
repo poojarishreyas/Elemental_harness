@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-session-preparation.zh.md)
-
 ## Problem
 
 Cold history inspection and Agent resume independently materialized the same persisted session log. For a large compressed log, each operation repeated the full read, decompression, parse, validation, freezing, and Session construction. Pagination could therefore pay the cold-read cost again, while making a history query activate an Agent would couple a read lifecycle to a live Agent with no natural retirement point.

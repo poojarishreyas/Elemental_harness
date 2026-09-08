@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-owned-run-finish-reason.zh.md)
-
 ## Problem
 
 Python SDK consumers need a concise classification of how an owned activity interval reached idle. Requiring each consumer to scan raw `turn/end` events duplicates protocol knowledge, while a generic success status loses token-limit and model-error distinctions.

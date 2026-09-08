@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-02-typert-remote-method-calls.zh.md)
-
 ## Problem
 
 The Host API Proxy handled direct method calls, stateful interactions, and Session event streams in one package. These concerns have different lifecycles, routing semantics, and client programming interfaces. Continuing to export all business operations through one package would couple business Services, transport protocols, state machines, and client types.

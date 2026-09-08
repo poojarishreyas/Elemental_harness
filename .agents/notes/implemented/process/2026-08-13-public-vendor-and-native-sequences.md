@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-13-public-vendor-and-native-sequences.zh.md)
-
 ## Problem
 
 The [three release sequences](2026-08-10-npm-release-sequences.md) shipped with `publishConfig.access: restricted`, so every package published to the `@deepseek-ai` scope was visible only inside the organization. Five rehearsal publications ran that way, through `dsh@0.0.1-rc.5`, `vendor *-rc.4`, and `landlock-run@0.0.1`.

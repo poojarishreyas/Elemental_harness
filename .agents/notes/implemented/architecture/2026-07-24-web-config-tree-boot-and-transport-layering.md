@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-24-web-config-tree-boot-and-transport-layering.zh.md)
-
 > Scope: how `dsh web` composes (cordis.yml + pre-cordis boot classes + config sources) and how the web transport splits across packages (gateway / carrier / binding / graph / dev-reload). The [client plugin loading note](2026-07-23-client-plugin-loading-model.md) owns the browser-side loading chain this composition feeds.
 
 ## Problem
@@ -16,7 +14,7 @@ English | [中文](2026-07-24-web-config-tree-boot-and-transport-layering.zh.md)
 
 **Boot glue is a class pair.** `AppCLIEntry` (apps/server) and `AppWebEntry` (the shell kernel) hold only what must exist independently of cordis: argv facts, the composed patch set, the parsed boot manifest, the module system instance, loading-page handles — everything else lives in plugins. `AppCLIEntry.run()` is three stages: layered env (ambient > cwd `.env` > `$DSH_HOME/.env`, closing the defect above) → patch composition → Loader include boot plus the activation audit. `AppWebEntry.run()` mirrors it browser-side: parse `window.__DSH_BOOT__` into a `BootManifest` (two views: npm-package rows for the module table, cordis-plugin rows for entry composition; malformed wire throws), build the module system, render the loading page, prefetch the `immediately` tier in parallel with Context/Loader setup, **await the prefetch before creating entries** (materialization is `tree.import`'s synchronous require, unprotected by fiber inject waiting; cross-package require edges such as i18n → runtime/client need every immediately-tier factory registered first — an empirically found 10–25% boot race otherwise), adopt the modules entry, create the graph rows, settle, sweep.
 
-**Config sources have one declaration place each.** Bundle yml values are engineering defaults, Settings sections are writable user preferences, CLI flags address their owning launcher rows, and env values enter through yml `!!js` expressions. Patches replace a row's config wholesale. The resolved frontend `distIndex` uses that patch channel as an assembly fact. The transport-independent provider/model default belongs to `ctx.agentDefaultModel`; the [archived record: direct headless entry point](../../archived/architecture/2026-08-09-headless-direct-core-entry-point.md) and the Session Controller consume the same state.
+**Config sources have one declaration place each.** Bundle yml values are engineering defaults, Settings sections are writable user preferences, CLI flags address their owning launcher rows, and env values enter through yml `!!js` expressions. Patches replace a row's config wholesale. The resolved frontend `distIndex` uses that patch channel as an assembly fact. The transport-independent provider/model default belongs to `ctx.agentDefaultModel`; the archived record: direct headless entry point and the Session Controller consume the same state.
 
 **Transport responsibilities have explicit owners.** `dsh-client-connection` owns the `/api` route, request and response envelopes, browser authentication, Host/Origin checks, exact Fetch route registration, and the shared Typert interceptor seat. `dsh-api-gateway` owns typed Remote dispatch and the multiplexed WebSocket. `dsh-host-webserver` is a plain route-registration plugin: `WebServer` provides `ctx.webServer` (`register(route) → disposer` with duplicate-pattern throw, `renderIndex` rendering — structured `webserver/index-inject` rows, then raw `tapIndex` transforms in registration order — and `port`), listens on activation, answers per-request failures with 400 and logging, and knows no harness concepts. Its socket-backed Node HTTP entry may apply configured gzip through maintained middleware without adding a response-writing service method or changing route owners; the Web Worker tunnel carries identity bytes. The modules node half (`ClientModuleRegistry`, providing `ctx.clientModules`) owns incremental package scanning, the bundle route, the boot injection rows, and `onRebuilt`/`onGraphChanged` notification. The hmr node half owns dev reload through `fs.watchFile` membership and the `/plugins/events` SSE route.
 
@@ -25,7 +23,7 @@ English | [中文](2026-07-24-web-config-tree-boot-and-transport-layering.zh.md)
 ## Consequences
 
 - Recomposing a web deployment is a yml/patch edit; the retired pieces (`mountWebPlugins`, `CLIENT_PACKAGES`, `createHostWebPluginRegistry`, `startWebServer`, the webserver's graph/SSE/api knowledge) are deleted.
-- [archived record: Headless is a direct core entry point](../../archived/architecture/2026-08-09-headless-direct-core-entry-point.md): its shipped profile contains the shared base Agent capabilities and omits Host, HTTP, Web, and browser layers. The transport split in this note is the browser surface's contract.
+- archived record: Headless is a direct core entry point: its shipped profile contains the shared base Agent capabilities and omits Host, HTTP, Web, and browser layers. The transport split in this note is the browser surface's contract.
 - A TypeScript pitfall worth remembering: a `declare module 'cordis'` augmentation in a file with **no cordis import** is demoted to a standalone module declaration and silently shatters the program-wide `Context` merge (`ctx.on`/`ctx.effect` vanish across the program). Anchor with `import type {} from 'cordis'`.
 
 ## Alternatives considered

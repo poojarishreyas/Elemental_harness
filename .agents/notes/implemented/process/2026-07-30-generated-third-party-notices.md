@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-generated-third-party-notices.zh.md)
-
 ## Problem
 
 Open-sourcing this repository requires disclosing the third-party software it depends on, with each project's license. The disclosure has to be complete, has to stay true as dependencies change, and has to say something a reader can act on — which of these packages end up on a user's machine, and which only build and test the repository.

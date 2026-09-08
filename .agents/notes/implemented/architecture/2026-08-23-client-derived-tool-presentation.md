@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-23-client-derived-tool-presentation.zh.md)
-
 ## Problem
 
 Session history is a durable journal interface, while tool cards are Client presentation. Computing card views during `page` or `follow` would couple history reads to the Tools registry, Agent presets, restored scopes, presenter execution, and transient UI types.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-compiler-independent-typert-model.zh.md)
-
 ## Problem
 
 Constructing Zod and reflection text directly from the TypeScript AST couples type analysis and business-semantic recognition to a single generation target. Such a generator can answer only “can this syntax be generated?” It cannot provide a canonical representation of packages, faces, public exports, services, events, objects, and their type relationships, nor can static checks and later generation targets reuse it.

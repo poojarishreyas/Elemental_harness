@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-web-transcript-log-ordered-projection.zh.md)
-
 ## Problem
 
 The browser client built its conversation from the model-visible surface: `FoldAdapter` ran the core `SurfaceManager` over the history window and read `surface.nodes`. A successful compaction replaces a surface range with one checkpoint node, so the moment that replacement landed the web flow collapsed every message it shadowed into a single dim context row — conversation the user had already read. Nothing was lost from the log; the defect was entirely in the projection, and [the terminal and the host gateway were fixed the same way](2026-07-29-human-transcript-append-origin.md) while the browser was left for this change.
@@ -75,4 +73,4 @@ The web e2e scenario now seeds a real manual command lifecycle around a compacti
 
 ## Deferred
 
-The terminal's [archived compaction progress decision](../../archived/feature/2026-07-30-compaction-progress-visibility.md) uses the live standalone bracket to drive a one-cell indicator and does not change this browser projection.
+The terminal's archived compaction progress decision uses the live standalone bracket to drive a one-cell indicator and does not change this browser projection.

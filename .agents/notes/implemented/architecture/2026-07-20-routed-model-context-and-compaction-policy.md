@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-routed-model-context-and-compaction-policy.zh.md)
-
 ## Problem
 
 Compaction cannot safely apply one global context window when a process routes requests to models with different capacities. The same model id can also exist under multiple providers, and an adapter may accept dynamic ids absent from its advisory catalog. A wrong capacity either compacts too late and triggers avoidable overflow or compacts too early and discards useful context.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-23-cross-realm-cdp-inspector.zh.md)
-
 ## Problem
 
 Host diagnostics, browser Client observations, and JavaScript debugging originate in different JavaScript realms. A debugger transport implemented on the Host main thread cannot deliver `Debugger.resume` while that thread is paused, and a design that lets each producer emit CDP directly duplicates protocol state and couples application instrumentation to Chrome's presentation protocol.

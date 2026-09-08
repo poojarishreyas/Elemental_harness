@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-native-workspace-directory-picker.zh.md)
-
 ## Problem
 
 The desktop GUI asks users to type an absolute path when they add an existing workspace. This is slower and more error-prone than choosing a directory with the operating system's native picker. The GUI is delivered through the local Web carrier, so opening a native dialog also creates a privileged boundary that ordinary remote requests must not cross.

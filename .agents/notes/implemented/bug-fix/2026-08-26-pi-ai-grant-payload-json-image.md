@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-26-pi-ai-grant-payload-json-image.zh.md)
-
 ## Problem
 
 A GitHub Copilot sign-in against github.com failed at its commit step: `credentials-local: record "llm-pi-ai/github-copilot" payload holds a value JSON cannot represent`. pi-ai's Copilot credential carries its optional members as explicit `undefined` (`enterpriseUrl: undefined` when no Enterprise domain was given — idiomatic JavaScript that `JSON.stringify` would simply drop), and `llm-pi-ai`'s store bridge committed the credential object verbatim as the grant payload. The credential store's validator rightly refuses `undefined` as unrepresentable, so every grant whose flow left an optional member unset failed to store, and the sign-in reported failure after the provider had already authorized it.

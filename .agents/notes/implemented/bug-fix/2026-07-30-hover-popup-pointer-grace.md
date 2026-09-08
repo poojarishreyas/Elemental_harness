@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-hover-popup-pointer-grace.zh.md)
-
 ## Problem
 
 Both popups the workspace browser rows raise floated out of reach of the pointer. `HoverCard` closed on the first `pointerleave` from its anchor and rendered its card `pointer-events: none`, but the card sits 8px off the anchor's right edge, so every path to it crossed ground belonging to neither and killed the card before it arrived — the full workspace path and session title it exists to show could be read only in passing. The row action menus passed `closeOnPointerLeave`, whose handler sat on the portaled list: aiming back at the `...` trigger that opened the list closed it, and so did any overshoot past a list edge, with no window to come back.

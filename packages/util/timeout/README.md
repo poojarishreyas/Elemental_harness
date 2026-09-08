@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-timeout
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-timeout` lets a capability run one unit of work under a caller-visible timeout and later tell a timeout apart from a cancellation. A caller's optional hint is clamped against a backend default and cap, and upstream cancellation fuses with the deadline into one `AbortSignal`. The deadline signal only notifies — each capability owns the mechanism that stops its work, so no shared layer needs to know how to stop anything. For streamed transports an idle watchdog arms a timeout only while a provider read is outstanding, so consumer think time never counts as idle. A `timeoutMs` of zero is the internal no-timeout sentinel for backend-owned background work, never a public disable switch; the zero-dependency library is shared by the bash, web, subprocess, and tool-timeout-policy consumers.

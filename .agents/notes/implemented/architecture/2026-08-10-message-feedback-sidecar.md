@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-message-feedback-sidecar.zh.md)
-
 ## Problem
 
 The existing `/feedback` command records an immutable Session-level `feedback/record` event. That event can release a pending telemetry prefix under `FEEDBACK_ONLY`, so it is the wrong authority for an editable positive/negative rating and optional note attached to one assistant message. Message feedback needs independent update and delete semantics without entering the canonical Session log, changing a projection, reaching model context, or implicitly consenting to telemetry.

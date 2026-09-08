@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-web-read-card-frontend.zh.md)
-
 ## Problem
 
 The [read backend](2026-07-30-web-read-card.md) added a fourth render-intent card, `card: 'read'`, to `ToolResultView`: a settled read now carries `{ path, lines: [{ number, text }], totalLines, lang? }` onto the conversation snapshot as `resultView`. That data reaches the browser, but the Web client had no consumer for it. Every read row derived from args alone and the details panel flattened the result's content blocks into one `<pre>`, so a read showed as `N: text`-prefixed plain text with no gutter, no syntax highlighting, and no "showing N of M" affordance for a windowed read. The [web terminal card](2026-07-28-web-terminal-card.md) established the pattern for consuming a structured card; the read card follows it, result-side only.

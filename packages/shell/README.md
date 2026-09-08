@@ -5,8 +5,6 @@ kind: "package-group"
 
 # shell/ — bash capability family
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The shell group provides command execution to agents: run a foreground command and read its bounded output, or start a background process and poll it, on POSIX with Bash and on Windows with PowerShell. Exactly one executor implementation is mounted per composition; the sandboxing executors confine every command through the sandbox capability, and the model-facing `bash` and `pwsh` tools sit on top of whichever executor is mounted. Choose a Bash executor for POSIX, a PowerShell executor for Windows, and pick the sandboxing variant when commands need file-level confinement.

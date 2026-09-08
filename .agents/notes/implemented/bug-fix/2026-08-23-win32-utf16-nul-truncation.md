@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-23-win32-utf16-nul-truncation.zh.md)
-
 ## Problem
 
 `readUtf16` in `packages/host/directory-picker-native/src/win32-dialog-bindings.ts` translated the `IFileOpenDialog` result buffer by scanning for a zero byte with `bytes[end] !== 0`. UTF-16LE encodes NUL as two zero bytes, so any BMP code unit whose low byte is zero — U+XX00, such as 开 (U+5F00) — ended the scan early. Selecting a folder like `C:\Users\XIAOPAN\Desktop\安卓开发` returned `C:\Users\XIAOPAN\Desktop\安卓`, and the workspace-creation call failed with `workspace-invalid-path ... ENOENT`.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-source-run-without-managed-installer.zh.md)
-
 ## Problem
 
 A repository-owned source installer can provide a stable launcher, isolated staging worktrees, atomic upgrades, rollback storage, and shared maintenance workflows for personal customizations. It also makes the repository responsible for a second lifecycle beside the package manager: host dependency installation, credential prompting, checkout adoption, symlink ownership, staging branch coordination, upgrade recovery, and continued compatibility between the installer and bundled maintenance skills.

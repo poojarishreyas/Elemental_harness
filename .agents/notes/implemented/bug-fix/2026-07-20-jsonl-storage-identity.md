@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-jsonl-storage-identity.zh.md)
-
 ## Problem
 
 JSONL lookup selects a physical log from the requested session id across project directories, while the parsed `SessionHeader` supplies the metadata used by later repair and append operations. Without binding those two facts, a log selected for session A can declare session B's id or cwd and redirect a repair or later append to B's path. The project scan also needs a defined result when the same encoded id exists in more than one project directory. A medium that resolves records through one authoritative key may avoid this ambiguity, but the shipped JSONL provider must bind its selected path explicitly.

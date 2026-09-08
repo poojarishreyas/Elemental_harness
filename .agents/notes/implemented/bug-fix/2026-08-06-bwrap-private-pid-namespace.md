@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-bwrap-private-pid-namespace.zh.md)
-
 ## Problem
 
 The bwrap backend mounted a fresh `/proc` while retaining the host PID namespace. A confined command could therefore see host processes and follow procfs magic links such as `/proc/<pid>/root`, `/proc/<pid>/fd`, or `/proc/<pid>/cwd` into a host process's mount view. When access controls allowed following one of those links, the path escaped the profile's read-only host-root bind and `workspace-write` allow-list. Host ptrace restrictions sometimes blocked the path, but those deployment-dependent permissions were not a confinement boundary.

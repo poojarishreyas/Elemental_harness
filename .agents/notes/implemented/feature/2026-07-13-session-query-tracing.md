@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-13-session-query-tracing.zh.md)
-
 ## Problem
 
 Session relationships are encoded across immutable headers, positional surface operations, and logged arrays of cited source-event seqs. A consumer reconstructing those relationships directly would need to duplicate corpus precedence, surface folding, malformed-log handling, deterministic lineage ordering, and cloning. Positional replacement and cited-source relationships mean different things, so collapsing them into one generic edge type would also lose meaning.

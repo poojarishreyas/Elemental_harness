@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-agent-teams-web.zh.md)
-
 ## Problem
 
 The durable Agent Teams runtime owns roster, mailbox, and task state but exposes only model tools and Host service methods. Web users need to inspect teammate activity, manage shared tasks with the same compare-and-set rules, and open a teammate conversation. Agent Teams is still experimental, so these capabilities must not add Team-specific contracts or dependencies to the stable API Proxy, Session Controller, Client UI packages, or Web bundle.

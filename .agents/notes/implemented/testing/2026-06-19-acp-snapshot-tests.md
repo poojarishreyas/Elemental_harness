@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-06-19-acp-snapshot-tests.zh.md)
-
 > The [Web-only application decision](../simplification/2026-09-04-web-only-application.md) supersedes this note’s public SDK, headless, and ACP server entry points. Independent rationale for shared runtime mechanisms, external ACP subagent clients, and test design remains applicable.
 
 ## Problem
@@ -48,14 +46,14 @@ Replay is positional and therefore permits only one in-flight model stream per s
 
 Recording runs the scenario with the real `llm-deepseek` adapter and the JSONL persistence backend configured with `persistenceCompression: 'none'`, then projects the produced `.jsonl` into the scenario dir. The explicit raw mode keeps harvested logs line-readable while ordinary deployments use the backend's compressed default; eligible chunk runs still use the default packed storage rows. Per-event appends are durable, but the harness shuts the subprocess down gracefully (close stdin → `await ctx.dispose()`) before harvesting so the final events are flushed. `llm-replay` itself does no recording — it is replay-only.
 
-Replay uses a `cordis.snapshot.yml` overlay that replaces the real adapter with `llm-replay` while retaining the live composition. Recording uses the ordinary config and a harness-supplied persistence root. Replay mode skips `.env` loading, so a stray API key cannot trigger a live call. See the [single-source config Agent Note](../../archived/testing/2026-07-04-single-source-acp-replay-config.md).
+Replay uses a `cordis.snapshot.yml` overlay that replaces the real adapter with `llm-replay` while retaining the live composition. Recording uses the ordinary config and a harness-supplied persistence root. Replay mode skips `.env` loading, so a stray API key cannot trigger a live call. See the single-source config Agent Note.
 
 ### Two outputs: normalize, then compare
 
 A snapshot run asserts **two** normalized outputs, because the harness's external APIs are distinct:
 
 1. The **stdout transcript** — the framed ACP JSON-RPC responses and committed-message updates an automation client receives. It catches regressions in the transport contract and is compared against a committed `stdout.expected.jsonl`.
-2. The **re-persisted session JSONL**, normalized and compared with `session.jsonl`. The same fixture is both replay source and expected log. Prompt and tool bulk are scrubbed; one scenario per header class pins the remaining header sequence. The pin owns readable prompt and tool-schema sidecars by default, or names another pin as either source when the complete sequence is identical, so each distinct sidecar version is committed once. Fixture guards reject duplicate sidecar content, and record/refresh rejects shared claimants that generate different bytes. The original header-pinning rationale is preserved in the [header-pinning Agent Note](../../archived/testing/2026-07-06-pin-request-header-content-in-one-scenario.md). Override scenarios derive model behavior solely from their sidecar.
+2. The **re-persisted session JSONL**, normalized and compared with `session.jsonl`. The same fixture is both replay source and expected log. Prompt and tool bulk are scrubbed; one scenario per header class pins the remaining header sequence. The pin owns readable prompt and tool-schema sidecars by default, or names another pin as either source when the complete sequence is identical, so each distinct sidecar version is committed once. Fixture guards reject duplicate sidecar content, and record/refresh rejects shared claimants that generate different bytes. The original header-pinning rationale is preserved in the header-pinning Agent Note. Override scenarios derive model behavior solely from their sidecar.
 
 The surfaces are complementary: stdout covers the minimal automation wire, while JSONL covers loop, tool, and boundary structure that the wire intentionally omits.
 

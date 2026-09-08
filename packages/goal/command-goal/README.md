@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-command-goal
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-command-goal` gives the human `/goal` command over the persisted goal service: a user can create, edit, pause, resume, clear, and inspect the current goal directly from the UI, without involving the model. The command registers in its Cordis scope, so command adapters reading that scope discover and execute it, while command text and output stay in the UI — they never enter model requests. Every accepted mutation persists through the goal service's durable `goal/change` event. Image attachments may accompany a create or edit and are submitted as one ordinary user message so later goal rounds see them. Choose it for interactive deployments with a command adapter; headless and automation apps without one do not need it.

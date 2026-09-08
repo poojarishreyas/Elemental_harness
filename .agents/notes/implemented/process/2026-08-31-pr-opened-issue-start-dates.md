@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-31-pr-opened-issue-start-dates.zh.md)
-
 ## Problem
 
 The Issue Project records planned work in a `Start date` field, but adding or linking an Issue does not provide a date value. A pull request can identify both Issues it resolves and Issues that supply related implementation context, and either relationship marks the start of repository work.
@@ -20,7 +18,7 @@ The configuration names the Project field and time zone. Missing configuration f
 
 ## Verification
 
-[Issue-management tests](../../../../.github/issue-management/policy.test.mjs) cover the Shanghai date boundary, opened-only dispatch, all retained Issue references, empty-value writes, existing-value preservation, missing Project items, invalid field configuration, and the GraphQL mutation variables. [Workflow tests](../../../../scripts/ci-workflow.spec.ts) require the `pull_request.opened` subscription.
+Issue-management tests cover the Shanghai date boundary, opened-only dispatch, all retained Issue references, empty-value writes, existing-value preservation, missing Project items, invalid field configuration, and the GraphQL mutation variables. Workflow tests require the `pull_request.opened` subscription.
 
 ## Alternatives considered
 

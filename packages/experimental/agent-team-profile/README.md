@@ -5,8 +5,6 @@ kind: "package-bundle"
 
 # @deepseek-ai/dsh-experimental-agent-team-profile
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-experimental-agent-team-profile` is a private profile layer that enables [Agent Teams](../agent-team/README.md) over `@deepseek-ai/dsh-base`. Its patch inserts the Team domain and Team-scoped tools, disables the overlapping global continuable-child controls, and keeps the ordinary fresh and fork delegation tools as one-shot operations. Add it explicitly to an initialized source-checkout profile; official releases exclude this package.

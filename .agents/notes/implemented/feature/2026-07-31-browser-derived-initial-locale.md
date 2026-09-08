@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-browser-derived-initial-locale.zh.md)
-
 ## Problem
 
 The Settings Language row opened every first visit in Chinese: `LocaleRuntime` read `dsh.locale` from localStorage and fell straight back to `zh` when nothing was stored. The browser already states which languages its user reads — `navigator.languages` is that statement — and the app ignored it, so an English reader met a Chinese product and had to find a Chinese-labelled settings row to escape it. The fallback was doing two jobs at once: the last resort for an unresolvable locale, and the answer for every user who had simply never chosen.

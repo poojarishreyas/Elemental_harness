@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-15-max-token-replay-state-alignment.zh.md)
-
 ## Problem
 
 pi-ai recorded one opaque replay blob per response, projected from the provider's native message, while `BlockAssembler.blocks()` separately dropped tool calls from a `max-tokens` response because a truncated call is unsafe to execute. The durable assistant message therefore stored transformed content next to metadata describing the untransformed native block list. The next request failed during history reconstruction with `INVALID_REPLAY_STATE: block count does not match assistant content`, and because the mismatch was already on disk, every later request on that session failed the same way — the session was permanently stuck. The root cause is structural: two representations of one response were snapshotted at different pipeline points, with their index alignment enforced only by a read-time hard error.

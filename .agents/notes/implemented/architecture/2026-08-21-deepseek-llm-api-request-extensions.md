@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-21-deepseek-llm-api-request-extensions.zh.md)
-
 ## Problem
 
 The canonical Session log contains request boundaries, raw response chunks, assembled messages, tool activity, plugin events, and failure facts that the model message list does not preserve. The OTel session-telemetry path projects and batches that log independently of model requests, uses deployment-selected sharing modes, and intentionally drops most assistant chunks. DeepSeek's official API therefore cannot reconstruct the complete harness trajectory from its ordinary request messages or the telemetry feed.

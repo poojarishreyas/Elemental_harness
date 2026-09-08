@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-web-attachment-display-alignment.zh.md)
-
 ## Problem
 
 The web composer's image surfaces missed basic usability (user feedback, issue #2248). The remove control hung outside each 72px thumbnail at `top/right: -6px`, so the rail's `overflow-x` box clipped it and clicks aimed at it often missed; previews opened only on double-click, an affordance nothing advertised except a tooltip; a rail wider than the composer produced a raw horizontal scrollbar inside the capsule; and image-intake rejections plus prompt failures (for example `attachment-error` when the selected model takes no image input) rendered as persistent inline red strips above the card. Every one of these surfaces already has a settled design in DeepSeek Chat that users know: single-click preview, an inside-the-card hover-revealed remove control, hidden-scrollbar arrow paging, and a transient top-center toast.

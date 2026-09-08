@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-cancelled-stream-prefix-finalize.zh.md)
-
 ## Problem
 
 A cancelled stream can leave `assistant/chunk` events that clients continue rendering while `deriveMessages()` excludes them because no `assistant/message` records the delivered prefix. A follow-up such as "expand on your second point" then lacks text the user read, and a fork at the cancelled turn inherits the same gap.

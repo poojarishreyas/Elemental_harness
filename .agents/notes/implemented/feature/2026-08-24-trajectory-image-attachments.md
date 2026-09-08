@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-24-trajectory-image-attachments.zh.md)
-
 ## Problem
 
 Trajectory did not display session images. A durable `{ type: 'image', attachment: ImageAttachmentRef }` block rendered as pretty-printed JSON in the details panel, and an image-only user message produced an empty ledger row. The only image path Trajectory knew was `imageSrc` sniffing over inline wire fields (`url`, `image_url`, base64 `data`), which no production event carries: every producer commits a durable `ImageAttachmentRef` before its event is appended. Users could not confirm from the execution ledger which image the model saw ([issue #2986](https://github.com/deepseek-harness/deepseek-harness/issues/2986)), while Chat already displayed the same attachments.

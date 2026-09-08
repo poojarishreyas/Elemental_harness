@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-28-ci-test-reliability-skill.zh.md)
-
 ## Problem
 
 DeepSeek Harness runs tests across concurrent Vitest files, worker processes, repository gates, and Actions jobs. Process isolation does not isolate host ports, predictable paths, external namespaces, or inherited children, while process-global mutations and incomplete teardown can contaminate later tests. A test can select the correct tier and still pass only when it runs alone.

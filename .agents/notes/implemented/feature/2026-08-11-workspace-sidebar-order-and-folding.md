@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-workspace-sidebar-order-and-folding.zh.md)
-
 ## Problem
 
 A Workspace with many Sessions can consume the entire sidebar and push other Workspaces out of reach. A compact list needs a bounded default while preserving an explicit route to every Session. The sidebar also needs an activity-oriented order, but `WorkspaceView.sessionIds` is the durable manual account and must not be rewritten by Session activity.

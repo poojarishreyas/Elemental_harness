@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-context-form-vocabulary.zh.md)
-
 ## Problem
 
 Every logged non-user `user/message` rendered through one body: the whole message serialized as inline JSON. A reader opening a row met `{ "content": [ { "type": "text", "text": "…\n\n…" } ], "source": { … } }`, where the escaping had collapsed the only thing worth reading — the model-facing prose — into a single line, and the producer fields sat inside the same blob.

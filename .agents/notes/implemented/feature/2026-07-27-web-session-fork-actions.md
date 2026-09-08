@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-web-session-fork-actions.zh.md)
-
 ## Problem
 
 The Session store already provides a fork primitive that creates a child session from a completed-turn prefix, but the Web client has no unified interaction contract. The Session-row menu can express only “branch from the latest completed turn,” while message IconActions need to express “branch from the turn containing this message”; if the two entry points independently interpret the boundary, switching, and failure behavior, the same user action acquires two sets of semantics. Nesting a fork child beneath its source session also makes the newly selected child visible only while its ancestors are expanded and weakens the workspace manual-order model.

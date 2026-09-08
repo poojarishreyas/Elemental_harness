@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-remove-stdio-and-echo-agents.zh.md)
-
 ## Problem
 
 DeepSeek Harness exposed two redundant product agents beside the TUI and Headless coding agents. The line-oriented stdio agent duplicated terminal interaction and non-interactive execution with a mixed prompt/output protocol. Echo duplicated Headless as a network-free mock model plus one teaching tool, making a test fixture into a user-facing agent and the default quick-start path.

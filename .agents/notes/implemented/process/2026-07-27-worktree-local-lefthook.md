@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-worktree-local-lefthook.zh.md)
-
 ## Problem
 
 Every `pnpm install` runs the root [`postinstall`](../../../../package.json), whose [`install-lefthook.mjs`](../../../../scripts/install-lefthook.mjs) invokes `lefthook install --force`. Linked Git worktrees otherwise share the common repository's default hooks directory, so an install in any worktree can rewrite hooks used by every other worktree.

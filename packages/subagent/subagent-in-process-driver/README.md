@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-subagent-in-process-driver
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-subagent-in-process-driver` is the shared run driver behind the two in-process subagent backends: it creates one child agent through the host's agent factory, applies per-child customization, drives one task to completion, and returns the child's own final output with a single quiescent disposal path. Spawn calls it with no session seed; fork calls it with the parent's completed-turn prefix. It is a library, not a standalone feature: provider backends call `startInProcessRun`, and nothing in a composition configures it. Read this page to understand the run lifecycle both in-process backends share.

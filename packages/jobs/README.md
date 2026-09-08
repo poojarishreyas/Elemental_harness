@@ -5,8 +5,6 @@ kind: "package-group"
 
 # jobs/ — background-job capability family
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The jobs group is the background-work capability family: tools that run long work register it as a job, and the owning agent can read, wait on, list, and cancel it without blocking its own turn. Jobs belong to the agent session that started them, so one agent never sees another's work, and completion is delivered to the owning agent in-session instead of polled. The group splits into the registry contract (`jobs`), its process-local storage (`jobs-local`), and the model-facing control tools with completion notices (`tool-jobs`).

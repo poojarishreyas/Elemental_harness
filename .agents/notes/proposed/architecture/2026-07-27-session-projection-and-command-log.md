@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-07-27-session-projection-and-command-log.zh.md)
-
 ## Problem
 
 Three in-flight web features — todo (#497), goal (#527), and plan mode (#587) — each derive per-session state from the session log and surface it in the browser client, and each invented its own copy of the same machinery:

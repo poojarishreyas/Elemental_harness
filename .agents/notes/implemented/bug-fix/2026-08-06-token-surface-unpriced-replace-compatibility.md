@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-token-surface-unpriced-replace-compatibility.zh.md)
-
 ## Problem
 
 The `contextPressure` and `contextBreakdown` projections keep a running surface-token total plus at most one pending shadow-price claim, so their persisted checkpoints stay O(1) over a session's life. Current replace producers append a `compaction/summary` or `compaction/prune` metering event immediately before the replacement; its `shadowedTokenCount` prices the exact replaced range, and `foldSurfaceProjection` turns that into the signed delta.

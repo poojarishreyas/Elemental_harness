@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-fresh-agent-ralph-workflow-tool.zh.md)
-
 ## Problem
 
 Same-session goals preserve conversation and let one agent continue a durable objective, while the general workflow tool lets the model write a fan-out orchestration script. Neither is the Ralph pattern: repeatedly give the same objective to a completely fresh worker, use the shared workspace as long-term memory, and carry only a small explicit handoff until work completes or a limit is reached.

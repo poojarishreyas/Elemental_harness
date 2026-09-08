@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-29-drill-claim-precedes-the-drill-edit.zh.md)
-
 ## Problem
 
 A pointer descent in the `@` menu produced no breadcrumb, while the keyboard descent into the same directory produced one (#3310). Clicking a crumb — the gesture the breadcrumb exists for — dropped the header entirely instead of re-listing the step it named. Rows in a pointer-drilled listing also repeated the parent directory the header was supposed to carry.

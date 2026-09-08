@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-oxlint-only-fix-workflow.zh.md)
-
 ## Problem
 
 The [repository linter migration](2026-07-29-oxlint-linter.md) retained a formatting-only ESLint invocation because Oxlint's JavaScript-plugin bridge was treated as validation-only. The pinned Oxlint toolchain executes the safe fixers supplied by `@stylistic/eslint-plugin`, so the separate formatter duplicates a configuration boundary, command startup, and direct `eslint` plus `@typescript-eslint/parser` dependencies.

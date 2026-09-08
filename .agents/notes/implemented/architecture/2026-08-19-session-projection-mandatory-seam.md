@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-19-session-projection-mandatory-seam.zh.md)
-
 ## Problem
 
 An optional projection registry lets a plugin whose host behavior reads projected state activate without that state. Unless the reader rejects the missing registry or key, the host behavior or subagent catalog fields can silently disappear. Batch-only reads also materialize every client view when a consumer needs one host value. Some contributor sites intentionally retain optional `ctx.inject` registration, so their readers need an explicit missing-state rule.

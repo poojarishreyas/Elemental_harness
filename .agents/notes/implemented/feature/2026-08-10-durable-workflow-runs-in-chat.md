@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-durable-workflow-runs-in-chat.zh.md)
-
 ## Problem
 
 The ordinary workflow tool row owns the model call and final tool result, but those two records do not explain which members actually started, how they were grouped, whether each member completed, failed, or was cancelled, or what remained unfinished when a process stopped. Live `workflow/*` events expose those facts only inside the current process, so a refresh or later Session open loses the run history.

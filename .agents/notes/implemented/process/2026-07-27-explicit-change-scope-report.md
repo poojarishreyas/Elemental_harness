@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-explicit-change-scope-report.zh.md)
-
 ## Problem
 
 The [pre-push workflow](../../../skills/dsh-pre-push-checks/SKILL.md) needs the diff against the actual base, but constructing `origin/<current-branch>` fails for a new worktree branch that tracks `origin/master` before its first push and misstates a stacked branch whose PR targets another feature branch. The [code-review](../../../skills/dsh-code-review/SKILL.md) and [documentation-audit](../../../skills/dsh-doc/SKILL.md) workflows need the same current-base judgment.

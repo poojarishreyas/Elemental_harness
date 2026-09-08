@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-08-20-attachment-read-quarantine.zh.md)
-
 ## Problem
 
 An admitted `ImageAttachmentRef` remains in durable history and therefore participates in every later request until compaction replaces it. `AttachmentStore.readImage()` fails with `ATTACHMENT_NOT_FOUND`, `ATTACHMENT_CORRUPT`, or `ATTACHMENT_READ_FAILED` when the referenced object disappears, fails integrity verification, or cannot be read. The unchanged history then makes every later model request fail on the same object, leaving the session unable to continue even though the remaining messages are usable. This is the unavailable-object case left fail-loud by [reconstructable requests](../../implemented/architecture/2026-07-05-reconstructable-requests.md).

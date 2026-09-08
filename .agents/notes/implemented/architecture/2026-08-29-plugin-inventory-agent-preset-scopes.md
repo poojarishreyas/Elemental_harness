@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-29-plugin-inventory-agent-preset-scopes.zh.md)
-
 ## Problem
 
 [Per-session agent presets](2026-08-03-per-session-agent-presets.md) moved every model-facing row onto the agent plane, and the settings plugin list kept projecting `ctx.loader.entries()` alone. The surface therefore hid the plugins sessions actually run — a directly-plugged preset subtree never appears in the Loader's entries — and actively misled about the rest: the web overlay's deliberate `disabled: true` tombstones (`tool-bash`, `tool-fs`, `plan-mode`, …) rendered as two dozen plainly "disabled" rows while the same modules ran in every standard-preset session. Beside it, General settings carried a default-preset dropdown that wrote the same `agent-presets.default` field as the roster section's own make-default action — two editors for one fact, one of them blind to the roster it was choosing from.

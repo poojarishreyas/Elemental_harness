@@ -5,8 +5,6 @@ kind: "package-group"
 
 # packages/storage
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The storage group gives a composition durable storage for everything that is not a session event log: workspace records, session sidecars, and other host-side application data. With it, host packages can persist typed records through a schema-validated domain form, choose between a human-readable JSON backend and a point-update SQLite backend, and receive a change event after every durable write. The family is optional and host-side only: it registers no tools, injects no prompts, and writes no session events, so the model and the agent loop never see it. Use it when the product keeps application state that must survive restarts; a composition with no such data can omit the whole group.

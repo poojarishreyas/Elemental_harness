@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-sandbox-local
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-sandbox-local` provides the platform confinement backends behind `ctx.sandbox`: Linux runs commands under `bwrap` when that works, otherwise under the Landlock launcher; macOS uses Seatbelt (`sandbox-exec`); Windows uses the ACL restricted-token runner. It selects one runner per host, so every command — and everything it spawns — runs confined. When no runner is usable the provider fails closed with `SANDBOX_UNAVAILABLE` — a command never silently runs unconfined. Each wrap reports how completely the backend enforces the mode (`full` or `partial`) plus the backend's denial signatures, so consumers can tell a broken sandbox apart from a denied command. Mount it behind `ctx.sandbox` with a confined executor to give every bash or pwsh call a confined default.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-22-fast-local-git-hooks.zh.md)
-
 ## Problem
 
 An agent already runs the tests and checks that exercise its change, while commit, push, and CI can each repeat increasingly broad subsets of the same work. A full pre-push suite therefore delays every publication, amplifies unrelated local flakes, and gives no new signal when CI immediately runs the exhaustive matrix again.

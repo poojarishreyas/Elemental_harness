@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-request-error-retry-action.zh.md)
-
 ## Problem
 
 Model-request recovery was decided inside `agent/request-error` but communicated through `Agent.retry()`. That public command was valid during one narrow waterfall window and while idle, rejected other running states, and required `ReactLoopAgent` to retain a mutable retry window beside the waterfall result. The recovery plugins were the only production callers, so the wider live-agent capability exposed states and behavior unrelated to their policy decision.

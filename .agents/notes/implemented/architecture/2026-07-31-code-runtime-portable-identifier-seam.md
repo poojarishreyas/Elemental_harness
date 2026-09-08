@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-code-runtime-portable-identifier-seam.zh.md)
-
 ## Problem
 
 The code-runtime seam promises that a binding-namespace list valid on one backend is valid on every backend, so a PTC mode consumer can hand the same bindings to any registered runtime without knowing its language. The first backend, `dsh-code-runtime-worker-thread`, privately owned the identifier rules that enforce part of that promise: an `IDENTIFIER` regex that allowed the JS-only `$`, a `RESERVED_WORDS` set holding only ECMAScript keywords, and a `RESERVED_ERROR_PROPERTIES` set of three JS `Error` slots. Those rules described the worker's own language, not the seam's portability contract.

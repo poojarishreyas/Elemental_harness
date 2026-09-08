@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-27-gate-runner-fail-fast.zh.md)
-
 [Parallel pre-push gates](2026-07-06-parallel-pre-push-gates.md) owns the bounded gate scheduler in `scripts/run-gates.ts`; this note adds one scheduling option to that scheduler.
 
 ## Problem

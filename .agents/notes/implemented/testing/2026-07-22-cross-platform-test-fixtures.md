@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-22-cross-platform-test-fixtures.zh.md)
-
 ## Problem
 
 The unit and coverage suites run on Windows, macOS, and Linux, but a platform-neutral behavior can be hidden behind a platform-specific fixture. Literal POSIX paths become drive-relative paths on Windows, a hosted `file:` URI can be a valid UNC path there, and child-pipe closure or event-loop scheduling does not settle at the same point on every host. POSIX-only filesystem states such as FIFOs, executable mode bits, and directory search bits have no direct Windows fixture.

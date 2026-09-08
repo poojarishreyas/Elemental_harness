@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-03-pi-ai-declared-provider-catalog.zh.md)
-
 ## Problem
 
 `dsh-llm-pi-ai` treated the pi-ai package's generated catalog as the boundary of what could be configured. A route key had to name an installed provider (`resolveProfiles` rejected anything else), model listing returned `getBuiltinModels(provider)` verbatim, and request-time model resolution looked the id up in that same catalog and overrode only `baseURL`. Three consequences followed, and all three were dead ends rather than gaps: an OpenAI-compatible gateway, a self-hosted server, or a provider newer than the installed catalog could not be configured at all; a model the catalog had not caught up with failed with `UNKNOWN_MODEL` even against a correct endpoint; and a model's context window and output cap were whatever the pinned pi-ai release said, so a deployment could neither correct a stale value nor supply one for a model pi-ai had never described. Upgrading the package was the only way to move any of it.

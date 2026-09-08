@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-remove-synthetic-log-only-turns.zh.md)
-
 ## Problem
 
 The session store exposed `appendOutOfBand()` so a plugin could publish a late log-only event while no agent turn was running. The method wrapped that event in `turn/start` and `turn/end`, then flushed it. This preserved the old rule that every durable event had to live inside a turn, but it made one identifier mean both a model-loop execution and a persistence-only update.
@@ -22,7 +20,7 @@ The title service appends `session/title` directly after its existing service, r
 
 A session fork may end at any stable event position outside an open turn, not only at `turn/end`. This preserves standalone title and other plugin-owned log-only records in a default fork while still rejecting a prefix cut through active execution.
 
-The historical [universal turn-enclosure decision](../../archived/architecture/2026-06-15-turn-enclosure-invariant.md) remains useful only as the reason the synthetic mechanism was introduced. The [context-injection decision](../architecture/2026-07-24-separate-context-injection-from-turn-execution.md) established the current meaning: one turn represents one model-loop execution. The [queued manual compaction decision](../feature/2026-07-30-queued-manual-compaction.md) applies that rule to a durable multi-event bracket and owns its marker and admission semantics.
+The historical universal turn-enclosure decision remains useful only as the reason the synthetic mechanism was introduced. The [context-injection decision](../architecture/2026-07-24-separate-context-injection-from-turn-execution.md) established the current meaning: one turn represents one model-loop execution. The [queued manual compaction decision](../feature/2026-07-30-queued-manual-compaction.md) applies that rule to a durable multi-event bracket and owns its marker and admission semantics.
 
 ## Alternatives considered
 

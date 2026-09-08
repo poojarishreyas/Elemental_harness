@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-12-agent-scope-runtime-design.zh.md)
-
 ## Problem
 
 The [agent-scope contract](2026-07-08-agent-scope-contexts.md) is simple for contributors: register through `agent.ctx`, resolve one global-plus-agent view, publish only after setup, and retain the scope until work stops. The runtime must preserve that contract across a cooperative plugin framework, asynchronous creation, reentrant listeners, durable session commits, and worker or process failure.
@@ -308,7 +306,7 @@ Public disposal claims its memoized promise before invoking callbacks. Worker de
 
 ### ACP prompt settlement does not depend on update delivery
 
-The [automation-only ACP bridge](../../archived/simplification/2026-07-23-acp-automation-only-protocol.md) correlates one in-flight prompt with its observed user-message turn directly. It does not scan from a log watermark or use session status as a second reconciliation oracle.
+The automation-only ACP bridge correlates one in-flight prompt with its observed user-message turn directly. It does not scan from a log watermark or use session status as a second reconciliation oracle.
 
 The session-event listener settles correlation from the matching `turn/end` even when a committed-message update cannot reach the client. Update delivery therefore cannot leave the session permanently in flight. ACP creates server-assigned fresh session ids and owns every resulting agent handle until connection teardown.
 

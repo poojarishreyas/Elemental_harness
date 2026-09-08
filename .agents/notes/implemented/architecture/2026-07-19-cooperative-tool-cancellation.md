@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-cooperative-tool-cancellation.zh.md)
-
 ## Problem
 
 Every typed tool invocation needs a caller-owned cancellation signal. An optional `ToolExecutionInput.signal` lets direct callers omit ownership, makes `exec.signal` optional in every tool body, and encourages registry fallbacks that cannot represent the caller's actual lifetime.

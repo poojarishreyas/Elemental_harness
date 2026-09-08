@@ -2,15 +2,13 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-web-details-session-lifecycle.zh.md)
-
 ## Problem
 
 The details entry is Session-scoped, but its preferred grid width is root-scoped. Selecting a different Session replaced the details content without closing that root preference, so the new owner inherited stale viewing geometry. Hero and other unselected states render no Session-scoped details; they need a derived zero track without becoming false owners in the comparison.
 
 ## Decision
 
-`AppFrame` reads the current Session id and its `blank` summary flag from the authoritative Session projection. It records the last non-blank selected id only when that Session can own details, so hero and other unselected states neither trigger closure nor replace the last Session owner; their rendered details track derives as zero without changing the stored preference. The first Session preserves the layout store's initial preference, whose [archived visibility-default decision](../../archived/bug-fix/2026-07-30-web-details-default-closed.md) chose closed; returning to the same Session restores its current width, and selecting a different Session closes the root-scoped details preference through the layout store before paint. The per-Session chat selection remains owned by the session-scoped store described by the [slot system standard](../architecture/2026-07-22-slot-type-chain-implementation.md).
+`AppFrame` reads the current Session id and its `blank` summary flag from the authoritative Session projection. It records the last non-blank selected id only when that Session can own details, so hero and other unselected states neither trigger closure nor replace the last Session owner; their rendered details track derives as zero without changing the stored preference. The first Session preserves the layout store's initial preference, whose archived visibility-default decision chose closed; returning to the same Session restores its current width, and selecting a different Session closes the root-scoped details preference through the layout store before paint. The per-Session chat selection remains owned by the session-scoped store described by the [slot system standard](../architecture/2026-07-22-slot-type-chain-implementation.md).
 
 The layout store is transient and starts details closed. It neither reads nor writes `localStorage`, so reload restores the sidebar default and details closed and needs no Session-baseline exception. Manual close and reopen inside one unchanged Session retain their existing behavior. The lifecycle effect changes neither the [Workspace-owned New Session flow](../feature/2026-07-25-workspace-ui-product-flow.md), composer drafts, Session navigation, nor concession-chain resizing.
 

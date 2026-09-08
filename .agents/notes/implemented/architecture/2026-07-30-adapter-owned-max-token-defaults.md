@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-adapter-owned-max-token-defaults.zh.md)
-
 ## Problem
 
 An LLM adapter could serialize an explicit `GenerateOptions.maxTokens`, but its Cordis configuration could not establish a reconstructable conversation default. Applying a fallback only inside provider serialization would make the wire request differ from the durable `request/header`; putting every provider's default in Agent Loop would instead transfer deployment and model policy into the provider-neutral driver.

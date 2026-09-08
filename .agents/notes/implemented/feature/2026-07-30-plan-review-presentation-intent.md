@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-plan-review-presentation-intent.zh.md)
-
 ## Problem
 
 `exit_plan_mode` presents a finished plan for review through `ctx.userQuestions.ask()`, the same seam `ask_user_question` uses. On the Web GUI that made a plan review render as the generic question flow of [the ask-question Web presentation](2026-07-29-ask-question-web-presentation.md): a `1 / 1` pager, the plan as a question's supporting detail, the two verdicts as numbered radio rows with descriptions, an "Other — enter a custom answer" row, and `Skip this question` / `Submit` in the footer.

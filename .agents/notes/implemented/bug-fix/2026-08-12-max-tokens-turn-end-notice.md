@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-max-tokens-turn-end-notice.zh.md)
-
 ## Problem
 
 The agent loop records `max-tokens` as its own `turn/end` reason, but no user surface consumed it. In the Web chat flow only `reason.kind === 'error'` built a conversation node, and the unknown-surface fallback claims append-surface events only, so a turn the provider cut at its output cap ended with no visible sign: the truncated answer read as a normal completion, and the user had no way to tell why the run stopped (issue #1522).

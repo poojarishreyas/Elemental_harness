@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-context-meter-blind-to-compaction.zh.md)
-
 ## Problem
 
 The composer's [context meter](../feature/2026-08-05-composer-context-meter-breakdown.md) took its ring, percentage, and `~used / capacity` header from `contextPressure.pressureTokens`, the newest provider-reported prompt size. That number moves only when a request reports usage, and compaction reports none: `compaction-basic` summarizes through a direct `ctx.llm.stream()` call and appends `compaction/start`, `compaction/summary`, the replacement `user/message`, and `compaction/end` — no `assistant/message`, no usage chunk.

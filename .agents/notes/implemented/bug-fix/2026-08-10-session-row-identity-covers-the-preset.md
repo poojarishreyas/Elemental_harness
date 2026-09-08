@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-session-row-identity-covers-the-preset.zh.md)
-
 ## Problem
 
 `SessionManager.buildListSnapshot` memoizes list rows by value: a wire refresh mints all-new summary objects, so an entry equal to the cached one is replaced by the cached instance, and every `SessionListItem` memo downstream keeps hitting. The stated contract is "reuse the cached object when every field matches"; the comparison enumerated the fields by hand and did not enumerate `agentPreset`.

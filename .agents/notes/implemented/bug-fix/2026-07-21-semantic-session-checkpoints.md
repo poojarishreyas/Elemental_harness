@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-21-semantic-session-checkpoints.zh.md)
-
 ## Problem
 
 Persistence buffered every synchronous `session/event` until the loop's final turn checkpoint. A turn is the correct conversational transaction, but it is too coarse as the only crash-recovery point: a hard crash during a long model request or tool call could discard the whole in-flight turn, including the request envelope needed to identify what had been attempted. A tool call with no result was also repaired with one undifferentiated interruption error, so the resumed model could not tell whether execution had started and could retry a side effect blindly.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-01-ask-user-delegated-caller-guard.zh.md)
-
 ## Problem
 
 A one-shot subagent that calls `ask_user_question` can block indefinitely. The call waits for a human answer, but the child has no independently owned human channel, so the child's completion and the parent waiting on that completion both stall.

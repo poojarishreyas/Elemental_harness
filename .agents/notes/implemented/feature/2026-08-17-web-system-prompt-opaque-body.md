@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-17-web-system-prompt-opaque-body.zh.md)
-
 ## Problem
 
 The Chat `System prompt` row shares `DisclosureRow` chrome with context injection and needs an expanded body for the request's system field. Rendering that field as Markdown would restyle it — headings, emphasis, lists — so a reader would see a rendered document the model never received. Context injection already solves the same job with a 141px code-block scrollport and `<pre>` text that keeps the bytes and line breaks the model read, so the row needs that presentation, not a second one.

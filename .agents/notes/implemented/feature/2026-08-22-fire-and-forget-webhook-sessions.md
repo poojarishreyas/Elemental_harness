@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-22-fire-and-forget-webhook-sessions.zh.md)
-
 ## Problem
 
 External repository events need to start ordinary DSH work without making every provider adapter understand Agent presets, Workspace attachment, titles, permissions, and callback teardown. GitHub pull requests becoming ready for review are the first use: a signed event may create a review Session that users can browse under the repository Workspace.

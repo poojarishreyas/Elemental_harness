@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-package-invariant-runtime-contracts.zh.md)
-
 ## Problem
 
 The package-owned invariant service made publication and registration exhaustive, but its first generated baseline accepted empty installers. A follow-up then replaced those empties with generic assertions about plugin names, injections, effects, service methods, and fixed pure-library examples. Those assertions made every companion executable without making the system safer: TypeScript, Cordis startup, package tests, and module-load tests already enforce those shapes, while the invariant service should detect impossible runtime state.

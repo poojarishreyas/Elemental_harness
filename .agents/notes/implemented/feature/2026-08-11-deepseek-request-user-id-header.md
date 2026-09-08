@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-deepseek-request-user-id-header.zh.md)
-
 ## Problem
 
 Direct DeepSeek requests already carried `x-deepseek-harness-session-id` when the caller supplied `GenerateOptions.sessionId`, which lets provider-side support and diagnostics correlate turns within one conversation. They lacked a stable identity across sessions even though the harness already persists an anonymous user id for telemetry and feedback. A separate id would break correlation, while putting it in the provider-neutral attribution helper would send a stable per-user identifier through every HTTP adapter.

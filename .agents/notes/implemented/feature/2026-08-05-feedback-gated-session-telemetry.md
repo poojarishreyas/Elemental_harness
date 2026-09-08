@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-feedback-gated-session-telemetry.zh.md)
-
 ## Problem
 
 Session telemetry originally has one mounted behavior: every accepted record enters the reporting backend immediately. Deployments need two stricter policies without replacing the plugin: hold a session's telemetry unless its user records feedback, or disable reporting while still explaining what happens to feedback. The policy must preserve the telemetry seam's redaction-before-backend boundary.

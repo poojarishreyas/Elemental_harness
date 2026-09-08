@@ -5,8 +5,6 @@ kind: "package-group"
 
 # packages/extensions
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The extensions group lets a running agent modify the runtime it runs inside: the model can inspect the plugins and services loaded in the current DSH process, define a dynamic Cordis package (with a host half, a browser half, or both), run it, stop it, and remove it, and a browser panel operates every definition. Packages evolve by plugin: a plugin holds immutable package versions and can run or update between them. Definitions live only in process memory, so a DSH restart clears them and nothing here writes repository files or configuration. Four packages form the subsystem: the model-facing tools plus the host runner, and the browser runner plus the browser UI.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-07-feedback-acknowledgement-sharing-disclosure.zh.md)
-
 ## Problem
 
 The `/feedback` command records a log-only `feedback/record` event and acknowledges the user, but the acknowledgement carried no durable context about what happened to the session: deployments that mount session telemetry (`FULL`, `FEEDBACK_ONLY`, or `DISABLED`) had no way to tell the user whether their feedback and session left the process, and the receiving session id was not echoed. The command plugin could not read the sharing policy because the telemetry seam exposed capture only, and the OTel mode enum lived in the optional backend package.

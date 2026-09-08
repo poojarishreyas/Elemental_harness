@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-27-intent-named-subagent-continuation-operations.zh.md)
-
 The current activation-based realization is owned by [Continuable subagents](../feature/2026-07-28-continuable-subagent-conversations.md). It retains the `followup` operation this record names, returns the accepted `MessageId`, uses the bare `Agent` parameter as exact live-direct-parent authority, and limits provider participation in continuable children to `prepareContinuable`.
 
 ## Problem

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-provider-credential-lifecycle.zh.md)
-
 ## Problem
 
 The Models editor spans independent settings and credential RPC domains. It previously committed provider settings before storing the API key but kept the revision and original subtree from when the card opened. If the credential write failed, retry replayed the already-committed settings mutation with a stale revision and produced a conflict, leaving the user unable to complete the second stage from the same card. A blank pi-ai key also wrote the derived `apiKeyEnv` without a credential, which prevented pi-ai from using provider-native discovery. At deletion, the inverse leak remained: the profile disappeared but its page-stored key stayed in `.env` and silently became active when the provider was added again. Generic row actions and confirmation copy did not identify which provider would be changed.

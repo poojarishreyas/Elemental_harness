@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-atomic-web-image-admission.zh.md)
-
 ## Problem
 
 Image prompt admission and `session.selectModel` each cross asynchronous model and attachment lookups. Without one ordering point, an image prompt could validate an image-capable target while a concurrent selection installed a text-only target. Selection could also change the route after admission had begun but before the durable message event was published.

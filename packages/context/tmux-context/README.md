@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-tmux-context
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-tmux-context` tells the model where its agent process runs: on each turn whose tmux state changed, it appends a durable, source-attributed reading naming the tmux session, window, and pane plus the window's pane-tree layout. It is sampled once per turn during request preparation and only when the process genuinely lives inside the named pane — a terminal that merely inherited `$TMUX`/`$TMUX_PANE` from a tmux ancestor reads as not in tmux and adds nothing. An unchanged location adds nothing, and a failed query is a no-op, never a turn failure. The plugin is opt-in and not part of the shipped Web/headless composition.

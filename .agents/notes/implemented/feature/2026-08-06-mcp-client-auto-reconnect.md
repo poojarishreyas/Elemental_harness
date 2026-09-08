@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-mcp-client-auto-reconnect.zh.md)
-
 ## Problem
 
 The [MCP client](2026-07-07-mcp-client-plugin.md) connected once at plugin load. When a stdio server crashed or was killed, its registered tools stayed visible but every call failed with `Not connected` until a human edited the config (HMR) or restarted the Host — the connect-once decision explicitly deferred reconnection. Long-running hosts (ACP automation, web) cannot be bounced because a child process died, and for stdio the harness composition is the only party that can respawn it. External feedback escalated this as a real operational gap (issue #1746).

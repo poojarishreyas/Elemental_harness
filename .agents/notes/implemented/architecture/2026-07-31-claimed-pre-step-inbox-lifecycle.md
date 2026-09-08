@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-claimed-pre-step-inbox-lifecycle.zh.md)
-
 ## Problem
 
 The loop previously split one step boundary across prompt preparation, prompt admission, and a serial step hook. Claimed input could be retained or discarded by an admission result, and live queue events carried shapes that duplicated durable inbox state. Plugins had to choose whether to mutate the inbox, rewrite a submitted batch, or append directly to session history, while observers could not rely on one exact ordering.
@@ -22,7 +20,7 @@ The two event surfaces have separate consumers. Observers following one message 
 
 Plugins that need current-step atomic rewriting return messages from `agent/pre-step`. Plugins that only need later context may mutate `agent.inbox` directly. Workspace context uses both paths: asynchronous filesystem projections stage one replaceable `next-step` item, while the next entering pre-step folds that item or a newly composed baseline into its final batch and removes the pending copy. Rejection keeps the item queued.
 
-The archived [addressable queue occurrence decision](../../archived/feature/2026-07-29-addressable-queue-operations.md) describes the superseded occurrence-wrapper design. `MessageId` now owns addressability, while the retained Host queue mirror derives its snapshots from the durable splice projection.
+The archived addressable queue occurrence decision describes the superseded occurrence-wrapper design. `MessageId` now owns addressability, while the retained Host queue mirror derives its snapshots from the durable splice projection.
 
 ## Alternatives considered
 

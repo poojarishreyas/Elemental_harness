@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-projected-token-usage-and-request-context.zh.md)
-
 ## Problem
 
 The Web stats line derived token totals from the currently loaded conversation nodes. That window is paged, so scrolling changed the totals, and compaction replaces visible content without preserving the billing behind it. Durable provider billing needs a source that survives both.

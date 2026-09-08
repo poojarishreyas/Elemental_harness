@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-25-persistence-latency-and-page-size.zh.md)
-
 ## Problem
 
 Physical persistence optimizations need to reduce retained storage without moving disproportionate work into full writes, reads, or Session forks. The original 105-Session corpus showed that JSONL level-19 compression made full writes and forks more than twice as slow.
@@ -46,5 +44,5 @@ JSONL keeps the low-cost provenance optimization without the level-19 write and 
 
 ## Related
 
-- [JSONL-only first-party Session persistence](../simplification/2026-08-30-jsonl-only-session-persistence.md) — owns deletion of the alternative authoritative backend; the [archived SQLite compression record](../../archived/architecture/2026-08-18-sqlite-physical-chunk-row-compression.md) retains its historical measurements.
+- [JSONL-only first-party Session persistence](../simplification/2026-08-30-jsonl-only-session-persistence.md) — owns deletion of the alternative authoritative backend; the archived SQLite compression record retains its historical measurements.
 - [zstandard-jsonl-session-logs](2026-07-19-zstandard-jsonl-session-logs.md) — owns the checksummed frame-per-batch container and the standard compressor-level policy restored here.

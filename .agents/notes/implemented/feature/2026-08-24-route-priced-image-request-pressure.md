@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-24-route-priced-image-request-pressure.zh.md)
-
 ## Problem
 
 The token meter priced an `ImageBlock` as the structural JSON of its durable reference — roughly forty tokens — while a DeepSeek request image costs up to 384 visual tokens, so an image-dense session could carry hundreds of thousands of unbilled estimated tokens. Provider usage anchors only completed requests: the first multimodal request, images added after the anchor, and offload-set changes all fed automatic compaction a pressure figure that was wrong by orders of magnitude, triggering it far too late (context overflow) or, after a route change, too early. The [version-one simplification](../simplification/2026-07-29-simplify-web-image-input-v1.md) had deliberately rejected a provider-neutral tile formula and deferred visual pricing until a provider-aware estimator had a concrete consumer.

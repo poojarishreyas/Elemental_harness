@@ -1,7 +1,5 @@
 # Pairing rules
 
-English | [中文](rules.zh.md)
-
 These rules govern the Chinese counterpart of every documentation pair.
 
 ## Priority levels

@@ -5,8 +5,6 @@ kind: "package-group"
 
 # interaction/ — the human-collaboration plane
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The `interaction/` group is where a human collaborates with a running agent. It provides the slash-command plane users type into, the one-shot approval decisions behind sensitive actions, named permission presets that bundle sandbox mode with an approval policy, and the question/answer service an agent pauses on when it needs a human decision. All five packages are product packages — the real interfaces a person drives — and the product `dsh` CLI composes them directly. Interactive applications drive the command, approval, and question interfaces directly, while automation uses the ACP transport. The subsystem references own the exhaustive contracts; this map points at each package and its neighbors.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-search-render-card.zh.md)
-
 ## Problem
 
 `grep` and `glob` return structured canonical values — `grep` a flat `{ matches: [{ path, lineNumber, line }] }`, `glob` a `{ paths: string[] }` — but every UI only ever saw their model-facing render text: `grep` groups its matches under file headers with `Line N:` rows, `glob` prints a newline-joined path list, and both append a spill footer when the inline cap (`grepMaxMatches`, default 250; `globMaxResults`, default 100) drops later results to a spill file. A web frontend that wants to render a search result as an expandable per-file group of matches, or as a selectable path list, had to re-parse that text. Both tools already declared a call-time [render intent](../architecture/2026-07-02-tool-render-intent-union.md) (`GenericCallView`, `kind: 'search'`) but no result-time view, so the completed call fell back to the generic card that renders the raw text.

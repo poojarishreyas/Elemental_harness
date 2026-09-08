@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-ask-question-web-presentation.zh.md)
-
 ## Problem
 
 The Web GUI could already collect answers through the `QuestionComposer` composer takeover, but the transcript around it was wrong on three counts. A pending question rendered twice: once as the composer takeover and once as the read-only `PendingCard` placeholder that predates the takeover. A settled `ask_user_question` call rendered as the generic "Tool call" row dumping raw args JSON, so the two composer verdicts — the user dismissing the whole set (`ASK_CANCELLED`) and a turn interrupt landing while the question was pending (`ASK_ABORTED`) — both read as anonymous red-dot failures. And the composer's own chrome copy (pager, buttons, placeholders, validation feedback) was hardcoded Chinese while the surrounding client is bilingual through `dsh-client-locale`.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-remove-repository-plugin.zh.md)
-
 ## Problem
 
 The repository Plugin path duplicated the profile bundle path for installing and composing third-party packages. It added a `.dsh-plugin` manifest, a generated wrapper, a preparation executable, a second Git/package cache, a Loader builtin, and repository-specific Skill and MCP adapters. Profile bundles already install npm or Git package specifications through the profile package manager, retain normal dependency and lifecycle semantics, and contribute an ordered `cordis.patch.yml` layer that can mount ordinary Cordis Plugins.

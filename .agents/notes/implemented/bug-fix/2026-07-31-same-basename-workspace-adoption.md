@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-same-basename-workspace-adoption.zh.md)
-
 ## Problem
 
 A Workspace is identified by its stable id and canonical directory path, while its title is mutable display metadata. The registry nevertheless rejected a new canonical path when its basename-derived title matched another Workspace. Common directory layouts such as `/a/xx` and `/b/xx` therefore could not coexist in the Web UI, even though the [domain design](../../proposed/architecture/2026-07-24-domain-kv-storage-and-workspace.md) already permits duplicate titles and every client operation addresses a Workspace by id.

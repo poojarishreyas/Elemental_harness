@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-cordis-event-walk-backstop.zh.md)
-
 ## Problem
 
 `gen-cordis-catalog` renders every service and event the Typert host-face projection discovers, and fail-closed page maps (`SERVICE_PAGE`, `EVENT_SCOPE_PAGE`) guarantee each discovered key or scope lands on exactly one `docs/subsystems/` page ([per-subsystem regions decision](../process/2026-07-28-per-subsystem-cordis-surface-regions.md) owns the page-region mechanism). Discovery itself was only backstopped for services: an independent AST scan read every `declare module 'cordis'` Context merge and demanded each declared key be rendered or carry a named `SERVICE_WALK_EXEMPTIONS` reason.

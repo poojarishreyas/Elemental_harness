@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-cross-workspace-resume.zh.md)
-
 ## Problem
 
 `/resume` could only reach sessions started in the launch directory, so returning to yesterday's work in another project meant remembering its path, leaving the TUI, and relaunching there. Two independent causes produced that limit, and fixing either alone changes nothing.

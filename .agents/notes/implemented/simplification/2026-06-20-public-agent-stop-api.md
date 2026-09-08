@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-06-20-public-agent-stop-api.zh.md)
-
 ## Problem
 
 The public `Agent` handle exposed two overlapping ways to stop in-flight work: step-only `abort()` and queue-aware `cancel()`. The former preserved queued input while the latter originally only exposed its broad default, which clears queued and steering work while aborting the active turn. `cancel(cause, { keepInbox: true })` now covers the production Web stop policy without exposing the private turn holder; ACP retains broad cancellation, while lifecycle owners tear down agents through `AgentHandle.dispose()`. No production caller needs a bare step-only abort.

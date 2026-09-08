@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-13-feedback-note-editor-popover.zh.md)
-
 ## Problem
 
 The Web surface for message feedback ([#2262](https://github.com/deepseek-harness/deepseek-harness/pull/2262)) contributes its controls to `conversation.chat.assistant-actions`, which renders inside the finalized assistant message's shared IconActions row. That row was one fixed-height `flex` line with `flex-wrap` at its initial `nowrap` and `height: 28px`, sized for 28px icons and a clock. The note editor mounted into it as an inline group holding a `width: 260px` textarea plus Save and Cancel.

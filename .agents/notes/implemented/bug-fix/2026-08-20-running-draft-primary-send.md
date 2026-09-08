@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-running-draft-primary-send.zh.md)
-
 ## Problem
 
 The ordinary Web composer remains editable while a Turn is running, and keyboard submission can queue or steer its draft. Its single primary pointer control nevertheless stayed on Stop for the entire Turn. A pointer user who entered a follow-up and activated that control stopped the current Turn instead of submitting the visible draft, so the control contradicted the composer's editable state and the user's current content.

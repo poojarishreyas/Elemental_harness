@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-require-agent-notes-for-non-trivial-changes.zh.md)
-
 ## Problem
 
 A selective threshold based on whether a decision seems durable, contested, and surprising lets substantial changes land without preserving their rationale. Code and tests show what changed, but they cannot consistently preserve why an approach won, which alternatives lost, or what costs maintainers accepted.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-explicit-schedule-time-zone.zh.md)
-
 ## Problem
 
 Implicit local `at` input made a browser fact into shared product state. Capturing a default zone on Session creation required new Session headers, create/resume/fork conflict rules, JSONL metadata, a SQLite migration, client creation plumbing, Host comparisons, and Schedule logic coupled to time-context markers. Travel, concurrent tabs, missing provenance, and old Sessions then needed a confirmation protocol merely to decide whether an omitted field was safe.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-26-models-page-extension-slots.zh.md)
-
 ## Problem
 
 Provider sign-in for the pi-ai catalog (GitHub Copilot, OpenAI accounts) is moving out of the product into an optional out-of-tree plugin for provider terms-of-service reasons. The plugin needs its sign-in button and attempt UI inside the Models page's provider cards — the surface where a user meets a provider — but `ui-settings-models` rendered its cards from closed code: the only integration path was editing this package, which an external plugin cannot do, and the page's one open seam (`settings.section`) can only add a whole separate page.

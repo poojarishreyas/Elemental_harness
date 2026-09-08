@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-06-26-fsspec-style-fs-seam.zh.md)
-
 ## Problem
 
 The filesystem capability from [filesystem-capability-seam](../architecture/2026-06-17-filesystem-capability-seam.md) currently makes one abstract `FileSystem` service own two different jobs:
@@ -113,7 +111,7 @@ It keeps the Service Definition / Service Provider / Consumer discipline, consum
 
 ## Later extension
 
-The seam was later extended with direct directory listing by [Add direct directory listing to the filesystem seam](../../archived/architecture/2026-07-03-filesystem-directory-listing-seam.md). That follow-up is recorded separately so this note continues to describe the fsspec-style refit that originally shipped.
+The seam was later extended with direct directory listing by Add direct directory listing to the filesystem seam. That follow-up is recorded separately so this note continues to describe the fsspec-style refit that originally shipped.
 
 ## Alternatives considered
 

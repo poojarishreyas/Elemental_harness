@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-25-loaded-turn-chat-navigation.zh.md)
-
 ## Problem
 
 Long Chat transcripts require repeated scrolling to revisit an earlier Turn. Session history is paged, so the browser may hold only a suffix of the conversation and the first loaded Turn may begin after its user message. A navigator that implies knowledge of unloaded Turns, or keys marks by their current array position, becomes misleading or unstable when Session Controller prepends the preceding event page.

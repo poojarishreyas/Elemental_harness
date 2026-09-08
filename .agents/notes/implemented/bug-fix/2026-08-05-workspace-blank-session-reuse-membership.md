@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-workspace-blank-session-reuse-membership.zh.md)
-
 ## Problem
 
 Clicking the `+` on a Workspace group in the sidebar sometimes opened a session that the sidebar showed under Ungrouped instead of under the clicked Workspace — "entered a new session but the Workspace was not selected". The failure was specific to Workspaces registered at the directory the CLI runs from (in practice the harness checkout itself, i.e. `defaults.cwd = process.cwd()`), and appeared once a CLI-born blank session existed there.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-continuable-child-report-obligation.zh.md)
-
 ## Problem
 
 A continuable background child owns its own Session, so nothing it writes there reaches the agent that started it. [The report tool](2026-07-30-continuable-subagent-report-tool.md) gave that child a return channel and then presented it as one option among several: the schema said "call this zero or more times", nothing in the child's prompt asked it to call the tool at all, and the accepted default scheduling (`quiet`) added the report to a parked parent's next request without waking it.

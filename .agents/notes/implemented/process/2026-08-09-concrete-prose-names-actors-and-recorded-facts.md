@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-concrete-prose-names-actors-and-recorded-facts.zh.md)
-
 ## Problem
 
 Repository prose used abstract category labels where readers needed different concrete facts. The same label could mean earlier event seqs cited by a replacement, the provider and model that produced a message, the caller that supplied context, the file that supplied a configuration row, or the CI job that built a binary. Readers had to inspect code before they could tell which fact the sentence promised.

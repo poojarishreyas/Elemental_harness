@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-md-fragment-anchor-gate.zh.md)
-
 ## Problem
 
 `verify-md-links` proved a relative link's target file exists but never looked at the `#fragment`, and the documentation standard compensated with a manual rule: grep anchors yourself before renaming a heading. A corpus sweep found 15 links whose fragments named no anchor in their target — three distinct decay modes: a heading reworded after the link was written (`#security-and-authority-are-explicit-non-goals` vs the note's current `Security and authority are non-goals`), a contract relocated to a different owning document (`tool-fs` linking the seam README for the no-timeout rule that now lives in the group README), and zh pair sides linking English slugs their Chinese headings never produce (`#deferred-work` against `## 推迟工作`). None of these fail any gate, and each silently strands the reader at the top of the target page.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-followup-enqueue-and-owned-runs.zh.md)
-
 ## Problem
 
 `Agent.followup()` identifies and queues a user message, but one follow-up does not own the activity that follows it. Steering, injected context, tool continuations, recovery, and later queued messages can all contribute before the agent next becomes idle. A `MessageId` can therefore prove inbox admission, but it cannot identify which assistant message or `turn/end` is the result of that input.

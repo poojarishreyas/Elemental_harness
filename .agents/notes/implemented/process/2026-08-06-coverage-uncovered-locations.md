@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-coverage-uncovered-locations.zh.md)
-
 ## Problem
 
 When the per-file 100% coverage gate fails, vitest emits only file-level error lines (`ERROR: Coverage for lines (…) does not meet global threshold (100%) for <file>`) — you learn which file fell short, not which lines. The built-in `text` report does have an Uncovered Line #s column, but it is one giant table over hundreds of files repo-wide: the column truncates at the table width, carries line numbers but no column numbers, does not distinguish statements from branches from functions, and passing files occupy rows all the same. The net effect is that a red coverage run on CI is not directly actionable; the only way to locate the specific gap is to rerun the html report locally.

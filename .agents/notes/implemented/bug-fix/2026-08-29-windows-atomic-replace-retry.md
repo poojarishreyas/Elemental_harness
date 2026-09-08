@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-29-windows-atomic-replace-retry.zh.md)
-
 ## Problem
 
 Windows can temporarily reject a rename that replaces an existing file with `EACCES`, `EBUSY`, or `EPERM` while another system component holds the target. The cross-process writer lock orders cooperating application writers but cannot release that external handle, so treating the first error as permanent makes an otherwise valid settings or credentials update fail nondeterministically.

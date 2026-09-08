@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-app-boot
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-app-boot` loads environment layers, composes the Web profile bundles and patches, and boots the backend plugins. It returns the running application or identifies the failed plugin and cause. The Web backend is the supported application entry; direct-config helpers support internal tests. Configuration previews and live patch application use the same profile resolver.

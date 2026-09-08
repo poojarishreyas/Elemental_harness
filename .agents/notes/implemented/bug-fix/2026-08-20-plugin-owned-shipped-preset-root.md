@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-plugin-owned-shipped-preset-root.zh.md)
-
 ## Problem
 
 `composeProfile` delivered the shipped agent-preset root by pushing a boot-time overlay whose `config` spread the composed roster row and then hard-set `roots` to the shipped root alone. Because an id-targeted patch replaces the whole `config` value, the overlay squashed every root the profile's `cordis.patch.yml` (or the home layer, or a `--patch` overlay) had configured: a deployment pointing `agent-presets` at a shared preset directory booted with only the shipped root plus the roster's writable home root, and every custom preset vanished from the Web picker. `dsh --dump-config` composes only the file-backed layers, so the dump showed the configured roots intact while the boot dropped them. The overlay also froze the row's boot-time `config` above every live reload, so no `cordis.patch.yml` edit to the row took effect until restart. Externally reported with an accurate root cause in discussion #3636.

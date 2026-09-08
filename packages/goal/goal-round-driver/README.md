@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-goal-round-driver
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-goal-round-driver` automatically continues an active goal in the same session: whenever the agent is idle with an active, armed goal and remaining round capacity, the driver starts the next goal round. Each round is one model turn toward the objective, driven by a retained goal-round prompt; only goal-sourced rounds count against the goal's round cap, and the goal records a blocker when the cap is exhausted. The driver has no configuration of its own — the round cap belongs to the goal definition and the model-facing blocked threshold belongs to `dsh-tool-goal`, so policy stays in one place. Mount it together with `dsh-goal` and `dsh-tool-goal` when a task should work itself toward completion across rounds; leave it out when every step needs human steering.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-24-folder-reference-pick-vs-drill.zh.md)
-
 ## Problem
 
 A directory row in the `@` menu had one verb doing two jobs. Picking it inserted literal `@dir/` text and kept the menu open — the descent path for reaching a file — so a user who wanted the folder *itself* as context never got a settled entity: the token kept its trigger character, stayed editable (typing `123` kept filtering children), and looked nothing like the atomic chip a file pick produces. Field feedback with a competitor screenshot made the expectation concrete: a chosen folder should be as settled as a chosen file.

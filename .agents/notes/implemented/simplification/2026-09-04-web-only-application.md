@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-09-04-web-only-application.zh.md)
-
 ## Problem
 
 The product needs a browser interface and its agent backend. Maintaining standalone command-line task runners, TypeScript and Python clients, stdio servers, and runtime-wheel packaging adds interfaces and distribution work outside that scope. The browser still depends on configuration loading, the agent engine, tools, permissions, and durable sessions, so deleting the launcher together with those shared services would break the application.

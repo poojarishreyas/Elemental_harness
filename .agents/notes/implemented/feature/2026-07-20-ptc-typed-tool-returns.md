@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-20-ptc-typed-tool-returns.zh.md)
-
 ## Problem
 
 PTC mode originally projected each nested tool result back from `ContentBlock[]` into one string. That preserved the human-readable Native presentation but erased the canonical result the tool had already produced: programs had to scrape job ids and dynamic mount ids from prose, structured search and workflow results lost their shape, and non-text blocks became placeholders. The generated SDK could describe arguments but could only promise `Promise<string>` regardless of the tool's real output.

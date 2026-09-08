@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-code-runtime
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-code-runtime` defines what a code runtime does: run one model-written program against a set of host-provided async functions and report `{ value, logs, error? }` — without dictating how any backend implements it. Load it in a composition with a backend and the service is available as `ctx.codeRuntime`; PTC mode in `dsh-tools` then runs model-written programs that compose tools. Every request runs once with no state carried between runs, and every program outcome — including failures — resolves as a result field rather than a rejection. The runtime knows nothing about tools or sessions: it is handed a program and named bindings, and everything tool-shaped stays with the consumer.

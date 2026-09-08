@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-product-subagent-providers-in-shared-host.zh.md)
-
 ## Problem
 
 The [Codex and Claude Code provider contracts](../feature/2026-08-04-claude-code-and-codex-subagent-backends.md) were first shipped as independently installable packages that a deployment loaded beside the common subagent tool. Agent Presets later became the ordinary owner of one agent's model-visible tools, but a preset cannot safely own these product providers: `ctx.subagents` is a process registry, provider names are unique within the Host, and host consumers resolve the same registry across sessions. Repeated preset composition would therefore contend for the same configured names. Requiring a person to edit both a Profile and a Preset would also make a generic preset row incomplete by itself.

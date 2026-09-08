@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-agent-event-payload-objects.zh.md)
-
 ## Problem
 
 Agent-scoped events historically took positional arguments: a leading `agent` subject, event-specific fields, and a trailing `next` for waterfall/serial events. Adding a field or retiring a context type (as with `PreStepContext` and `RequestFailureContext`) rewrote every listener and emitter across packages, and the contract stayed spread across the parameter list instead of one named payload.

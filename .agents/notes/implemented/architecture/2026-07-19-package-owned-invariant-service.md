@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-package-owned-invariant-service.zh.md)
-
 ## Problem
 
 Runtime invariant checks span session traces, agent state, scoped dispatch, and request reconstruction. Putting all checks in one diagnostics package makes that package import product vocabularies from unrelated domains, centralizes tests away from their owners, and requires the central package to change whenever a product package adds or removes a check.

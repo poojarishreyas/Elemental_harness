@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-session-end-seed-log-boundary.zh.md)
-
 ## Problem
 
 A plugin that owns a standalone open/close bracket in the session log cannot tell a dead marker from a live one. `compaction/start` … `compaction/end` is the shipped case: on picking up a log whose last compaction event is an unmatched `compaction/start`, "the previous writer died mid-compaction" and "a compaction is running right now" are byte-identical stored history. The owner must either refuse to compact a log that is actually free (wedging the session) or proceed over one that is genuinely busy.

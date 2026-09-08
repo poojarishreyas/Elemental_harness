@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-26-job-registry-seam.zh.md)
-
 ## Problem
 
 The [background-job runtime](2026-06-20-generic-long-running-tool-runtime.md) shipped `JobRegistry` as one concrete package: `@deepseek-ai/dsh-jobs` owned both the `ctx.jobs` contract every producer and controller programs against and the process-local provider (the in-memory store, settlement bookkeeping, owner-cleanup effects, teardown). That bundling recouples the two rates of change the repository's [capability-seam rule](2026-06-13-capability-seams.md) separates: swapping the registry's storage or lifecycle backend would churn the same package whose types and `ctx.jobs` API producers (`dsh-tool-bash`, `dsh-tool-terminal`, `dsh-tool-subagent`), the controller (`dsh-tool-jobs`), and `JobKindMap` extenders import. Every other swappable capability in the harness — bash, pty, fs, skill, subagent, web, session persistence — already carries the Service Definition / Service Provider / Consumer split; the job registry was the remaining `core`-mode exception, guarded only by a `TODO(job-service-backend)` comment.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-resume-selector-batch-projection.zh.md)
-
 ## Problem
 
 Opening the TUI `/resume` selector called `sessionQuery.readSession()` once per listed session under an unbounded `Promise.all`. Each call re-listed the whole persistence store inside `SessionCorpus.load()` (O(N²) listings), read and decompressed the complete log, replay-validated every event through the `Session` constructor, and deep-cloned the header and events up to three times — all to derive one selector row's title, last-activity time, last `turn/end` label, provider/model route, and goal phase. On a real store (185 sessions, 87 MB compressed, ~353k events) the selector took tens of seconds to open, and the cost grew with total log size rather than session count.

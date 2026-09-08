@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-11-repository-naming-contract-and-rename-ledger.zh.md)
-
 ## Problem
 
 The repository had grown faster than some names. Several package names described the first implementation instead of the capability. Several classes used `Service` even when they were registries, runtimes, engines, controllers, or resolvers. Some `ctx` keys were singular for registries and plural for one engine. Some provider names said `local` even though they used replaceable filesystem or subprocess services and could run in another execution world.

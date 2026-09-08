@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-12-hero-fish-hover-swim-morph.zh.md)
-
 ## Problem
 
 Hovering the New Session hero fish (`EmptyHero.tsx` in `dsh-client-ui-conversation`) played a one-shot rigid CSS sway of the whole svg. The user wanted the whale to visibly swim — the tail wagging and the mouth curve lifting — which requires deforming the path geometry itself. CSS transforms cannot bend a subset of a path's curves, and the logo ships as one `FISH_LOGO_PATH` string in `dsh-client-ui-primitives`.

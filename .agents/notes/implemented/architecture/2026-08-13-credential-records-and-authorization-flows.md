@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-13-credential-records-and-authorization-flows.zh.md)
-
 ## Problem
 
 The harness credential plane could only express one kind of secret: a value behind an environment-variable name. `CredentialRef` is a POSIX identifier, resolution layers the process environment over a managed file and `.env` fallbacks, and every consumer reads it per operation. That covers an API key exactly and covers nothing else.

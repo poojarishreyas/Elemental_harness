@@ -5,8 +5,6 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-output-retention
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-output-retention` bounds how much context a tool returns to the model: a caller feeds items or text chunks into a retainer, then gets back the retained content plus exact omission metadata. `ItemRetainer` caps an ordered list of logical units (paths, matches, sources) at a head budget; `TextRetainer` caps a byte-oriented text stream with head, tail, or head-and-tail windows and keeps UTF-8 boundaries valid at every cut. A standardized omission clause and a notice formatter give tools a consistent "results capped" footer while the tool owns the recovery guidance. The library answers only the mechanical question of what was kept and what was omitted — grouping, line numbering, spill files, and provider error states stay in the tool. It is a dependency-light library that tool packages import directly; a `cordis.yml` cannot load it.

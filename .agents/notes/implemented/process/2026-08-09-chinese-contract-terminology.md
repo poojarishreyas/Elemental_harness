@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-09-chinese-contract-terminology.zh.md)
-
 ## Problem
 
 The Chinese documentation rendered English `contract` inconsistently as `契约` and `约定`, sometimes within one file or paragraph. The terminology table prescribed `契约`, while reviewed incremental proofreading selected the more natural engineering rendering `约定`. Leaving the table and corpus split made either choice fail the repository's terminology rule and allowed later translations to reintroduce the disagreement.

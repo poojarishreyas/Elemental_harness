@@ -5,8 +5,6 @@ kind: "package-group"
 
 # packages/workflow
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The workflow group lets an agent run a model-authored orchestration script that fans work out across many subagents and returns a final value. The `workflow` package provides the run service, the worker-thread package executes scripts in isolated threads, and two model-facing tools expose orchestration: the general `workflow` tool for scripted fan-out and the fixed `ralph` tool for fresh-agent iterative loops. The script coordinates agents with hooks while the agents do the actual work. The engine keeps a script's synchronous work off the host event loop but is containment, not a security boundary.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-07-shared-feedback-telemetry-user-id.zh.md)
-
 ## Problem
 
 The OpenTelemetry backend already persisted one anonymous UUID in `$DSH_HOME/.anonymous-user-id`. `/feedback` now needs to report both the receiving session id and a user id so an operator can correlate the acknowledgement with exported records. Duplicating or independently generating that identity would make the reported user meaningless, while importing it from `session-telemetry-otel` would make a direct command depend on an exporter backend and create a dependency cycle when feedback export is mounted by telemetry.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-windows-atomic-write-dacl-preservation.zh.md)
-
 ## Problem
 
 Atomic writes protect POSIX staging directories with `0o700` and temp files with `0o600`, but Windows mode bits expose only a synthetic read-only view of the actual DACL. Creating staging under the target's parent and relying on inheritance is sufficient for a new file, but not for replacing an existing file whose explicit or protected DACL is narrower than its parent: content is written under the broader parent DACL, and rename carries that staging descriptor onto the replacement.

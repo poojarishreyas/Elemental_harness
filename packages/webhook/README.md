@@ -5,8 +5,6 @@ kind: "package-group"
 
 # webhook/ — verified external events to DSH Sessions
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The Webhook family receives authenticated provider events and runs trusted programmatic rules. A rule can create an ordinary root Session inside a Web Workspace. Dispatch is process-local and fire-and-forget, with no delivery database, queue, retry, deduplication, or Agent-completion state.

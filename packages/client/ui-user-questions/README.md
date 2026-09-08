@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-client-ui-user-questions
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-client-ui-user-questions` is the web question feature plugin: its browser half registers the `question` entry in the conversation-owned `conversation.composer` chain, so when the agent asks the user a question the composer is taken over by the question UI. The component renders one question at a time with progress navigation, single- and multi-select choices, recommendation badges, and custom answers, and submits one structured answer batch for the whole request. A request whose single question declares a presentation intent renders as that intent's own surface instead — notably the `plan-review` waiting-approval card with `Chat about it` / `Refuse` / `Approve`. Its host half is empty on purpose: mounting `dsh-tool-ask-user` there would put the tool in the registry's global layer and merge it into every agent regardless of the preset that composed it.

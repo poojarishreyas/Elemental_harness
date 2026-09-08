@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-drop-user-message-edit-stub.zh.md)
-
 ## Problem
 
 The user bubble's IconActions row carried an edit button beside copy and branch. Nothing backed it: the control had no click handler, no client mutation, and no host operation for resending an edited message. A user who found it saw an affordance the product cannot honor.

@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-tools
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 With `dsh-tools`, tool plugins register schemas and executors, and every model tool call runs through a guarded pipeline — allow/deny/ask policy, monotonic guards, around-dispatch wrappers, result inspection, definition-owned content finalization, and a final observe-only notification. The package also controls how tools are presented to the model: its `mode` config selects native function calling, [PTC mode](#ptc-mode), or both, and one agent shadows that default for itself with `presentAs`. Tool authors use `defineTool` for typed parameter and output schemas, an optional cooperative timeout, parallel-safety classification, and optional UI presentation intents. Choose it as the registry for any capability you want the model to reach — schemas flow into prompt assembly automatically.
@@ -181,7 +179,7 @@ PTC mode exposes the generated [`run_code` schema](../../../docs/tool-catalog.md
 
 Inside the program:
 
-- Call tools as `await tools.name(args)` — quoted access for exotic names: `tools["my-tool"](args)`. Every call resolves to the tool's typed canonical JSON value. Tool arguments must be lossless JSON.
+- Call tools as `await tools.name(args)` — quoted access for exotic names: `tools"my-tool"`. Every call resolves to the tool's typed canonical JSON value. Tool arguments must be lossless JSON.
 - A FAILED tool call rejects with `ToolCallError`, whose `toolName` identifies the failed tool and whose `message` is human-readable — `try/catch` it to handle and continue.
 - Independent read-only calls MAY overlap under `Promise.all` (safe calls run concurrently; mutating calls run alone, in submission order). Sequence dependent work with `await`.
 - Emit results with `return` and/or `console.log(...)`. Only what you print or return is program output. A successful tool result containing an image is attached after the run so you can inspect it on the next step; every other intermediate result stays out of the conversation, so extract just what you need.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-03-cli-signal-shutdown-escalation.zh.md)
-
 ## Problem
 
 The default telemetry mount added SIGINT/SIGTERM handlers to `dsh web` and the headless command (now `dsh --profile headless`) so process exit could drain the Cordis tree instead of dropping queued telemetry. Each handler used a one-way boolean latch and exited only after `ctx.fiber.dispose()` settled. Headless normal completion also awaited that disposal without a bound.

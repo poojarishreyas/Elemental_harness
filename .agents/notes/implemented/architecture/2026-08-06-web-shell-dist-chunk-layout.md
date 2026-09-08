@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-web-shell-dist-chunk-layout.zh.md)
-
 ## Problem
 
 The apps/web shell previously built into a single ~1.2 MB (minified) index chunk, roughly 80% of it vendor bytes — KaTeX, the boot grammars and the shiki engine, react-dom, the markdown pipeline — fused with all the workspace shell code (about one fifth). Any one-line shell change rehashed the whole chunk, forcing returning clients to redownload everything; `dist/assets/` was a flat single-level spread of 100-plus files (the main chunk, 23 lazy-loaded grammar chunks, 59 KaTeX font faces, and sourcemaps intermixed), impossible to navigate.

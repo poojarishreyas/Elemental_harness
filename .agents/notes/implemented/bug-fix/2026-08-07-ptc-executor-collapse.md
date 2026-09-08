@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-07-ptc-executor-collapse.zh.md)
-
 ## Problem
 
 `mode: 'ptc'` collapsed only the announcement surface, not the execution surface. `wireSchemas()` sent the model exactly one tool — `run_code` — but the executor resolved every call through `get()`, which returns the full visible map plus the reserved transport. A model that emitted a native tool name (`write`, `read`, `bash`, `subagent`, …) bypassed `run_code` entirely: the call traversed the normal pipeline and executed, even though no schema for it had ever been advertised. Providers do not intercept unadvertised tool names, so schema omission enforced nothing.

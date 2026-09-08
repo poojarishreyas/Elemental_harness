@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-31-goal-owned-durable-events.zh.md)
-
 ## Problem
 
 Goal state and inbox state have different lifecycles. A goal mutation must survive restart and fork whether or not any related model context is admitted, while an inbox message may be edited, claimed, rejected, or discarded as part of step scheduling. Encoding a goal mutation inside a round-zero inbox message made queue placement the domain commit point and required replay to reconcile insertion, admission, message identity, source metadata, and rendered content.

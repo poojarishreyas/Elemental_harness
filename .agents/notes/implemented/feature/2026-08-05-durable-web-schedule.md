@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-durable-web-schedule.zh.md)
-
 ## Problem
 
 A reminder created inside a conversation must remain attributable to that exact Session and survive a process restart. A process-local timer or inbox item cannot provide that durability, while a global scheduler or private database introduces a second identity, persistence, and lifecycle system.

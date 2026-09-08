@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-23-web-permission-and-approval.zh.md)
-
 ## Problem
 
 The web host booted an unconfined agent: `bootHost` composed `dsh-bash-local` and `dsh-fs-local`, so every web session ran with full file access, no approval channel, and no permission control — while the ACP composition had shipped the complete sandboxed product path (sandbox provider + policy home + confined shell/fs + approval + presets) for months. The web wire contract had already reserved the seats — `approval/requested`/`approval/resolved` mux frames, `POST /api/respond` with `ApprovalResponsePayload`, client-side `pendingBuffers` — but the host `respond` was a stub, no answerer bridged `ctx.approval` to the stream, no RPC exposed the permission select, and the PendingCard rendered approvals as visible-but-unanswerable.

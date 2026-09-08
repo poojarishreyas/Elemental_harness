@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-web-background-job-display.zh.md)
-
 ## Problem
 
 `ctx.jobs` already runs every long-lived piece of work the harness starts in the background — `bash`, `pwsh`, `pty-send`, and one-shot background subagents — but its only reader was the model. [`dsh-tool-jobs`](../../../../packages/jobs/tool-jobs/README.md) exposes `job_list`, `job_output`, and `job_kill`, and nothing else observed the registry.

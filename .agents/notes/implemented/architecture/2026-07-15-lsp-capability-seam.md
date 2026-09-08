@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-15-lsp-capability-seam.zh.md)
-
 ## Problem
 
 The harness has text search and file reads, but neither identifies a program symbol. A textual match cannot reliably distinguish two same-named functions, follow an import alias, connect an interface to its implementations, or report an inferred type. Before changing code, an agent therefore lacks the semantic navigation that a human gets from an editor's language server.

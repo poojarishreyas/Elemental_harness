@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-19-session-projection-state-and-client-views.zh.md)
-
 ## Problem
 
 The projection registry persisted each unit's internal fold state without a runtime schema, while `SessionProjectionMap` described the client value returned by `view`. This left restored state unvalidated and made the same type table appear to describe two values that may differ. Host consumers also needed the current folded state without serializing every registered client view or exposing internal-only state through the client protocol.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-17-dynamic-client-render-and-attachment-ownership.zh.md)
-
 ## Problem
 
 The host-authored client graph governs browser plugins, but three presentation paths sat outside that lifecycle. The web kernel created the React root and a shell-owned assembly pseudo-entry, `ui-conversation` imported attachment components as package values, and the shell imported ui-theme's global styles. Disabling, failing, or reloading a plugin therefore did not govern all of the rendering and CSS that belonged to it.

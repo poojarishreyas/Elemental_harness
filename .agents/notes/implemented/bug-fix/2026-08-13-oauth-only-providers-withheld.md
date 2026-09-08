@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-13-oauth-only-providers-withheld.zh.md)
-
 ## Problem
 
 The Models page offered `openai-codex` like any other pi-ai route, with the placeholder every pi-ai provider carries: enter a key, or leave it blank to authenticate from the environment. Configuring it that way and sending a message failed the turn with `Provider is not configured: openai-codex`, reported as the adapter's catch-all `PI_AI_ERROR`.

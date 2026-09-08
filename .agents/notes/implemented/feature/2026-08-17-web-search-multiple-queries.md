@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-17-web-search-multiple-queries.zh.md)
-
 ## Problem
 
 The model-facing `web_search` tool accepted only one `query`. In deployments where an internal search backend was also exposed as MCP, models preferred the MCP search tool because it could take multiple keywords in one call, and they often followed a native `web_search` with a second MCP search when the first result felt insufficient.

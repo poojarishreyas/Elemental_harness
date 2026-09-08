@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-06-web-skill-tool-row.zh.md)
-
 ## Problem
 
 The Web transcript renders `skill` calls through the generic fallback row, so a loaded instruction set looks like an unknown tool call even though Skill is a first-class product concept. The generic row also exposes the JSON argument envelope beside the result, adding noise around the one identity users need: the loaded skill name.

@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-08-04-task-surface.zh.md)
-
 ## Problem
 
 Some tasks are awkward to finish through alternating prose messages. Comparing several options, reordering a plan, reviewing a table, or filling a small set of related fields all work better as one structured interaction. An agent can describe such an interaction, but it cannot ask the Web client to render one without adding a permanent product component or generating executable Client Plugin code.

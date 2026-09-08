@@ -5,8 +5,6 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-tool-jobs
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 `dsh-tool-jobs` gives the agent three kind-independent tools for background work — `job_output`, `job_list`, and `job_kill` — so any job the agent started, whether a background command, a PTY send, or a subagent, is read, listed, and cancelled through the same controls. When a job finishes, the owning agent is told in-session: a busy agent gets the notice in its next step, an idle agent is woken with a follow-up turn, bounded per owner. Loading the plugin also attaches the job controller that lets producers start background work. The tools are generic UI cards over `ctx.jobs`; configuration tunes wait timeouts and completion delivery.

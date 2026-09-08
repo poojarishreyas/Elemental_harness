@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-30-web-search-card.zh.md)
-
 ## Problem
 
 The `grep` and `glob` tools declare a result-time `card: 'search'` render intent ([search render card](2026-07-30-search-render-card.md)): a `SearchMatchesResultView` (`shape: 'matches'`) carrying grep's matches grouped by file, or a `SearchPathsResultView` (`shape: 'paths'`) carrying glob's flat path list, both with a `truncated`/`total` capping signal. That view already reaches the browser — host, connection, and runtime deliver it onto `ConversationSnapshot` as `resultView` — but the Web client ignored it: every non-terminal, non-diff tool result fell through to the generic card, which renders the model-facing text. A web frontend that wants an expandable per-file group of matches, or a scannable path list, had only the pre-formatted text.

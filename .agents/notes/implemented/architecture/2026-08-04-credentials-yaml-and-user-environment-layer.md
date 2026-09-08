@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-credentials-yaml-and-user-environment-layer.zh.md)
-
 ## Problem
 
 `$DSH_HOME/.env` carried two incompatible jobs. It was the writable secret store of [`credentials-local`](../../../../packages/credentials/credentials-local/README.md), so no surface could hoist it into `process.env` — hoisting would make every stored key read as a read-only launch override and block rotation from the Models page. But its name and dotenv format promise an environment file, so users put non-secrets in it and those values reached nothing: a `DEEPSEEK_BASE_URL` beside a working `DEEPSEEK_API_KEY` in the same file was silently ignored, because only the credential provider read the document and it addresses credential references alone.

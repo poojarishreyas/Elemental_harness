@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-08-per-preset-standing-mounts.zh.md)
-
 ## Problem
 
 Per-session preset mounts made the model-facing registry surface per-agent while three independent host readers still assumed it was static: cold `session.history` found no presenters (every card silently degraded to the generic renderer — indistinguishable from "tool has no presenter"), the projections block dropped preset-registered keys (clients treat an omitted key as capability absence and CLEAR the row), and the Typert gateway resolved `goals` on the host root (`service-unavailable`). Patching each reader individually traded one silent degradation for another: resuming to reach presenters flipped the projections fold from detached to live and wiped the token counts instead.

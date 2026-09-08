@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-22-evidence-based-larger-hosted-runners.zh.md)
-
 ## Problem
 
 The shard-heavy CI topology met its latency targets by spreading primary Node work across 40 Linux jobs and Windows work across nine jobs. Most gates were shorter than checkout, runner setup, cache restore, and dependency installation, so repeated setup waves created both cost and latency variance. One hosted run finished its slowest Linux job in 49 seconds yet took 231 seconds for a Windows lint shard whose checkout, cache restore, and install alone consumed 158 seconds.

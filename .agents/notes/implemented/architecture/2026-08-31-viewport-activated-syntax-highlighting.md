@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-31-viewport-activated-syntax-highlighting.zh.md)
-
 ## Problem
 
 A long conversation mounts code fences and read cards far outside the visible viewport. Eager highlighting tokenizes every supported block and creates every token span during that mount, so main-thread work and DOM size scale with the whole rendered history rather than the code the reader can see. The [Shiki selection](../process/2026-07-26-web-syntax-highlighting-shiki.md) and [incremental streaming highlighter](../feature/2026-08-20-web-streaming-fence-highlight.md) bound initialization and repeated prefix work, but neither avoids the first per-block tokenization for unseen history.

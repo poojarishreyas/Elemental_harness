@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-02-native-github-stacks-and-optional-rebases.zh.md)
-
 ## Problem
 
 A dependent PR chain represented only by base branches has no official stack identity. Landing it requires manually merging one PR at a time, preserving intermediate branches, retargeting every child, and reconstructing whether the chain survived. GitHub's native stacked-PR feature instead carries the order, applies trunk rules and CI to every layer, and owns bottom-up merges and retargeting.

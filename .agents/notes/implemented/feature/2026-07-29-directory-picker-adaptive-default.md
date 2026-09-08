@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-29-directory-picker-adaptive-default.zh.md)
-
 ## Problem
 
 The [directory-picker seam](../architecture/2026-07-28-directory-picker-capability-seam.md) made the interaction a `cordis.yml` swap point, but the shipped composition still had to pin one backend: `-browse` everywhere meant a local operator never got the OS chooser, `-native` everywhere breaks every remote deployment. The right default depends on facts only the running host knows — where the server binds, whether the process was launched over SSH, whether a display session exists — so no static row is correct for all deployments.

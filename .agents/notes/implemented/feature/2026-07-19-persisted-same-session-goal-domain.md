@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-19-persisted-same-session-goal-domain.zh.md)
-
 ## Problem
 
 A long-running objective outlives one prompt, turn, or model request. Treating that objective as an in-memory loop variable loses it on process restart, while putting it only in UI state makes model behavior impossible to reconstruct. Treating every session turn as progress also charges unrelated human messages against an automatic-work budget.

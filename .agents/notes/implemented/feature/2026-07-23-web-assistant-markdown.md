@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-23-web-assistant-markdown.zh.md)
-
 ## Problem
 
 The Web conversation preserves assistant Markdown source through session events, history replay, and streaming accumulation, but its terminal text primitive renders that source literally. Changing the shared primitive would also format user and steering messages, while parsing in the runtime would mix presentation state into the React-free session projection.

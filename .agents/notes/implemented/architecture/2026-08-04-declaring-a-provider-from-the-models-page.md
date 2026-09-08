@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-04-declaring-a-provider-from-the-models-page.zh.md)
-
 ## Problem
 
 The two layers below made a pi-ai route [a declaration](2026-08-03-pi-ai-declared-provider-catalog.md) and gave the host a way to [interrogate a draft endpoint](2026-08-04-draft-provider-endpoint-interrogation.md). Neither reached a person who does not edit YAML: the Models page still offered one API-key field per provider and a fold with a base URL, so adding a gateway meant opening `$DSH_HOME/settings.yaml` and knowing the profile shape, and correcting a stale context window meant the same. The capability existed and the surface did not expose it.

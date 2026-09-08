@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-07-28-load-pre-identity-session-messages.zh.md)
-
 ## Problem
 
 The identified immutable message change replaced four durable event payloads with complete message values. Existing v0 JSONL Sessions still held the immediately preceding forms: direct `content`/`source` on user and steering events, `content`/`provenance` on assistant events, and `callId`/`content`/`isError` on tool results. Their headers still matched `SESSION_FORMAT_VERSION`, but current-form validation rejected them before resume could construct a live `Session`.

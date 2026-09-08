@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-03-web-turn-run-time.zh.md)
-
 ## Problem
 
 The Web chat shows when a message arrived but not how long the agent worked on it. Long turns give no live progress signal beyond the static activity label, and after the turn settles the wall time is not recoverable from the UI. Meanwhile the always-visible clock row adds visual noise to every message.

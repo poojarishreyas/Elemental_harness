@@ -2,8 +2,6 @@
 
 Status: proposed
 
-English | [中文](2026-08-20-audience-first-documentation-quality.zh.md)
-
 ## Problem
 
 The documentation system has strong placement, freshness, linking, bilingual, and source-equivalence checks, but it does not define “brief, intuitive, and friendly” as reviewable outcomes for users, newcomers, developers, and agents. All `doc-sync` checks and translation pairs pass, while the following design problems remain. The first three findings are the design priorities; the capacity finding explains why adding more standing rules will not solve them.

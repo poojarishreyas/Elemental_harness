@@ -5,8 +5,6 @@ kind: "package-group"
 
 # subagent/ — subagent capability family
 
-English | [中文](README.zh.md)
-
 ## Summary
 
 The subagent group is the delegation family: it lets an agent hand a task to a child agent, wait for or continue the child's work, and keep every child discoverable. One contract (`ctx.subagents`) serves any number of named providers, so a single composition can mix in-process children (fresh, or forked from the parent's completed history) with out-of-process children — an ACP agent, a real Codex or Claude Code installation, or a complete Harness runtime over the SDK. The model-facing tools expose delegation, follow-up, and listing to agents, and a parent can always see which children exist and whether they are live or stored. This page maps the group; each package README owns its package contract.

@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-web-remove-steering-interjection-caption.zh.md)
-
 ## Problem
 
 The [context-source and steer marks decision](../feature/2026-08-04-web-context-source-and-steer-marks.md) captioned every durable and pending steering bubble with `插话` / `Interjection` so the transcript could say which right-aligned bubble interrupted a running turn. The caption repeats what the flow already shows: a steering bubble sits mid-turn, between the assistant content it interrupted, while a turn-opening prompt sits at a turn boundary. A permanent line of tertiary text above every steer bubble buys no reading a position-aware reader does not already have, and it is the only chrome any user-style bubble carries, so it also breaks the otherwise uniform right-aligned rhythm.
@@ -14,7 +12,7 @@ Steering renders exactly as a user bubble. `UserStyleBubble` has no steering fla
 
 The runtime distinction is untouched. `SteeringMessageNode` projection from durable `agent/inbox/spliced` history, the `data-pending-steering` attribute, and the pending-to-durable hand-off all remain: the pending lifecycle needs the node identity regardless of presentation, and tests still locate pending bubbles through the attribute.
 
-This partially supersedes the steering clause of the [context-source and steer marks decision](../feature/2026-08-04-web-context-source-and-steer-marks.md); its context-source and recall naming stays current. The caption has flipped before: the [archived no-steer decision](../../archived/simplification/2026-07-31-web-ui-no-steer-entry-or-interjection-chrome.md) removed it while the composer could not steer, and the 2026-08-04 decision reintroduced it after the composer gained a Steer gesture. This removal does not revisit the gesture — steering entry, the Queue dock's steer-send action, and the pending lifecycle keep their owners — it judges only that the transcript need not name the result.
+This partially supersedes the steering clause of the [context-source and steer marks decision](../feature/2026-08-04-web-context-source-and-steer-marks.md); its context-source and recall naming stays current. The caption has flipped before: the archived no-steer decision removed it while the composer could not steer, and the 2026-08-04 decision reintroduced it after the composer gained a Steer gesture. This removal does not revisit the gesture — steering entry, the Queue dock's steer-send action, and the pending lifecycle keep their owners — it judges only that the transcript need not name the result.
 
 ## Alternatives considered
 

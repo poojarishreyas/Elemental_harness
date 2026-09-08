@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-10-subagent-empty-terminal-message-output.zh.md)
-
 ## Problem
 
 The agent loop appends an empty-content `assistant/message` when a `max-tokens` step assembled only tool-call blocks because `BlockAssembler.blocks()` drops truncated tool calls; the message records usage only. Three consumers selected the child's output independently and treated that usage record as output. The in-process driver's `readResult` and the continuable Activation's `subagent/end` capture selected the last `assistant/message` without filtering, while the SDK backend's observer let any `assistant/message` take precedence over accumulated text. In a multi-step turn cut off at max-tokens, the final empty message caused the real partial answer to be omitted from `SubagentResult.output`, the tool result, telemetry, and `subagent/end.lastAssistantMessage`. The in-process driver also lacked a streamed-text fallback, so a cancelled child whose only text existed in `assistant/chunk` events reported `[]`.

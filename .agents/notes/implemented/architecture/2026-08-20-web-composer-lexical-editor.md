@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-20-web-composer-lexical-editor.zh.md)
-
 > Scope: the composer's text surface (ui-conversation input/editor), the SubmitMachine that remains of InputMachine, and the projection contract feeding the untouched ui-input-trigger pipeline. Supersedes the draft/occurrence half of the [input machine note](2026-07-25-web-input-machine-and-slash-pipeline.md); its submit-plane, slot, and trigger-pipeline halves stay current.
 
 ## Problem

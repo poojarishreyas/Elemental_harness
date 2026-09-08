@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-27-steer-followup-image-delivery.zh.md)
-
 ## Problem
 
 Images submitted while an agent is running did not reliably reach the model context or retain their intended browser placement (#3186), for three addressed reasons and one deferred agent-loop race.

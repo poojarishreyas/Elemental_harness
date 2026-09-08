@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-profile-plugin-bundles.zh.md)
-
 ## Problem
 
 The `dsh` launcher hardcoded its compositions: `base.cordis.yml` + `web.cordis.yml` shipped inside `apps/server`, three bespoke entry modes (`--config`, `web`, `-p`) each with its own layer stack, and a single global personal overlay (`$DSH_HOME/config.yaml`). There was no way to install an out-of-tree plugin (a TUI, a provider pack) into a shipped surface without editing the repository, and no place where a third-party package could contribute a default composition.

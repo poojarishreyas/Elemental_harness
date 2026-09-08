@@ -2,8 +2,6 @@
 
 Status: implemented
 
-English | [中文](2026-08-05-large-session-jsonl-restore-pipeline.zh.md)
-
 ## Problem
 
 Restoring a stored session activates it and materializes its complete authoritative event log before the agent can run. Large JSONL artifacts made that one-time operation pay several avoidable costs: each independent Zstandard frame created and closed a decoder context, decoded plaintext was accumulated and rescanned as whole-log buffers and strings, and freshly parsed events went through generic snapshot and deep-freeze paths designed for borrowed or cyclic values.
