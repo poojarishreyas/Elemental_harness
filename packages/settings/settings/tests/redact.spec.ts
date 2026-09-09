@@ -121,7 +121,7 @@ describe('describe() layers and redaction', () => {
     expect(descriptor?.base).not.toBe(base)
     expect(descriptor?.user).toEqual({ baseURL: 'https://user' })
     expect(descriptor?.value).toEqual({ apiKey: 'entry-key', baseURL: 'https://user' })
-      ; (descriptor?.user as Record<string, unknown>).baseURL = 'mutated'
+    ; (descriptor?.user as Record<string, unknown>).baseURL = 'mutated'
     expect(ctx.settings.describe()[0]?.user).toEqual({ baseURL: 'https://user' })
     expect(descriptor?.secrets).toBeUndefined()
   })

@@ -542,28 +542,28 @@ describe('malformed replay and listener lifecycle', () => {
       appendSource(session: Session): number[]
       pattern: RegExp
     }> = [
-        {
-          name: 'non-chunk',
-          appendSource(session) {
-            return [session.append('user/message', createUserMessage({
-              content: [{ type: 'text', text: 'x' }],
-              source: { kind: 'user' },
-            }), { surfaceOp: 'append' }).seq]
-          },
-          pattern: /is not assistant\/chunk/,
+      {
+        name: 'non-chunk',
+        appendSource(session) {
+          return [session.append('user/message', createUserMessage({
+            content: [{ type: 'text', text: 'x' }],
+            source: { kind: 'user' },
+          }), { surfaceOp: 'append' }).seq]
         },
-        {
-          name: 'wrong-step',
-          appendSource(session) {
-            return [session.append('assistant/chunk', {
-              turn: 1,
-              step: 2,
-              chunk: { type: 'finish', reason: { kind: 'stop' } },
-            }).seq]
-          },
-          pattern: /belongs to another step/,
+        pattern: /is not assistant\/chunk/,
+      },
+      {
+        name: 'wrong-step',
+        appendSource(session) {
+          return [session.append('assistant/chunk', {
+            turn: 1,
+            step: 2,
+            chunk: { type: 'finish', reason: { kind: 'stop' } },
+          }).seq]
         },
-      ]
+        pattern: /belongs to another step/,
+      },
+    ]
     for (const testCase of cases) {
       const session = Session.create(SessionId(`bad-source-${testCase.name}`))
       session.append('step/start', { turn: 1, step: 1 })
@@ -707,7 +707,7 @@ describe('malformed replay and listener lifecycle', () => {
         seq: 0,
         time: 1,
         data: { turn: 1 },
-      }]
+      }],
     })
     activeMeter.measure(session)
     session.append('user/message', createUserMessage({

@@ -48,7 +48,7 @@ describe('WebhookRuntime', () => {
     })
     const original = delivery()
     runtime.dispatch(original)
-      ; (original.event as { value: number }).value = 2
+    ; (original.event as { value: number }).value = 2
     const seen = await entered.promise
     expect(seen).not.toBe(original)
     expect(seen.event).toEqual({ value: 1 })

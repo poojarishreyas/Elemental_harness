@@ -104,7 +104,7 @@ describe('dsh-tool-todo', () => {
       todos: [
         { content: 'a', status: 'completed' },
         { content: 'b', status: 'in_progress' },
-      ]
+      ],
     }, { agent })
 
     const current = agent.session.events.findLast(e => e.type === 'todo/write')!.data.todos
@@ -269,7 +269,7 @@ describe('todo/write event', () => {
       todos: [
         { content: 'first', status: 'completed' },
         { content: 'second', status: 'in_progress' },
-      ]
+      ],
     })
 
     const current = session.events.findLast(e => e.type === 'todo/write')!.data.todos

@@ -1460,9 +1460,9 @@ describe('continuable review regressions', () => {
     // The child hits its token ceiling; teardown still succeeds.
     const { ctx, parent } = await setupWith(new MockAdapter([
       [{ type: 'block-start', index: 0, blockType: 'text' },
-      { type: 'text-delta', index: 0, text: 'partial' },
-      { type: 'block-end', index: 0, block: { type: 'text', text: 'partial' } },
-      { type: 'finish', reason: { kind: 'max-tokens' } }],
+        { type: 'text-delta', index: 0, text: 'partial' },
+        { type: 'block-end', index: 0, block: { type: 'text', text: 'partial' } },
+        { type: 'finish', reason: { kind: 'max-tokens' } }],
     ]))
     const ends: SubagentRunEndInfo[] = []
     ctx.on('subagent/end', (info) => { ends.push(info) })

@@ -1210,8 +1210,8 @@ describe('LocalPtySession readiness and output', () => {
     const operation = session.startSend({ text: '', submit: false })
     terminal.output.emit('data', 'plain text')
     terminal.emitError(new Error('output transport failed'))
-      ; (session as unknown as { onTransportFailure(error: unknown): void })
-        .onTransportFailure(new Error('later failure'))
+    ; (session as unknown as { onTransportFailure(error: unknown): void })
+      .onTransportFailure(new Error('later failure'))
     await expect(operation.done).rejects.toThrow('output transport failed')
     expect(session.status()).toEqual({ kind: 'exited', exitCode: null, signal: null })
     terminal.terminateError = undefined
@@ -1270,9 +1270,9 @@ describe('LocalPtySession readiness and output', () => {
     staleInternal.active = undefined
     gate.resolve({ processGroupId: 456, inputWaiting: false })
     await polling
-      ; (staleOperation as unknown as {
-        settle(reason: 'timeout', status: TerminalSessionStatus, inherited: boolean): void
-      }).settle('timeout', { kind: 'running' }, false)
+    ; (staleOperation as unknown as {
+      settle(reason: 'timeout', status: TerminalSessionStatus, inherited: boolean): void
+    }).settle('timeout', { kind: 'running' }, false)
   })
 
   it('reschedules readiness for a new send after a stale remote inspection releases the poll slot', async () => {
@@ -1376,7 +1376,7 @@ describe('LocalPtySession readiness and output', () => {
     const writeOperation = writeSession.startSend({ text: 'x', submit: false })
     await Promise.resolve()
     await Promise.resolve()
-      ; (writeSession as unknown as { closing: boolean }).closing = true
+    ; (writeSession as unknown as { closing: boolean }).closing = true
     writeGate.resolve(undefined)
     await Promise.resolve()
     await Promise.resolve()
@@ -1429,7 +1429,7 @@ describe('LocalPtySession readiness and output', () => {
     const interruptSession = new LocalPtySession(interruptTerminal, config())
     const interruptOperation = interruptSession.startSend({ text: '', submit: false })
     expect(interruptOperation.cancel()).toBe(true)
-      ; (interruptSession as unknown as { active: TerminalSendOperation | undefined }).active = undefined
+    ; (interruptSession as unknown as { active: TerminalSendOperation | undefined }).active = undefined
     interruptGate.reject(new Error('stale interrupt failure'))
     await Promise.resolve()
     await Promise.resolve()

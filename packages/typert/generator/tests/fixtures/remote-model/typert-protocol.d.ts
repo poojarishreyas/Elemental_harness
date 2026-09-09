@@ -25,8 +25,8 @@ declare module '@deepseek-ai/dsh-typert-protocol' {
 
   export type TypertRemoteNamespace<Namespace extends string> = {
     [Endpoint in keyof TypertRemoteMap as Endpoint extends `${Namespace}/${infer Method}`
-    ? Method
-    : never]: TypertRemoteMap[Endpoint]
+      ? Method
+      : never]: TypertRemoteMap[Endpoint]
   }
 
   export interface TypertRemoteNamespaceMap { }
@@ -61,14 +61,14 @@ declare module '@deepseek-ai/dsh-typert-protocol' {
   ): void
 
   export function Remote(option: string | { readonly mode: 'stream' }):
-    <This extends object, Args extends unknown[], Result>(
-      method: (this: This, ...args: Args) => Result,
-      context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Result>,
-    ) => void
+  <This extends object, Args extends unknown[], Result>(
+    method: (this: This, ...args: Args) => Result,
+    context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Result>,
+  ) => void
 
   export function RemoteScope(key: Extract<keyof TypertContextMap, string>, exportName?: string):
-    <This extends object, Args extends unknown[], Result>(
-      method: (this: This, ...args: Args) => Result,
-      context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Result>,
-    ) => void
+  <This extends object, Args extends unknown[], Result>(
+    method: (this: This, ...args: Args) => Result,
+    context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Result>,
+  ) => void
 }

@@ -260,7 +260,7 @@ export abstract class SessionPersistence extends Service {
    * @returns the header and the stored events with `seq >= fromSeq`.
    */
   abstract readFrom(id: SessionId, fromSeq: number, signal?: AbortSignal):
-    Promise<{ meta: SessionHeader; events: SessionEvent[] }>
+  Promise<{ meta: SessionHeader; events: SessionEvent[] }>
 
   /**
    * Lightweight listing from metadata, without a full-log parse.

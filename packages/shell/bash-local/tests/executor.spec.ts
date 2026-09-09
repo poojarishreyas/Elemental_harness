@@ -13,7 +13,7 @@ const spillDir = mkdtempSync(join(tmpdir(), 'dsh-bash-exec-spec-'))
 async function setup(config: ConstructorParameters<typeof LocalBashExecutor>[1] = {}) {
   const ctx = new Context()
   await ctx.plugin(LocalSubprocessRuntime)
-    ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
+  ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
   // A short kill grace via the REAL config path, so escalation tests stay fast.
   await ctx.plugin(LocalBashExecutor, { graceMs: 200, ...config })
   const bash = ctx.shell as LocalBashExecutor

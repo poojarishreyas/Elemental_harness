@@ -194,7 +194,7 @@ describe('typert-protocol Remote declarations', () => {
     }
     const snapshot = remoteMethods(first)
     expect(remoteMethods(second)).toEqual(snapshot)
-      ; (snapshot as unknown as { method: string }[])[0]!.method = 'changed'
+    ; (snapshot as unknown as { method: string }[])[0]!.method = 'changed'
     expect(remoteMethods(first)).toEqual([{ method: 'run', invocation: { kind: 'direct' } }])
   })
 

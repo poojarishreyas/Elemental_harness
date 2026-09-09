@@ -49,7 +49,7 @@ describe('session-query semantic extraction', () => {
       {
         type: 'user/message', seq: 0, time: 1, data: createUserMessage({
           content: messageContent, source: { kind: 'user' },
-        }), surfaceOp: 'append'
+        }), surfaceOp: 'append',
       },
       {
         type: 'assistant/message', seq: 1, time: 2, data: {
@@ -62,12 +62,12 @@ describe('session-query semantic extraction', () => {
               ...{ provider: 'mock', model: 'mock' },
             },
           }),
-        }, surfaceOp: 'append'
+        }, surfaceOp: 'append',
       },
       {
         type: 'user/message', seq: 2, time: 3, data: createUserMessage({
           content: messageContent, source: { kind: 'plugin', plugin: 'test' },
-        }), surfaceOp: 'append'
+        }), surfaceOp: 'append',
       },
       { type: 'tool/call', seq: 3, time: 5, data: { turn: 1, step: 1, callId, name: 'bash', arguments: '{"cmd":"pwd"}' } },
       {
@@ -155,7 +155,7 @@ describe('session-query document and filter helpers', () => {
     {
       type: 'user/message', seq: 0, time: 10, data: createUserMessage({
         content: [{ type: 'text', text: 'Hello\n(AI)+' }], source: { kind: 'user' },
-      }), surfaceOp: 'append'
+      }), surfaceOp: 'append',
     },
     { type: 'assistant/chunk', seq: 1, time: 11, data: { turn: 1, step: 1, chunk: { type: 'text-delta', index: 0, text: 'raw' } } },
     {
@@ -169,7 +169,7 @@ describe('session-query document and filter helpers', () => {
             ...{ provider: 'mock', model: 'mock' },
           },
         }),
-      }, surfaceOp: { op: 'replace', start: 0, end: 0 }, sourceEventSeqs: [0]
+      }, surfaceOp: { op: 'replace', start: 0, end: 0 }, sourceEventSeqs: [0],
     },
     { type: 'turn/end', seq: 3, time: 13, data: { turn: 1, reason: { kind: 'interrupted' } } },
   ]

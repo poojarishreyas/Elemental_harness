@@ -62,7 +62,7 @@ describe('deepseek session-log acceptance invariant', () => {
       seed: [
         { type: 'turn/start', seq: 0, time: 1, data: { turn: 1 } },
         { type: 'session-log-deepseek/delivery-accepted', seq: 1, time: 2, data: { sessionId: id, throughSeq: 1 } },
-      ]
+      ],
     })
 
     let failure: unknown

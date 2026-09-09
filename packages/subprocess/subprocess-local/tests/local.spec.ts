@@ -366,17 +366,17 @@ describe('LocalSubprocessRuntime', () => {
       const fiber = await ctx.plugin(IsolatedLocalSubprocessRuntime)
       const alive = new Set([124])
         ; (ctx.subprocess as InstanceType<typeof IsolatedLocalSubprocessRuntime>).terminalInspector = {
-          foregroundPgid: () => 123,
-          isStdinWaiting: () => false,
-          snapshot: () => ({
-            tree: () => [{ pid: 123, started: 'shell' }, { pid: 124, started: 'child' }],
-            session: () => [],
-            alive: identity => alive.has(identity.pid),
-          }),
-          isAlive: identity => alive.has(identity.pid),
-          signalGroup: () => { },
-          signalProcess: () => { },
-        }
+        foregroundPgid: () => 123,
+        isStdinWaiting: () => false,
+        snapshot: () => ({
+          tree: () => [{ pid: 123, started: 'shell' }, { pid: 124, started: 'child' }],
+          session: () => [],
+          alive: identity => alive.has(identity.pid),
+        }),
+        isAlive: identity => alive.has(identity.pid),
+        signalGroup: () => { },
+        signalProcess: () => { },
+      }
       const handle = await ctx.subprocess.spawnTerminal({
         argv: ['shell'], cwd: process.cwd(), rows: 24, cols: 80, graceMs: 1,
       })

@@ -91,8 +91,8 @@ async function boot(): Promise<Bench> {
   let next = 0
 
     ; (globalThis as { __ModuleLoader__?: unknown }).__ModuleLoader__ = {
-      load: (handoff: { id: string; factory: () => unknown }) => { factories.set(handoff.id, handoff.factory) },
-    }
+    load: (handoff: { id: string; factory: () => unknown }) => { factories.set(handoff.id, handoff.factory) },
+  }
   const loader = {
     create: (options: { name: string }) => {
       created.push(options.name)
@@ -229,7 +229,7 @@ describe('load', () => {
     const sink = (globalThis as { __ModuleLoader__?: unknown }).__ModuleLoader__
     delete (globalThis as { __ModuleLoader__?: unknown }).__ModuleLoader__
     await expect(bench.runner.load(half())).rejects.toThrow(/__ModuleLoader__ is missing/)
-      ; (globalThis as { __ModuleLoader__?: unknown }).__ModuleLoader__ = sink
+    ; (globalThis as { __ModuleLoader__?: unknown }).__ModuleLoader__ = sink
     await expect(bench.runner.load(half())).resolves.toEqual({ ok: true, pluginRunId: RUN })
   })
 })

@@ -315,61 +315,61 @@ export function CordisPanel({
             )}
             {awaiting === undefined && listed !== undefined
               && selectedPackageId !== undefined && listed.activeRun === undefined && (
-                <RowAction
-                  label={t('action.run')}
-                  data-cordis-switch="run"
-                  disabled={busy}
-                  onClick={() => {
-                    void runAction(pluginId, () => onRun({
-                      agentId: listed.agentId,
-                      pluginId,
-                      packageId: selectedPackageId,
-                      mode: runMode,
-                      hasClientHalf: selectedPackage?.hasClientHalf === true,
-                    }))
-                  }}
-                >
-                  <IconPlayOutline16 size={14} />
-                </RowAction>
-              )}
+              <RowAction
+                label={t('action.run')}
+                data-cordis-switch="run"
+                disabled={busy}
+                onClick={() => {
+                  void runAction(pluginId, () => onRun({
+                    agentId: listed.agentId,
+                    pluginId,
+                    packageId: selectedPackageId,
+                    mode: runMode,
+                    hasClientHalf: selectedPackage?.hasClientHalf === true,
+                  }))
+                }}
+              >
+                <IconPlayOutline16 size={14} />
+              </RowAction>
+            )}
             {awaiting === undefined && listed !== undefined && listed.activeRun !== undefined
               && selectedPackageId !== listed.activeRun.packageId && selectedPackage !== undefined && (
-                <RowAction
-                  label={t('action.run')}
-                  data-cordis-switch="run"
-                  disabled={busy}
-                  onClick={() => {
-                    void runAction(pluginId, () => onRun({
-                      agentId: listed.agentId,
-                      pluginId,
-                      packageId: selectedPackage.packageId,
-                      mode: runMode,
-                      hasClientHalf: selectedPackage.hasClientHalf,
-                    }))
-                  }}
-                >
-                  <IconPlayOutline16 size={14} />
-                </RowAction>
-              )}
+              <RowAction
+                label={t('action.run')}
+                data-cordis-switch="run"
+                disabled={busy}
+                onClick={() => {
+                  void runAction(pluginId, () => onRun({
+                    agentId: listed.agentId,
+                    pluginId,
+                    packageId: selectedPackage.packageId,
+                    mode: runMode,
+                    hasClientHalf: selectedPackage.hasClientHalf,
+                  }))
+                }}
+              >
+                <IconPlayOutline16 size={14} />
+              </RowAction>
+            )}
             {awaiting === undefined && listed !== undefined && listed.activeRun !== undefined && status === 'client-pending'
               && activePackage !== undefined && selectedPackageId === listed.activeRun.packageId && (
-                <RowAction
-                  label={t('action.run')}
-                  data-cordis-switch="run"
-                  disabled={busy}
-                  onClick={() => {
-                    void runAction(pluginId, () => onRun({
-                      agentId: listed.agentId,
-                      pluginId,
-                      packageId: activePackage.packageId,
-                      mode: 'run',
-                      hasClientHalf: true,
-                    }))
-                  }}
-                >
-                  <IconPlayOutline16 size={14} />
-                </RowAction>
-              )}
+              <RowAction
+                label={t('action.run')}
+                data-cordis-switch="run"
+                disabled={busy}
+                onClick={() => {
+                  void runAction(pluginId, () => onRun({
+                    agentId: listed.agentId,
+                    pluginId,
+                    packageId: activePackage.packageId,
+                    mode: 'run',
+                    hasClientHalf: true,
+                  }))
+                }}
+              >
+                <IconPlayOutline16 size={14} />
+              </RowAction>
+            )}
             {awaiting === undefined && listed !== undefined && listed.activeRun !== undefined && (
               <RowAction
                 label={t('action.stop')}

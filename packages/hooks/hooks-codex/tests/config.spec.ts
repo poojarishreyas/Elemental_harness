@@ -30,7 +30,7 @@ describe('parseCodexConfig', () => {
           { type: 'prompt' },
           { type: 'command', command: 'sync.sh' },
           { type: 'command', command: 'bg.sh', async: true },
-        ]
+        ],
       }],
     })
     expect(config.PreToolUse).toEqual([{ hooks: [{ command: 'sync.sh' }] }])

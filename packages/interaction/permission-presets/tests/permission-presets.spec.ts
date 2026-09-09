@@ -140,8 +140,8 @@ describe('PermissionPresetService', () => {
           'workspace-write': { sandbox: 'workspace-write', approval: 'ask' },
           agentish: { sandbox: 'workspace-write', approval: 'ask' },
           'danger-full-access': { sandbox: 'danger-full-access', approval: 'never' },
-        }
-      }
+        },
+      },
     })
     const session = freshSession('sess-tie')
     ctx.permissionPresets.set(session, 'agentish')

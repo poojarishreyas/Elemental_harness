@@ -313,8 +313,8 @@ export function defineCoverageCases(groups: CoverageGroup | readonly CoverageGro
           hooks: [
             { type: 'command', command: 'bg.sh', async: true }, // skipped → warn
             { type: 'command', command: sh(d, 'h.sh', `#!/usr/bin/env bash\ntouch "${marker}"\n`) },
-          ]
-        }]
+          ],
+        }],
       })
       const warn = vi.fn()
       const adapter = new MockAdapter([textResponse('ok')])

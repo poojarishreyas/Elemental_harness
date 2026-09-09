@@ -135,7 +135,7 @@ describe('tagged console', () => {
     vi.spyOn(console, 'log').mockImplementation(() => { })
     vi.spyOn(console, 'warn').mockImplementation(() => { })
     vi.spyOn(console, 'debug').mockImplementation(() => { })
-      ; (plugin as DynamicCordisEvaluatedPlugin).apply({ circular })
+    ; (plugin as DynamicCordisEvaluatedPlugin).apply({ circular })
     vi.restoreAllMocks()
     expect(seen).toHaveLength(1)
     expect(seen[0]).toBe('text boom {"a":1} undefined [unserializable console argument]')
@@ -148,7 +148,7 @@ describe('tagged console', () => {
       env({ noteError: message => seen.push(message) }),
     )
     vi.spyOn(console, 'error').mockImplementation(() => { })
-      ; (plugin as DynamicCordisEvaluatedPlugin).apply({})
+    ; (plugin as DynamicCordisEvaluatedPlugin).apply({})
     vi.restoreAllMocks()
     expect(seen[0]).toHaveLength(500)
   })

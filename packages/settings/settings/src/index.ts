@@ -25,15 +25,15 @@ type NamespaceCharacter = LowercaseLetter | DecimalDigit | '-'
 type ValidNamespaceTail<Value extends string> = Value extends ''
   ? true
   : Value extends `${NamespaceCharacter}${infer Rest}`
-  ? ValidNamespaceTail<Rest>
-  : false
+    ? ValidNamespaceTail<Rest>
+    : false
 type SettingsNamespaceInput<Value extends string> = Value extends SettingsNamespace
   ? Value
   : string extends Value
-  ? string
-  : Value extends `${LowercaseLetter}${infer Rest}`
-  ? ValidNamespaceTail<Rest> extends true ? Value : never
-  : never
+    ? string
+    : Value extends `${LowercaseLetter}${infer Rest}`
+      ? ValidNamespaceTail<Rest> extends true ? Value : never
+      : never
 
 function parseSettingsNamespace(value: string): SettingsNamespace {
   if (!NAMESPACE_PATTERN.test(value)) {

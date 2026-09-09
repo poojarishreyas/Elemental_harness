@@ -98,9 +98,9 @@ describe('dsh-tool-subagent model selection', () => {
     )
     const parent = modelSelectionSetupAgent(ctx)
       ; (parent as unknown as { options: Agent['options'] }).options = {
-        provider: 'deployment-provider',
-        model: 'deployment-model',
-      }
+      provider: 'deployment-provider',
+      model: 'deployment-model',
+    }
 
     const result = await callSubagent(ctx, { description: 'default route', prompt: 'do it' })
 
@@ -256,8 +256,8 @@ describe('dsh-tool-subagent model selection', () => {
     ctx.llm.registerAdapter(['current-provider'], new MockAdapter([], REASONING))
     const parent = modelSelectionSetupAgent(ctx)
       ; (parent as unknown as { options: Agent['options'] }).options = {
-        provider: 'created-provider', model: 'created-model',
-      }
+      provider: 'created-provider', model: 'created-model',
+    }
     parent.session.append('request/header', {
       header: { config: { provider: 'current-provider', model: 'current-model' } },
       reason: 'initial',

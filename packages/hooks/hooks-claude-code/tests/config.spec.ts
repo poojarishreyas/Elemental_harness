@@ -36,7 +36,7 @@ describe('parseClaudeCodeConfig', () => {
           { type: 'prompt', prompt: 'hi' },
           { type: 'command', command: 'ok.sh' },
           { type: 'http', url: 'http://x' },
-        ]
+        ],
       }],
     })
     expect(config.PreToolUse).toEqual([{ hooks: [{ command: 'ok.sh' }] }])

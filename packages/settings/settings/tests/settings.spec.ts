@@ -108,10 +108,10 @@ describe('registration', () => {
     await expect(ctx.settings.update(ns, { fontSize: 4 })).rejects.toThrow(/unreadable/)
     expect(scope.get()).toEqual(before)
 
-      // An externally edited document must not strand the owner: the namespace
-      // keeps its last good value, exactly as a schema failure would.
-      ; (ctx.settings as unknown as { publish(doc: Record<string, unknown>): void })
-        .publish({ 'ui-theme': { fontSize: 4 } })
+    // An externally edited document must not strand the owner: the namespace
+    // keeps its last good value, exactly as a schema failure would.
+    ; (ctx.settings as unknown as { publish(doc: Record<string, unknown>): void })
+      .publish({ 'ui-theme': { fontSize: 4 } })
     expect(scope.get()).toEqual(before)
 
     await ctx.settings.update(ns, { fontSize: 18 })
@@ -997,8 +997,8 @@ describe('revision and conflict detection', () => {
     ctx.settings.register(REV, RevSchema)
     const documents: Array<[string, number]> = []
     ctx.on('settings/document-updated', (ns, revision) => { documents.push([String(ns), revision]) })
-      ; (ctx.settings as unknown as { publish(doc: Record<string, unknown>): void })
-        .publish({ rev: { b: 'edited on disk' } })
+    ; (ctx.settings as unknown as { publish(doc: Record<string, unknown>): void })
+      .publish({ rev: { b: 'edited on disk' } })
     expect(documents).toEqual([['rev', 1]])
     // An editor that opened before the external edit is now refused.
     await expect(ctx.settings.update(REV, { b: 'stale' }, 0)).rejects.toThrow(SettingsConflictError)

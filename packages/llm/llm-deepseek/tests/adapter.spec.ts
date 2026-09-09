@@ -2004,7 +2004,7 @@ describe('plugin registration and config', () => {
       maxTokens: 4096, models: [
         { id: 'capped', maxTokens: 512 },
         { id: 'uncapped' },
-      ]
+      ],
     })
     await expect(adapter.resolveModel('deepseek-official', 'capped'))
       .resolves.toMatchObject({ defaultMaxTokens: 512 })

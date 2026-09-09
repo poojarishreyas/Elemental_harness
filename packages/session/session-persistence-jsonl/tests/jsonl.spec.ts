@@ -385,7 +385,7 @@ describe('JsonlSessionPersistence: durability and crash semantics', () => {
               ...{ provider: 'mock', model: 'mock' },
             },
           }),
-        }, surfaceOp: 'append', sourceEventSeqs: [2, 3]
+        }, surfaceOp: 'append', sourceEventSeqs: [2, 3],
       },
       { type: 'step/end', seq: 5, time: 6, data: { turn: 1, step: 1 } },
       { type: 'turn/end', seq: 6, time: 7, data: { turn: 1, reason: { kind: 'completed' } } },
@@ -1078,7 +1078,7 @@ describe('JsonlSessionPersistence: default packed chunk rows', () => {
               ...{ provider: 'mock', model: 'mock' },
             },
           }),
-        }, surfaceOp: 'append', sourceEventSeqs: [2, 3, 4, 5, 6]
+        }, surfaceOp: 'append', sourceEventSeqs: [2, 3, 4, 5, 6],
       },
       { type: 'step/end', seq: 8, time: 9, data: { turn: 1, step: 1 } },
       { type: 'turn/end', seq: 9, time: 10, data: { turn: 1, reason: { kind: 'completed' } } },
@@ -1141,7 +1141,7 @@ describe('JsonlSessionPersistence: default packed chunk rows', () => {
     const secondTurn: SessionEvent[] = JSON.parse(JSON.stringify(log)) as SessionEvent[]
     for (const [k, e] of secondTurn.entries()) {
       ; (e as { seq: number }).seq = 10 + k
-        ; (e.data as { turn: number }).turn = 2
+      ; (e.data as { turn: number }).turn = 2
     }
     await ctx.sessionPersistence.append(m.id, secondTurn)
 
@@ -1646,7 +1646,7 @@ describe('JsonlSessionPersistence: edge cases', () => {
     const ev = [{
       type: 'user/message', seq: 0, time: 1, data: createUserMessage({
         content: [{ type: 'text', text: 'x' }], source: { kind: 'user' }, extra: { a: null, b: true, c: [1, 2, { d: 'nested' }] },
-      })
+      }),
     }] as unknown as SessionEvent[]
     await ctx.sessionPersistence.append(m.id, ev)
     expect((await ctx.sessionPersistence.list()).map(h => h.id)).toContain(m.id)

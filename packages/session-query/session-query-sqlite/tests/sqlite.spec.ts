@@ -381,13 +381,13 @@ describe('SQLite session search', () => {
       {
         type: 'user/message', seq: 0, time: 10, data: createUserMessage({
           content: [{ type: 'text', text: 'needle original' }], source: { kind: 'user' },
-        }), surfaceOp: 'append'
+        }), surfaceOp: 'append',
       },
       { type: 'assistant/chunk', seq: 1, time: 11, data: { turn: 1, step: 1, chunk: { type: 'text-delta', index: 0, text: 'needle raw' } } },
       {
         type: 'user/message', seq: 2, time: 12, data: createUserMessage({
           content: [{ type: 'text', text: 'needle summary' }], source: { kind: 'plugin', plugin: 'test' },
-        }), surfaceOp: { op: 'replace', start: 0, end: 0 }, sourceEventSeqs: [0]
+        }), surfaceOp: { op: 'replace', start: 0, end: 0 }, sourceEventSeqs: [0],
       },
       { type: 'turn/end', seq: 3, time: 13, data: { turn: 1, reason: { kind: 'error', error: { message: 'needle failure', code: 'UNKNOWN' } } } },
     ]
@@ -891,7 +891,7 @@ describe('SQLite reconciliation and source lifecycle', () => {
       meta: durable, events: [
         ...messageEvents('durable needle', 1),
         { ...messageEvents('durable needle again', 2)[0]!, seq: 1 },
-      ]
+      ],
     }])
     const ctx = await liveContext({ path: ':memory:', defaultLimit: 1, maxLimit: 2 })
     const persistence = await ctx.plugin(TestPersistence)

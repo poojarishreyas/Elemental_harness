@@ -70,7 +70,7 @@ async function setup(
     ...workspaceRoot !== undefined ? { workspaceRoot } : {},
   })
   await ctx.plugin(LocalSubprocessRuntime)
-    ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
+  ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
   await ctx.plugin(SandboxBashExecutor, { graceMs: 200, ...execConfig })
   const bash = ctx.shell as SandboxBashExecutor
   return { ctx, bash, calls }

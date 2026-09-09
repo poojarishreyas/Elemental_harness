@@ -35,8 +35,8 @@ describe.skipIf(!process.env.deepseek_API_KEY)('fs tools with-key smoke', () => 
         type: 'text', text:
           'Create a file named note.txt containing exactly the line: status: draft. '
           + 'Then read it back, then edit it to replace the literal word draft with final. '
-          + 'Tell me when done.'
-      }], source: { kind: 'user' }
+          + 'Tell me when done.',
+      }], source: { kind: 'user' },
     }))
     await waitForIdle(ctx, agent)
 
@@ -69,8 +69,8 @@ describe.skipIf(!process.env.deepseek_API_KEY)('fs tools with-key smoke', () => 
       handle.agent.followup(createUserMessage({
         content: [{
           type: 'text', text:
-            'Use the write tool to create a file named where.txt containing exactly the line: here. Tell me when done.'
-        }], source: { kind: 'user' }
+            'Use the write tool to create a file named where.txt containing exactly the line: here. Tell me when done.',
+        }], source: { kind: 'user' },
       }))
       await waitForIdle(ctx, handle.agent)
 

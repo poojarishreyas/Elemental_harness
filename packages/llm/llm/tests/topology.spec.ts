@@ -117,7 +117,7 @@ describe('configurable-provider directory', () => {
       { provider: 'openai', displayName: 'OpenAI', settingsNs: 'llm-pi-ai', settingsPath: ['providers', 'openai'] },
     ])
     listed[0]!.displayName = 'mutated'
-      ; (listed[1]!.settingsPath as string[]).push('mutated')
+    ; (listed[1]!.settingsPath as string[]).push('mutated')
     expect(ctx.llm.listConfigurableProviders()[0]!.displayName).toBe('deepseek')
     expect(ctx.llm.listConfigurableProviders()[1]!.settingsPath).toEqual(['providers', 'openai'])
   })

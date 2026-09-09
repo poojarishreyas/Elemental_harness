@@ -294,7 +294,7 @@ describe('hooks-claude-code bridge — SubagentStart / SubagentStop (observe)', 
       hooks: {
         SubagentStart: [{ hooks: [{ type: 'command', command: startHook }] }],
         SubagentStop: [{ hooks: [{ type: 'command', command: stopHook }] }],
-      }
+      },
     }))
 
     const adapter = new MockAdapter([])
@@ -333,7 +333,7 @@ describe('hooks-claude-code bridge — SubagentStart / SubagentStop (observe)', 
     writeFileSync(join(dir, 'hooks.json'), JSON.stringify({
       hooks: {
         SubagentStart: [{ hooks: [{ type: 'command', command: slowHook }] }],
-      }
+      },
     }))
 
     const { ctx, hooks } = await harnessWithFiber(dir, new MockAdapter([]))

@@ -465,7 +465,7 @@ export class FaceModelEmitter {
   ): string {
     const parameters = invocation.parameters.filter(parameter =>
       !scoped || invocation.invocation.kind === 'context' || parameter.wire !== invocation.scope?.wire).map(parameter =>
-        `${safeIdentifier(parameter.wire)}${parameter.optional === true ? '?' : ''}: ${this.renderer.renderType(parameter.boundary.type, referenceNames)}`)
+      `${safeIdentifier(parameter.wire)}${parameter.optional === true ? '?' : ''}: ${this.renderer.renderType(parameter.boundary.type, referenceNames)}`)
     if (invocation.cancellation !== undefined) parameters.push('signal?: AbortSignal')
     const result = this.renderer.renderType(invocation.result.type, referenceNames)
     if (invocation.mode === 'stream') {

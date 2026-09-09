@@ -46,7 +46,7 @@ const cleanups: Array<() => Promise<void>> = []
 
 afterEach(async () => {
   while (cleanups.length > 0) await cleanups.pop()!()
-    ; (await fakeInstances()).length = 0
+  ; (await fakeInstances()).length = 0
 })
 
 async function tempDir(): Promise<string> {

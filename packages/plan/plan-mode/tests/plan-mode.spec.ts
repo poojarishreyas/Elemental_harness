@@ -56,7 +56,7 @@ async function agentWithSession(
   await ctx.plugin(Object.assign((inner: Context) => { scoped = createScope(inner, agent).ctx }, {
     inject: ['tools'],
   }))
-    ; (agent as { ctx?: Context }).ctx = scoped
+  ; (agent as { ctx?: Context }).ctx = scoped
   // Seeded plan state lands before the creation announcement, matching resume.
   if (active !== undefined) session.append('plan/mode', { active })
   // The loop publishes through the live registry when it is composed; narrow
@@ -1031,7 +1031,7 @@ describe('exit_plan_mode', () => {
         answers: [
           { id: 'plan-review', selected: ['Approve'] },
           { id: 'plan-review', selected: ['Keep planning'] },
-        ]
+        ],
       }),
     })
     const result = await callExit(ctx, agent)

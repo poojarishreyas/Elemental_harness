@@ -51,16 +51,16 @@ const RESTORE_HEADER: SessionHeader = {
 /** Whole-value unit: latest test/mark event wins; unrelated events return the same reference. */
 const marksUnit = (): Omit<ProjectionDefinition<'test/marks', MarksState>, 'wire'>
   & { wire: NonNullable<ProjectionDefinition<'test/marks', MarksState>['wire']> } => ({
-    key: 'test/marks',
-    stateSchema: marksViewSchema.nullable(),
-    init: () => null,
-    apply: (state, event) => (event.type === 'test/mark' ? (event).data : state),
-    wire: {
-      viewSchema: marksViewSchema,
-      view: state => state ?? { marks: [] },
-    },
-    stateVersion: 1,
-  })
+  key: 'test/marks',
+  stateSchema: marksViewSchema.nullable(),
+  init: () => null,
+  apply: (state, event) => (event.type === 'test/mark' ? (event).data : state),
+  wire: {
+    viewSchema: marksViewSchema,
+    view: state => state ?? { marks: [] },
+  },
+  stateVersion: 1,
+})
 
 /** Host-only counting unit over every event — state changes on each apply. */
 const countUnit = (): ProjectionDefinition<'test/count', number> => ({

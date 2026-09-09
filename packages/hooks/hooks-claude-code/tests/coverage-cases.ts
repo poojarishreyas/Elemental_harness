@@ -102,7 +102,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
           hooks: [
             { type: 'prompt', prompt: 'skipme' }, // skipped → warn loop
             { type: 'command', command: '${CLAUDE_PLUGIN_ROOT}/h.sh' }, // substituted
-          ]
+          ],
         }],
       })
       const warn = vi.fn()

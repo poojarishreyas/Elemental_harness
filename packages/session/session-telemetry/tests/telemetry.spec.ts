@@ -99,8 +99,8 @@ describe('SessionTelemetryCoordinator capture', () => {
     expect(start.time).toBe(session.events[0]!.time)
     expect(start.severity).toBe('info')
     expect(message.attributes['event.seq']).toBe(1)
-      // Deep-copy isolation: mutating the handed-off body never reaches the log.
-      ; (message.body as { content: { text: string }[] }).content[0]!.text = 'tampered'
+    // Deep-copy isolation: mutating the handed-off body never reaches the log.
+    ; (message.body as { content: { text: string }[] }).content[0]!.text = 'tampered'
     const logged = session.events[1] as SessionEvent<'user/message'>
     expect(logged.data.content[0]).toMatchObject({ text: 'hello' })
   })

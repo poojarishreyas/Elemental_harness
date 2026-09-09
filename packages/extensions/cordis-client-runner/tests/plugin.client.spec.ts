@@ -79,8 +79,8 @@ async function boot(): Promise<Bench> {
   const fibers = new Map<string, { fiber: unknown }>()
   let next = 0
     ; (globalThis as { __ModuleLoader__?: unknown }).__ModuleLoader__ = {
-      load: (handoff: { id: string; factory: () => unknown }) => { factories.set(handoff.id, handoff.factory) },
-    }
+    load: (handoff: { id: string; factory: () => unknown }) => { factories.set(handoff.id, handoff.factory) },
+  }
   ctx.reflect.provide('loader', {
     create: (options: { name: string }) => {
       const entryId = `entry-${++next}`
@@ -109,7 +109,7 @@ async function boot(): Promise<Bench> {
       pluginId: PLUGIN,
       packageId: PACKAGE,
       pluginRunId: RUN,
-    }
+    },
   }
   const resolved: { requestId: string; resolution: unknown }[] = []
   const renderFailures: Bench['renderFailures'] = []

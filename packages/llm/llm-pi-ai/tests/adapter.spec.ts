@@ -203,7 +203,7 @@ describe('PiAiAdapter provider routing', () => {
         api: 'openai-completions',
         baseURL: 'https://acme.test/v1',
         models: [{ id: 'acme-large' }],
-      }
+      },
     })
     expect(adapter.providerInfo('acme-gateway')).toEqual({ id: 'acme-gateway', name: 'Acme Gateway' })
 

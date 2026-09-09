@@ -728,7 +728,9 @@ void navigated
   }
   const sourceMapper = (languageService as unknown as {
     getSourceMapper(): {
-      tryGetSourcePosition(location: { readonly fileName: string; readonly pos: number }): { readonly fileName: string; readonly pos: number } | undefined
+      tryGetSourcePosition(
+        location: { readonly fileName: string; readonly pos: number },
+      ): { readonly fileName: string; readonly pos: number } | undefined
     }
   }).getSourceMapper()
   const definition = sourceMapper.tryGetSourcePosition({

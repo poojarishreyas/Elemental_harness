@@ -30,8 +30,8 @@ describe.skipIf(!process.env.deepseek_API_KEY)('spawn backend with-key smoke', (
         type: 'text', text:
           'Use the subagent tool to delegate this exact task: "Use the bash tool to write the text '
           + 'SUBAGENT_WAS_HERE into a file named proof.txt in the current directory." '
-          + 'After the subagent finishes, tell me it is done.'
-      }], source: { kind: 'user' }
+          + 'After the subagent finishes, tell me it is done.',
+      }], source: { kind: 'user' },
     }))
     await waitForIdle(ctx, parent)
 

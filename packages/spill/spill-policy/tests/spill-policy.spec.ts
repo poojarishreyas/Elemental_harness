@@ -434,7 +434,7 @@ describe('the durable dispatch-log arm', () => {
     await ctx.plugin(StubStore)
     await ctx.plugin(SpillPolicy, { maxInlineBytes: 100 })
     await ctx.plugin(WorkerThreadCodeRuntime, {})
-      ; (ctx.spillStore as StubStore).fail = true
+    ; (ctx.spillStore as StubStore).fail = true
     const warn = vi.spyOn(ctx.logger, 'warn').mockImplementation(() => { })
     const events: { type: string; data: unknown }[] = []
     const agent = {

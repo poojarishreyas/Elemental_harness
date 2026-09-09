@@ -188,7 +188,7 @@ describe('module requests', () => {
     const stale = {
       ...declaration('@deepseek-ai/dsh-api-stale', {
         external: ['@deepseek-ai/dsh-api-gateway/client'],
-      }), manifest: 'packages/api/stale/package.json'
+      }), manifest: 'packages/api/stale/package.json',
     }
     const live = {
       ...declaration('@deepseek-ai/dsh-api-live', {
@@ -199,7 +199,7 @@ describe('module requests', () => {
         runtimeSourceSpecifiers: {
           '@deepseek-ai/dsh-api-gateway/client': ['packages/api/live/src/client/index.ts'],
         },
-      }), manifest: 'packages/api/live/package.json'
+      }), manifest: 'packages/api/live/package.json',
     }
     expect(collectClientPackageViolations(facts([], {
       declarations: [gateway, stale, live],
@@ -222,7 +222,7 @@ describe('module requests', () => {
         runtimeSourceSpecifiers: {
           '@deepseek-ai/dsh-api-gateway/remote': ['packages/api/session-controller/src/client/index.ts'],
         },
-      }), manifest: 'packages/api/session-controller/package.json'
+      }), manifest: 'packages/api/session-controller/package.json',
     }
     expect(collectClientPackageViolations(facts([], { declarations: [gateway, subject] }))).toEqual([
       subject.manifest + ': dsh.client.external "@deepseek-ai/dsh-api-gateway/client"'
@@ -260,7 +260,7 @@ describe('module requests', () => {
         inject: ['@deepseek-ai/dsh-api-b'],
         runtimeSourceUses: { '@deepseek-ai/dsh-api-b': ['packages/api/a/src/client.ts'] },
         runtimeSourceSpecifiers: { '@deepseek-ai/dsh-api-b': ['packages/api/a/src/client.ts'] },
-      }), manifest: 'packages/api/a/package.json'
+      }), manifest: 'packages/api/a/package.json',
     }
     const b = {
       ...declaration('@deepseek-ai/dsh-api-b', {
@@ -268,7 +268,7 @@ describe('module requests', () => {
         inject: ['@deepseek-ai/dsh-api-a'],
         runtimeSourceUses: { '@deepseek-ai/dsh-api-a': ['packages/client/b/src/client.ts'] },
         runtimeSourceSpecifiers: { '@deepseek-ai/dsh-api-a': ['packages/client/b/src/client.ts'] },
-      }), manifest: 'packages/api/b/package.json'
+      }), manifest: 'packages/api/b/package.json',
     }
     const found = collectClientPackageViolations(facts([], { declarations: [a, b] }))
     expect(found).toHaveLength(1)

@@ -2592,13 +2592,13 @@ function mergeWorkspaceModels(models: readonly WorkspaceModel[]): WorkspaceModel
   return {
     faces: [...faces].sort(([left], [right]) =>
       (left === 'host' ? 0 : 1) - (right === 'host' ? 0 : 1)).map(([face, model]) => ({
-        face,
-        packages: [...model.packages.values()].sort((left, right) => left.name.localeCompare(right.name)),
-        graph: {
-          declarations: [...model.declarations.values()].sort((left, right) => left.id.localeCompare(right.id)),
-          nodes: [...model.nodes.values()].sort((left, right) => left.id.localeCompare(right.id)),
-        },
-      })),
+      face,
+      packages: [...model.packages.values()].sort((left, right) => left.name.localeCompare(right.name)),
+      graph: {
+        declarations: [...model.declarations.values()].sort((left, right) => left.id.localeCompare(right.id)),
+        nodes: [...model.nodes.values()].sort((left, right) => left.id.localeCompare(right.id)),
+      },
+    })),
     crossFaceLinks: [...links.values()].sort(compareCrossFaceLinks),
   }
 }

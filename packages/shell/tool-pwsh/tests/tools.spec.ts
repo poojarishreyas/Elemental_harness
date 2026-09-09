@@ -603,9 +603,9 @@ describe('sandbox escalation through ctx.approval', () => {
 
     const malformed = sandboxAgent()
       ; (malformed.session.events as unknown as Array<{ type: string; data: { mode: string } }>).push({
-        type: 'sandbox/mode',
-        data: { mode: 'unknown-mode' },
-      })
+      type: 'sandbox/mode',
+      data: { mode: 'unknown-mode' },
+    })
     expect(text(await call(ctx, 'pwsh', escalate, malformed))).toContain('not strictly wider')
   })
 

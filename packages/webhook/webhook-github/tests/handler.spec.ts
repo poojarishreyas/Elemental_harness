@@ -246,8 +246,8 @@ describe('GitHub webhook HTTP handler', () => {
   it('does not leak the signed payload or secret in an infrastructure diagnostic', async () => {
     const fake = fakeContext('super-secret')
       ; (fake.ctx.credentials.resolve as ReturnType<typeof vi.fn> | undefined) = vi.fn(async () => {
-        throw new Error('credential store unavailable')
-      }) as never
+      throw new Error('credential store unavailable')
+    }) as never
     const base = await serve(fake.ctx)
     const body = JSON.stringify({ private: 'payload-secret' })
     expect((await post(base, body, { secret: 'super-secret' })).status).toBe(503)

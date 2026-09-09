@@ -438,8 +438,8 @@ type UpstreamCompat = OpenAICompletionsCompat & OpenAIResponsesCompat & Anthropi
  */
 export type EveryProfileFieldMatchesUpstream = AssertTrue<
   PiAiCompatProfile extends Partial<Pick<UpstreamCompat, OfferedCompatField>>
-  ? Partial<Pick<UpstreamCompat, OfferedCompatField>> extends PiAiCompatProfile ? true : false
-  : false
+    ? Partial<Pick<UpstreamCompat, OfferedCompatField>> extends PiAiCompatProfile ? true : false
+    : false
 >
 
 /**

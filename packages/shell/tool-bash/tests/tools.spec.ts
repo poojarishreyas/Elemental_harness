@@ -37,7 +37,7 @@ async function setup() {
   await ctx.plugin(ToolRuntime)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(LocalSubprocessRuntime)
-    ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
+  ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
   await ctx.plugin(BashEnvPlugin)
   await ctx.plugin(LocalBashExecutor, { timeoutMs: 10_000, graceMs: 200 })
   await ctx.plugin(ToolBash)
@@ -53,7 +53,7 @@ async function setupWithTasks() {
   await ctx.plugin(LocalJobRegistry)
   await ctx.plugin(ToolTasks)
   await ctx.plugin(LocalSubprocessRuntime)
-    ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
+  ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
   await ctx.plugin(BashEnvPlugin)
   await ctx.plugin(LocalBashExecutor, { timeoutMs: 10_000, graceMs: 200 })
   await ctx.plugin(ToolBash)
@@ -287,7 +287,7 @@ describe('bash tool', () => {
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(ToolRuntime)
     await ctx.plugin(LocalSubprocessRuntime)
-      ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
+    ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
     await ctx.plugin(LocalBashExecutor, { maxOutputBytes: 100, graceMs: 200 })
     await ctx.plugin(BashEnvPlugin)
     await ctx.plugin(ToolBash)
@@ -626,9 +626,9 @@ describe('sandbox escalation through the generic task producer', () => {
 
     const malformed = sandboxAgent()
       ; (malformed.session.events as unknown as Array<{ type: string; data: { mode: string } }>).push({
-        type: 'sandbox/mode',
-        data: { mode: 'unknown-mode' },
-      })
+      type: 'sandbox/mode',
+      data: { mode: 'unknown-mode' },
+    })
     expect(text(await call(ctx, 'bash', escalate, malformed))).toContain('not strictly wider')
   })
 

@@ -39,7 +39,7 @@ export function oneTurnLog(): SessionEvent[] {
         id: MessageId('one-turn-user'),
         role: 'user',
         content: [{ type: 'text', text: 'hi' }], source: { kind: 'user' },
-      }), surfaceOp: 'append'
+      }), surfaceOp: 'append',
     },
     { type: 'step/start', seq: 2, time: 3, data: { turn: 1, step: 1 } },
     {
@@ -54,7 +54,7 @@ export function oneTurnLog(): SessionEvent[] {
             ...{ provider: 'mock', model: 'mock' },
           },
         }),
-      }, surfaceOp: 'append'
+      }, surfaceOp: 'append',
     },
     { type: 'step/end', seq: 4, time: 5, data: { turn: 1, step: 1 } },
     { type: 'turn/end', seq: 5, time: 6, data: { turn: 1, reason: { kind: 'completed' } } },
@@ -196,7 +196,7 @@ export function runPersistenceContract(name: string, make: () => Promise<Contrac
                   ...{ provider: 'mock', model: 'mock' },
                 },
               }),
-            }, surfaceOp: 'append'
+            }, surfaceOp: 'append',
           },
         ])
 
@@ -248,7 +248,7 @@ export function runPersistenceContract(name: string, make: () => Promise<Contrac
                   ...{ provider: 'mock', model: 'mock' },
                 },
               }),
-            }, surfaceOp: 'append'
+            }, surfaceOp: 'append',
           },
           { type: 'tool/call', seq: 3, time: 4, data: { turn: 1, step: 1, callId: ToolCallId('call-risk'), name: 'write', arguments: '{}' } },
         ])

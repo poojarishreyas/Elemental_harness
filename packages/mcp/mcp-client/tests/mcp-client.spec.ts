@@ -544,7 +544,7 @@ describe('tool execution', () => {
           { type: 'image', mimeType: 'image/tiff', data: 'AQ==' },
           { type: 'image', mimeType: 'image/png', data: 'AB==' },
           { type: 'image', mimeType: 'image/png' },
-        ]
+        ],
       },
     )
 

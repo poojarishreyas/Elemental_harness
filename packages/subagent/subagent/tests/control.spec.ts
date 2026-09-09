@@ -149,9 +149,9 @@ describe('subagent prompt Remote', () => {
       readonly field: 'parentSessionId' | 'childSessionId'
       readonly request: ReturnType<typeof promptRequest>
     }[] = [
-        { field: 'parentSessionId', request: { ...promptRequest(), parentSessionId: SessionId('') } },
-        { field: 'childSessionId', request: { ...promptRequest(), childSessionId: SessionId('') } },
-      ]
+      { field: 'parentSessionId', request: { ...promptRequest(), parentSessionId: SessionId('') } },
+      { field: 'childSessionId', request: { ...promptRequest(), childSessionId: SessionId('') } },
+    ]
     for (const { field, request } of cases) {
       await expect(subagents.prompt(request, signal))
         .rejects.toMatchObject(emptyIdFailure('subagent.prompt', field))

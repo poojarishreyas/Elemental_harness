@@ -92,25 +92,25 @@ type TypertProjectedContextSubject = {
 
 type TypertAgentScopedRequest<Request> = Request extends object
   ? 'agent' extends keyof Request
-  ? Exclude<Request['agent'], undefined> extends TypertProjectedContextSubject ? Request : never
-  : never
+    ? Exclude<Request['agent'], undefined> extends TypertProjectedContextSubject ? Request : never
+    : never
   : never
 
 type TypertWaterfallEvent<Event extends keyof Events> =
   unknown extends ThisParameterType<Events[Event]>
-  ? never
-  : TypertEventParameters<Event> extends [infer Request, infer Next]
-  ? Next extends () => TypertEventResult<Event>
-  ? TypertEventResult<Event> extends Promise<unknown>
-  ? TypertAgentScopedRequest<Request> extends never ? never : Event
-  : never
-  : never
-  : never
+    ? never
+    : TypertEventParameters<Event> extends [infer Request, infer Next]
+      ? Next extends () => TypertEventResult<Event>
+        ? TypertEventResult<Event> extends Promise<unknown>
+          ? TypertAgentScopedRequest<Request> extends never ? never : Event
+          : never
+        : never
+      : never
 
 type TypertForwardingMode<Event extends keyof Events> =
   unknown extends ThisParameterType<Events[Event]>
-  ? TypertEventResult<Event> extends void ? 'emit' : never
-  : TypertWaterfallEvent<Event> extends never ? never : 'waterfall'
+    ? TypertEventResult<Event> extends void ? 'emit' : never
+    : TypertWaterfallEvent<Event> extends never ? never : 'waterfall'
 
 /**
  * Cordis event names the Remote Event carrier can preserve without a second
@@ -124,10 +124,10 @@ export type TypertForwardableEvent = {
 /** Event and dispatch mode accepted by the Remote Event source. */
 export type TypertForwardableEventEntry = {
   [Event in keyof Events]: TypertForwardingMode<Event> extends infer Mode
-  ? Mode extends 'emit' | 'waterfall'
-  ? { readonly event: Event; readonly mode: Mode }
-  : never
-  : never
+    ? Mode extends 'emit' | 'waterfall'
+      ? { readonly event: Event; readonly mode: Mode }
+      : never
+    : never
 }[keyof Events]
 
 /** Merge-extensible forwarding selection declared once by the Host assembly. */
@@ -138,8 +138,8 @@ export type TypertRemoteEvent = Extract<TypertForwardableEvent, keyof TypertRemo
 
 type TypertClientAgent<Value> =
   Exclude<Value, undefined> extends TypertProjectedContextSubject
-  ? Context | Extract<Value, undefined>
-  : Value
+    ? Context | Extract<Value, undefined>
+    : Value
 
 type TypertClientEventRequest<Request> = Request extends object
   ? { [Key in keyof Request]: Key extends 'agent' ? TypertClientAgent<Request[Key]> : Request[Key] }
@@ -147,12 +147,12 @@ type TypertClientEventRequest<Request> = Request extends object
 
 type TypertScopedClientEventListener<Event extends TypertRemoteEvent> =
   Events[Event] extends (request: infer Request, next: infer Next) => infer Result
-  ? (
-    this: Context,
-    request: TypertClientEventRequest<Request>,
-    next: Next,
-  ) => Result
-  : never
+    ? (
+      this: Context,
+      request: TypertClientEventRequest<Request>,
+      next: Next,
+    ) => Result
+    : never
 
 /**
  * Listener derived from one selected Cordis event declaration. Scoped Host
@@ -162,8 +162,8 @@ type TypertScopedClientEventListener<Event extends TypertRemoteEvent> =
  */
 export type TypertClientEventListener<Event extends TypertRemoteEvent> =
   unknown extends ThisParameterType<Events[Event]>
-  ? Events[Event]
-  : TypertScopedClientEventListener<Event>
+    ? Events[Event]
+    : TypertScopedClientEventListener<Event>
 
 /**
  * Resolve one direct Remote namespace from the generated flat endpoint map.
@@ -171,8 +171,8 @@ export type TypertClientEventListener<Event extends TypertRemoteEvent> =
  */
 export type TypertRemoteNamespace<Namespace extends string> = {
   [Endpoint in keyof TypertRemoteMap as Endpoint extends `${Namespace}/${infer Method}`
-  ? Method
-  : never]: TypertRemoteMap[Endpoint]
+    ? Method
+    : never]: TypertRemoteMap[Endpoint]
 }
 
 /**
@@ -184,10 +184,10 @@ export type TypertRemoteScopeNamespace<
   Namespace extends string,
   ContextKey extends string = string,
 > = {
-    [Endpoint in keyof TypertRemoteScopeMap as Endpoint extends `${ContextKey}:${Namespace}/${infer Method}`
+  [Endpoint in keyof TypertRemoteScopeMap as Endpoint extends `${ContextKey}:${Namespace}/${infer Method}`
     ? Method
     : never]: TypertRemoteScopeMap[Endpoint]
-  }
+}
 
 type TypertRemoteScopeNamespaceKey<
   ContextKey extends string,

@@ -42,7 +42,7 @@ function samePath(actual: string, expected: string): boolean {
 async function setup(config: ConstructorParameters<typeof PwshLocalExecutor>[1] = {}) {
   const ctx = new Context()
   await ctx.plugin(LocalSubprocessRuntime)
-    ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
+  ; (ctx.subprocess as LocalSubprocessRuntime).internals = { spillDir }
   // A short kill grace via the REAL config path, so escalation tests stay fast.
   await ctx.plugin(PwshLocalExecutor, { graceMs: 200, ...config })
   const bash = ctx.shell as PwshLocalExecutor

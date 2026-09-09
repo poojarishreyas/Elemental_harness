@@ -1173,7 +1173,7 @@ export function runCoordinatorContract(name: string, makeFixture: () => Promise<
               ...events,
               { type: 'turn/start', seq: 6, time: 7, data: { turn: 2 } },
               { type: 'turn/end', seq: 7, time: 8, data: { turn: 2, reason: { kind: 'completed' } } },
-            ], meta: { cwd: WORK, createdAt: 2000 }
+            ], meta: { cwd: WORK, createdAt: 2000 },
           })
         }, { inject: ['sessions'] }))
         await ctx.sessions.flush(cont)

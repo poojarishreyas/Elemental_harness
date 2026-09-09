@@ -234,7 +234,7 @@ describe('stores', () => {
     expect(() => runtime.storeOf('trt.panel')).toThrow(/no registration/)
     const store = runtime.storeOf('trt.chat', 's1')
     await runtime.flush()
-      ; (store.actions['setNote'] as (note: string) => void)('hello')
+    ; (store.actions['setNote'] as (note: string) => void)('hello')
     await runtime.flush()
     expect(view.container.textContent).toContain('note:hello')
     expect(runtime.storeOf('trt.chat', 's1')).toBe(store) // cached per scope key

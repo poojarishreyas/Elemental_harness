@@ -103,14 +103,14 @@ describe('todo snapshot invariants', () => {
       seed: [
         { type: 'turn/start', seq: 0, time: 1, data: { turn: 1 } },
         { type: 'todo/write', seq: 1, time: 2, data: { todos: [] } },
-      ]
+      ],
     })
     expect(() => valid.append('todo/write', { todos: [] })).not.toThrow()
 
     expect(() => ctx.sessions.create(SessionId('todo-seeded-invalid'), {
       seed: [
         { type: 'todo/write', seq: 0, time: 1, data: { todos: [] } },
-      ]
+      ],
     })).toThrow(/outside any open turn/)
   })
 
