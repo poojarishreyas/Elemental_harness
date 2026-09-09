@@ -323,7 +323,7 @@ Per-call token accounting. Counts are **disjoint**: `inputTokens` is uncached in
  * Counts are DISJOINT: `inputTokens` is uncached input only; cached input is
  * reported separately as `cacheReadTokens`/`cacheWriteTokens` (billed input =
  * sum of the three). Adapters whose providers fold cache hits into a total
- * prompt count (DeepSeek's `prompt_tokens`) subtract them out.
+ * prompt count (deepseek's `prompt_tokens`) subtract them out.
  */
 interface TokenUsage {
   inputTokens: number
@@ -755,7 +755,7 @@ interface PreparedLlmCall {
  * Provider-wire adapter for the harness message and stream vocabulary. Register implementations
  * with `ctx.llm.registerAdapter(providers, adapter)`. Every provider HTTP request must include
  * `attributionHeaders()`; prove the headers are added in the wire request or library header hook. The direct-fetch
- * DeepSeek and library-backed pi-ai adapters meet this contract through different internals.
+ * deepseek and library-backed pi-ai adapters meet this contract through different internals.
  */
 declare abstract class LlmAdapter {
   /**

@@ -1,24 +1,14 @@
 # AGENTS.md
 
-Elemental Harness is a web-only fork of [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness):
-an all-plugin Cordis agent harness. The CLI, SDK, ACP, headless and desktop
-applications have been removed; the only application is the Web GUI.
+Elemental Harness is a web-only fork of [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness): an all-plugin Cordis agent harness. The CLI, SDK, ACP, headless and desktop applications have been removed; the only application is the Web GUI.
 
-Read [docs/architecture.md](docs/architecture.md) before changing `packages/`;
-follow [docs/AGENTS.md](docs/AGENTS.md) for documentation conventions.
+Read [docs/architecture.md](docs/architecture.md) before changing `packages/`; follow [docs/AGENTS.md](docs/AGENTS.md) for documentation conventions.
 
 ## Pre-release stance: foundation over blast radius
 
-APIs are pre-stable and there are no external consumers to protect. Prefer the
-change that leaves the better foundation over the one that touches fewer files:
-update every consumer, delete the superseded path, and do not add a compatibility
-shim for a caller that does not exist. Released Session JSONL is the exception —
-body reads may add a version-named successor but never move, overwrite, or delete
-committed generations. SQLite domains use monotonic `SCHEMA_VERSION`.
+APIs are pre-stable and there are no external consumers to protect. Prefer the change that leaves the better foundation over the one that touches fewer files: update every consumer, delete the superseded path, and do not add a compatibility shim for a caller that does not exist. Released Session JSONL is the exception — body reads may add a version-named successor but never move, overwrite, or delete committed generations. SQLite domains use monotonic `SCHEMA_VERSION`.
 
-**Application launch.** There is exactly one application entry, `apps/server`, and
-it boots the fixed `web` profile. `--profile` is rejected. Package bins and demos
-are not application launchers ([rule](docs/architecture.md#application-launch)).
+**Application launch.** There is exactly one application entry, `apps/server`, and it boots the fixed `web` profile. `--profile` is rejected. Package bins and demos are not application launchers ([rule](docs/architecture.md#application-launch)).
 
 ## Commands
 
@@ -44,21 +34,15 @@ pnpm run check:all      # the full gate matrix
 
 ### Run relevant checks locally
 
-Match evidence to the surface: focused behavior tests, model/user-output snapshots,
-`doc-sync` for docs, built smokes for published paths, real-API e2e for providers.
-Report only commands actually run.
+Match evidence to the surface: focused behavior tests, model/user-output snapshots, `doc-sync` for docs, built smokes for published paths, real-API e2e for providers. Report only commands actually run.
 
 - Never default to the full suite or repeat a passing check just to commit.
 - `test:coverage`, not `test`, is the coverage gate ([why](docs/testing.md)).
-- Regenerate rather than hand-edit: most of `docs/` is generated, so change the
-  source and run the matching `gen-*` script.
+- Regenerate rather than hand-edit: most of `docs/` is generated, so change the source and run the matching `gen-*` script.
 
 ## Secrets / .env
 
-Real-API tests read `DEEPSEEK_API_KEY`, optional `DEEPSEEK_BASE_URL`, and root
-`.env`. `cordis.yml` allows `!!js` (never `!js`) under plugin `config` and entry
-`disabled`; other metadata stays literal, so conditional composition uses overlays
-([primer](docs/cordis-primer.md#loader-configuration)). Never commit credentials.
+Real-API tests read `DEEPSEEK_API_KEY`, optional `DEEPSEEK_BASE_URL`, and root `.env`. `cordis.yml` allows `!!js` (never `!js`) under plugin `config` and entry `disabled`; other metadata stays literal, so conditional composition uses overlays ([primer](docs/cordis-primer.md#loader-configuration)). Never commit credentials.
 
 ## Conventions
 
@@ -92,26 +76,15 @@ Real-API tests read `DEEPSEEK_API_KEY`, optional `DEEPSEEK_BASE_URL`, and root
 
 ## Defensive patterns
 
-Read [docs/defensive-patterns.md](docs/defensive-patterns.md) before lifecycle,
-concurrency, subprocess, or teardown work.
+Read [docs/defensive-patterns.md](docs/defensive-patterns.md) before lifecycle, concurrency, subprocess, or teardown work.
 
 ## Type safety and documentation
 
-Everything compiles under `strict: true` with `noImplicitAny`; every remaining
-`any` explains why narrowing is infeasible. Every module and export carries concise
-JSDoc for its non-obvious contract; function-like exports include
-`@param`/`@returns`, enforced by `verify-export-jsdoc`.
+Everything compiles under `strict: true` with `noImplicitAny`; every remaining `any` explains why narrowing is infeasible. Every module and export carries concise JSDoc for its non-obvious contract; function-like exports include `@param`/`@returns`, enforced by `verify-export-jsdoc`.
 
-Comments and docs state complete contracts, not reasoning transcripts. Use direct,
-concrete terms; before writing `contract`, `boundary`, or `shape`, ask whether a
-more exact term names the subject. Keep behavior, failure, timing, ownership, and
-safe-use facts; link the rationale. Use
-[dsh-prose-standard](.agents/skills/dsh-prose-standard/SKILL.md) for decisions.
+Comments and docs state complete contracts, not reasoning transcripts. Use direct, concrete terms; before writing `contract`, `boundary`, or `shape`, ask whether a more exact term names the subject. Keep behavior, failure, timing, ownership, and safe-use facts; link the rationale. Use [dsh-prose-standard](.agents/skills/dsh-prose-standard/SKILL.md) for decisions.
 
-Docs accompany every code change: update affected README and JSDoc contracts
-together. Documentation is English only. Current-state prose, one physical line per
-paragraph, one home per fact, and word budgets live in
-[docs/AGENTS.md](docs/AGENTS.md).
+Docs accompany every code change: update affected README and JSDoc contracts together. Documentation is English only. Current-state prose, one physical line per paragraph, one home per fact, and word budgets live in [docs/AGENTS.md](docs/AGENTS.md).
 
 ## Repository layout
 
@@ -147,12 +120,8 @@ scripts/     gates and generators
 
 ## Editing these instructions
 
-`CLAUDE.md` points at `AGENTS.md` at root and `packages/`; edit the real file.
-Keep each rule self-contained while linking high-level docs.
+`CLAUDE.md` points at `AGENTS.md` at root and `packages/`; edit the real file. Keep each rule self-contained while linking high-level docs.
 
 ## Vendoring policy
 
-`vendor/` packages are pinned source copies (manifest with upstream SHAs in
-[vendor/README.md](vendor/README.md)). Update via the sync procedure there,
-re-apply or retire the logged local modifications, then rerun
-`pnpm run test && pnpm run build`.
+`vendor/` packages are pinned source copies (manifest with upstream SHAs in [vendor/README.md](vendor/README.md)). Update via the sync procedure there, re-apply or retire the logged local modifications, then rerun `pnpm run test && pnpm run build`.

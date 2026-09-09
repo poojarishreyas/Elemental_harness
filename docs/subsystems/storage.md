@@ -16,7 +16,7 @@ Data forms mount on the hub under a merge-extensible key map:
  * this map via declaration merging (the domain layer merges
  * `domain: DomainFacility`) and mount the facility in their `apply`.
  */
-interface StorageForms {}
+interface StorageForms { }
 ```
 
 `mount(form, facility)` is an effect whose disposer unmounts; a second mount of the same key throws `duplicate-mount`. `form(form)` resolves a mounted facility and throws `form-not-mounted` until the owning plugin loads — assemblies order plugins accordingly rather than silently deferring. The domain layer merges `domain: DomainFacility`, so `ctx.storage.domain` and `ctx.storageDomain` are the same object.

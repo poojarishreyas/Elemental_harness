@@ -72,7 +72,7 @@ interface AskUserQuestionItem {
 
 ```ts type-equiv
 /** Request for a human answer. */
-interface AskUserQuestionRequest extends AskUserQuestionRequestEvent {}
+interface AskUserQuestionRequest extends AskUserQuestionRequestEvent { }
 ```
 
 ## Answer

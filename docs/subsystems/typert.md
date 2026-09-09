@@ -8,12 +8,12 @@ Business-object packages extend two empty maps through declaration merging. A lo
 
 ```ts type-equiv
 /** Merge-extensible Host object lookup declarations. */
-interface TypertLookupMap {}
+interface TypertLookupMap { }
 ```
 
 ```ts type-equiv
 /** Merge-extensible scoped Context declarations. */
-interface TypertContextMap {}
+interface TypertContextMap { }
 ```
 
 The registry retains a lookup's wire declaration after its resolver unloads. SRC discovery therefore continues to classify the parameter as a lookup and fails unavailable instead of accepting the wire value as an ordinary business object.
@@ -132,7 +132,7 @@ Generated consumer declarations merge direct namespaces into the map inherited b
 
 ```ts type-equiv
 /** Merge-extensible direct namespace surface generated for Client Remote services. */
-interface TypertRemoteNamespaceMap {}
+interface TypertRemoteNamespaceMap { }
 ```
 
 ## Host Gateway

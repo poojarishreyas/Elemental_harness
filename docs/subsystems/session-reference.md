@@ -59,7 +59,7 @@ The `sessionReferenceResolver/candidates` Remote method serves the same discover
 ```ts type-equiv
 /** One discovery candidate carrying its canonical prompt mention. */
 interface SessionReferenceMentionCandidate extends SessionReferenceCandidate {
-  /** Canonical `@label` mention serialized into the prompt draft. */
+  /** Canonical `@[label](dsh-session:…)` mention serialized into the prompt draft. */
   mention: string
 }
 ```
