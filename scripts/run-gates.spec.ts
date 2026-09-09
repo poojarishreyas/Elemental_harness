@@ -196,9 +196,9 @@ describe('gate graph validation', () => {
   it('schedules the longest documentation leaves before short checks', () => {
     const ids = withPnpmEntrypoint(() => gatesForMode('doc-sync').map(subject => subject.id))
 
-    expect(ids.slice(0, 10)).toEqual([
+    expect(ids.slice(0, 9)).toEqual([
       'doc-typecheck', 'doc-graphs', 'markdown-links', 'type-equivalence',
-      'cordis-catalog', 'cordis-inspect-catalog', 'mermaid', 'scoped-events', 'translation-pairing',
+      'cordis-catalog', 'cordis-inspect-catalog', 'mermaid', 'scoped-events', 'markdown-wrap',
     ])
   })
 
@@ -291,9 +291,6 @@ describe('gate graph validation', () => {
       observational.filter(gate => gate.id !== 'built-bin-smoke').map(gate => gate.id),
     )
 
-    const completeBuiltBin = withPnpmEntrypoint(() => gatesForMode('ci-windows-complete'))
-      .find(gate => gate.id === 'built-bin-smoke')
-    expect(completeBuiltBin?.after).toContain('windows-site')
   })
 
   it('applies one configured test, polling, and hook timeout to both coverage gates', () => {

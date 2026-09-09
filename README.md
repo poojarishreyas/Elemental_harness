@@ -1,4 +1,4 @@
-# Elemental Harness
+# Lynx Harness
 
 A web-only agent harness, forked from [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) and cut down to one application.
 

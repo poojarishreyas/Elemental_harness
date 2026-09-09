@@ -82,9 +82,9 @@ describe('Typert-backed Cordis catalog', () => {
 
   it('resolves each key to the declaration a caller meets, and drops keys no plugin provides', { timeout: 480_000 }, () => {
     const byKey = new Map(projection().model.services.map(service => [service.key, service]))
-    // An interface-typed key is described by its Service Definition: that is where
-    // the contract and, by repository convention, the member JSDoc live.
-    expect(byKey.get('lsp')?.type).toBe('LspService')
+    // The interface-typed case had no shipped key left after this fork removed
+    // `ctx.lsp`; every remaining projected key resolves to a class. Restore an
+    // assertion here when a Service Definition is again typed by an interface.
     // Two packages describe `ctx.typert` — a merge-extensible interface in
     // type-meta and the implementing class in registry. The class wins: it is the
     // object a caller meets and it carries the documentation.

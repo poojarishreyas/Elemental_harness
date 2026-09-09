@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Elemental Harness is a web-only fork of [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness): an all-plugin Cordis agent harness. The CLI, SDK, ACP, headless and desktop applications have been removed; the only application is the Web GUI.
+Lynx Harness is a web-only fork of [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness): an all-plugin Cordis agent harness. The CLI, SDK, ACP, headless and desktop applications have been removed; the only application is the Web GUI.
 
 Read [docs/architecture.md](docs/architecture.md) before changing `packages/`; follow [docs/AGENTS.md](docs/AGENTS.md) for documentation conventions.
 
