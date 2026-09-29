@@ -1,23 +1,26 @@
 /** Configuration resolution for deterministic tool-result pruning. */
 
 import { deepFreeze } from '@deepseek-ai/dsh-util-values'
+import type { SpillRef } from '@deepseek-ai/dsh-spill'
 import type { ResolvedConfig, ToolResultPruneConfig } from './types.ts'
 
-/** Fixed marker substituted for every removed middle span. */
+/** Fixed marker substituted for a removed middle span when no spill artifact holds the original. */
 export const PRUNE_MARKER = '\n\n[... tool result middle pruned ...]\n\n'
 
-/** Low-friction defaults for coding-agent tool output. */
+/**
+ * Defaults for coding-agent tool output. The recency and minimum-gain values
+ * follow Claude Code's tool-result clearing (keeps the last 5 results, acts only
+ * above 20,000 tokens) and opencode's prune minimum (20,000 tokens).
+ */
 export const DEFAULTS: ResolvedConfig = deepFreeze({
   thresholdChars: 8192,
   headChars: 4096,
   tailChars: 1024,
+  protectRecentResults: 5,
+  minTokensSaved: 20_000,
 })
 
-const CONFIG_KEYS: ReadonlySet<string> = new Set([
-  'thresholdChars',
-  'headChars',
-  'tailChars',
-])
+const CONFIG_KEYS: ReadonlySet<string> = new Set(Object.keys(DEFAULTS))
 
 /**
  * Count Unicode code points without splitting surrogate pairs.
@@ -26,6 +29,15 @@ const CONFIG_KEYS: ReadonlySet<string> = new Set([
  */
 export function codePointLength(text: string): number {
   return Array.from(text).length
+}
+
+/**
+ * Marker substituted for a removed middle span whose full original text was saved.
+ * @param ref - the saved artifact's locator and retrieval guidance.
+ * @returns the marker, delimited by blank lines like {@link PRUNE_MARKER}.
+ */
+export function spillMarker(ref: SpillRef): string {
+  return `\n\n[... tool result middle pruned. Full result stored at: ${ref.locator}. ${ref.retrievalHint} ...]\n\n`
 }
 
 /**
@@ -38,7 +50,7 @@ export function resolveConfig(config: ToolResultPruneConfig = {}): ResolvedConfi
     if (!CONFIG_KEYS.has(key)) {
       throw new Error(
         `ToolResultPruneConfig: unknown key "${key}" `
-        + '(allowed: thresholdChars, headChars, tailChars)',
+        + `(allowed: ${[...CONFIG_KEYS].join(', ')})`,
       )
     }
   }
@@ -47,10 +59,14 @@ export function resolveConfig(config: ToolResultPruneConfig = {}): ResolvedConfi
     thresholdChars: config.thresholdChars ?? DEFAULTS.thresholdChars,
     headChars: config.headChars ?? DEFAULTS.headChars,
     tailChars: config.tailChars ?? DEFAULTS.tailChars,
+    protectRecentResults: config.protectRecentResults ?? DEFAULTS.protectRecentResults,
+    minTokensSaved: config.minTokensSaved ?? DEFAULTS.minTokensSaved,
   }
   assertPositiveInteger('thresholdChars', resolved.thresholdChars)
   assertNonNegativeInteger('headChars', resolved.headChars)
   assertNonNegativeInteger('tailChars', resolved.tailChars)
+  assertNonNegativeInteger('protectRecentResults', resolved.protectRecentResults)
+  assertNonNegativeInteger('minTokensSaved', resolved.minTokensSaved)
 
   const emittedChars = resolved.headChars
     + codePointLength(PRUNE_MARKER)

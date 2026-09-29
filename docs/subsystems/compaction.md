@@ -87,7 +87,7 @@ The Service Definition exports `toolPairingBalancedBefore(session, seq)` and `to
 
 ## Tool-result pruning outcomes
 
-The optional tool-result pruning service reports each durable content replacement and the aggregate Unicode-code-point reduction. Its public result types live in [`compaction-tool-result-pruner/src/types.ts`](../../packages/compaction/compaction-tool-result-pruner/src/types.ts).
+The optional tool-result pruning service reports each durable content replacement, where its original text was stored when a spill store accepted it, and the aggregate Unicode-code-point reduction. Its public result types live in [`compaction-tool-result-pruner/src/types.ts`](../../packages/compaction/compaction-tool-result-pruner/src/types.ts).
 
 ```ts type-equiv
 /** Cited source event and size accounting for one landed surface replacement. */
@@ -102,6 +102,8 @@ interface PrunedEntry {
   readonly charsBefore: number
   /** Replacement text size in Unicode code points. */
   readonly charsAfter: number
+  /** Where the original text was saved, when a spill store accepted it and its marker fit the budget. */
+  readonly spillLocator?: SpillLocator
 }
 ```
 
@@ -211,23 +213,36 @@ measureContent(blocks: readonly ContentBlock[]): number
  * Text slicing is by Unicode code point, not UTF-16 code unit, so a retained
  * boundary cannot split a surrogate pair. Grapheme clusters may still split.
  * @param blocks - original tool-result content.
+ * @param marker - text substituted for the removed span; head + marker + tail must fit `thresholdChars`.
  * @returns pruned content, or `null` when the text is within budget.
  */
-pruneContent(blocks: readonly ContentBlock[]): ContentBlock[] | null
+pruneContent(blocks: readonly ContentBlock[], marker: string = PRUNE_MARKER): ContentBlock[] | null
 
 /**
- * Prune every over-budget tool result from one stable current-surface snapshot.
+ * Prune over-budget tool results from one current-surface snapshot.
+ *
+ * A `pressure` pass never touches the newest `protectRecentResults` tool
+ * results and lands nothing unless the plain-marker replacements would remove
+ * at least `minTokensSaved` estimated tokens. A `context-overflow` pass skips
+ * both safeguards, because the unpruned request cannot be sent at all.
+ *
+ * When `ctx.spillStore` is mounted, each selected original's text is saved
+ * first and its marker names the stored copy; a failed save, or a marker too
+ * long for the budget, falls back to {@link PRUNE_MARKER}. Saves finish before
+ * any append, and a result that left the surface meanwhile is skipped.
+ *
  * Each replacement preserves the complete event data except for `content`,
  * cites the shadowed node so replay can recover the replacement input, and is
  * immediately preceded by a `compaction/prune` shadow-price event pricing the
  * shadowed node through the injected token meter, so pure consumers can
  * subtract it without per-node state.
  * @param session - session whose current surface is rewritten.
+ * @param trigger - the compaction trigger that qualified this pass.
  * @returns landed replacements and aggregate Unicode-code-point savings.
  * @throws when the session rejects a replacement; replacements committed
  * earlier in the pass remain durable.
  */
-pruneSession(session: Session): PruneResult
+async pruneSession(session: Session, trigger: CompactionTrigger): Promise<PruneResult>
 ```
 
 Types: [ContentBlock](llm-streaming.md) · [Session](session.md)

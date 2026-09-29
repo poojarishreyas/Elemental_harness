@@ -774,7 +774,8 @@ describe('pressure measurement and retention', () => {
 })
 
 describe('optional model-free tool-result pruning', () => {
-  const pruneConfig = { thresholdChars: 100, headChars: 20, tailChars: 10 }
+  // Pressure safeguards off: these cases exercise the prune-then-remeasure flow on tiny sessions.
+  const pruneConfig = { thresholdChars: 100, headChars: 20, tailChars: 10, protectRecentResults: 0, minTokensSaved: 0 }
 
   it('does not prune a below-pressure session opportunistically', async () => {
     const ctx = createContext(10_000)
@@ -812,7 +813,8 @@ describe('optional model-free tool-result pruning', () => {
 
   it('summarizes the pruned surface when pruning is insufficient', async () => {
     const ctx = createContext(2_000)
-    void new ToolResultPruner(ctx, pruneConfig)
+    const prune = new ToolResultPruner(ctx, pruneConfig)
+    const pruneSession = vi.spyOn(prune, 'pruneSession')
     const compact = new TestCompactionEngine(ctx, {
       auto: false,
       thresholdRatio: 0.5,
@@ -821,6 +823,7 @@ describe('optional model-free tool-result pruning', () => {
     const session = toolConversation()
 
     expect(await compactIfNeeded(compact, session)).not.toBeNull()
+    expect(pruneSession).toHaveBeenCalledWith(session, 'pressure')
     expect(compact.calls).toHaveLength(1)
     expect(summarizedText(compact.calls[0]!.input)).toContain('tool result middle pruned')
     expect(summarizedText(compact.calls[0]!.input)).not.toContain('result 1 '.repeat(300))
@@ -1600,11 +1603,13 @@ describe('automatic listener and loader composition', () => {
 
   it('continues overflow recovery with summarization on the pruned surface', async () => {
     const ctx = createContext(10_000)
-    void new ToolResultPruner(ctx, {
+    // Default pressure safeguards stay on: overflow recovery must bypass them.
+    const prune = new ToolResultPruner(ctx, {
       thresholdChars: 100,
       headChars: 20,
       tailChars: 10,
     })
+    const pruneSession = vi.spyOn(prune, 'pruneSession')
     const compact = new TestCompactionEngine(ctx, {
       thresholdRatio: 1,
       retainTokens: 900,
@@ -1612,6 +1617,7 @@ describe('automatic listener and loader composition', () => {
     const session = toolConversation()
 
     expect(await recover(ctx, agent(session, MODEL), overflow())).toBe(true)
+    expect(pruneSession).toHaveBeenCalledWith(session, 'context-overflow')
     expect(session.events.some(event => event.type === 'compaction/summary')).toBe(true)
     expect(compact.calls).toHaveLength(1)
     expect(summarizedText(compact.calls[0]!.input)).toContain('tool result middle pruned')

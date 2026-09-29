@@ -422,7 +422,7 @@ Source: [`packages/compaction/compaction-basic/src/types.ts:38`](../packages/com
 Requires: `tokenMeter`
 
 ```ts config-catalog
-/** Character-budget policy for deterministic tool-result pruning. */
+/** Budget and selection policy for deterministic tool-result pruning. */
 export interface ToolResultPruneConfig {
   /** Prune when total text exceeds this many Unicode code points. Defaults to `8192`. */
   thresholdChars?: number
@@ -430,10 +430,20 @@ export interface ToolResultPruneConfig {
   headChars?: number
   /** Maximum trailing Unicode code points retained. Defaults to `1024`. */
   tailChars?: number
+  /**
+   * Newest tool results a pressure pass never prunes, counted over every current
+   * tool result regardless of size. Overflow recovery ignores it. Defaults to `5`.
+   */
+  protectRecentResults?: number
+  /**
+   * Minimum estimated tokens a pressure pass must remove, or it prunes nothing.
+   * Overflow recovery ignores it. Defaults to `20000`.
+   */
+  minTokensSaved?: number
 }
 ```
 
-Source: [`packages/compaction/compaction-tool-result-pruner/src/types.ts:4`](../packages/compaction/compaction-tool-result-pruner/src/types.ts)
+Source: [`packages/compaction/compaction-tool-result-pruner/src/types.ts:5`](../packages/compaction/compaction-tool-result-pruner/src/types.ts)
 
 <a id="deepseek-aidsh-cordis-host-runner"></a>
 

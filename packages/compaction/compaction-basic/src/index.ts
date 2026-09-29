@@ -283,7 +283,7 @@ export class BasicCompactionEngine extends CompactionEngine {
 
     if (trigger === 'context-overflow') {
       if (prune !== undefined) {
-        prune.pruneSession(agent.session)
+        await prune.pruneSession(agent.session, trigger)
         measurement = meter.measure(agent.session)
       }
       const range = selectCompactableRange(agent.session, measurement, 0)
@@ -307,7 +307,7 @@ export class BasicCompactionEngine extends CompactionEngine {
     // Once pressure qualifies, land the model-free pass before choosing a
     // summary range, then remeasure through the singleton replay fold.
     if (prune !== undefined) {
-      prune.pruneSession(agent.session)
+      await prune.pruneSession(agent.session, trigger)
       measurement = meter.measure(agent.session)
     }
     if (measurement.totalTokens < spec.thresholdTokens) return null

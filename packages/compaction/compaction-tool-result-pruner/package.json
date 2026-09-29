@@ -37,6 +37,7 @@
     "@deepseek-ai/dsh-invariants": "workspace:^",
     "@deepseek-ai/dsh-llm": "workspace:^",
     "@deepseek-ai/dsh-session": "workspace:^",
+    "@deepseek-ai/dsh-spill": "workspace:^",
     "@deepseek-ai/dsh-token-meter": "workspace:^"
   },
   "dependencies": {
@@ -52,6 +53,7 @@
     "@deepseek-ai/dsh-llm": "workspace:^",
     "@deepseek-ai/dsh-session": "workspace:^",
     "@deepseek-ai/dsh-session-projection": "workspace:^",
+    "@deepseek-ai/dsh-spill": "workspace:^",
     "@deepseek-ai/dsh-token-meter": "workspace:^"
   }
 }

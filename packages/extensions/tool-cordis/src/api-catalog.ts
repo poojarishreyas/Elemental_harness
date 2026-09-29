@@ -2449,15 +2449,15 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'total Unicode code points across text blocks.',
       },
       {
-        signature: 'pruneContent(blocks: readonly ContentBlock[]): ContentBlock[] | null',
+        signature: 'pruneContent(blocks: readonly ContentBlock[], marker: string = PRUNE_MARKER): ContentBlock[] | null',
         description: 'Replace an over-budget text middle while retaining rich-block order. Text slicing is by Unicode code point, not UTF-16 code unit, so a retained boundary cannot split a surrogate pair. Grapheme clusters may still split.',
-        parameters: [{ name: 'blocks', description: 'original tool-result content.' }],
+        parameters: [{ name: 'blocks', description: 'original tool-result content.' }, { name: 'marker', description: 'text substituted for the removed span; head + marker + tail must fit `thresholdChars`.' }],
         returns: 'pruned content, or `null` when the text is within budget.',
       },
       {
-        signature: 'pruneSession(session: Session): PruneResult',
-        description: 'Prune every over-budget tool result from one stable current-surface snapshot. Each replacement preserves the complete event data except for `content`, cites the shadowed node so replay can recover the replacement input, and is immediately preceded by a `compaction/prune` shadow-price event pricing the shadowed node through the injected token meter, so pure consumers can subtract it without per-node state.',
-        parameters: [{ name: 'session', description: 'session whose current surface is rewritten.' }],
+        signature: 'async pruneSession(session: Session, trigger: CompactionTrigger): Promise<PruneResult>',
+        description: 'Prune over-budget tool results from one current-surface snapshot.\n\nA `pressure` pass never touches the newest `protectRecentResults` tool results and lands nothing unless the plain-marker replacements would remove at least `minTokensSaved` estimated tokens. A `context-overflow` pass skips both safeguards, because the unpruned request cannot be sent at all.\n\nWhen `ctx.spillStore` is mounted, each selected original\'s text is saved first and its marker names the stored copy; a failed save, or a marker too long for the budget, falls back to PRUNE_MARKER. Saves finish before any append, and a result that left the surface meanwhile is skipped.\n\nEach replacement preserves the complete event data except for `content`, cites the shadowed node so replay can recover the replacement input, and is immediately preceded by a `compaction/prune` shadow-price event pricing the shadowed node through the injected token meter, so pure consumers can subtract it without per-node state.',
+        parameters: [{ name: 'session', description: 'session whose current surface is rewritten.' }, { name: 'trigger', description: 'the compaction trigger that qualified this pass.' }],
         returns: 'landed replacements and aggregate Unicode-code-point savings.',
         throws: ['when the session rejects a replacement; replacements committed earlier in the pass remain durable.'],
       },
@@ -4469,7 +4469,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'PrunedEntry',
-    declaration: 'export interface PrunedEntry {\n    readonly originalSeq: number;\n    readonly replacementSeq: number;\n    readonly callId: ToolCallId;\n    readonly charsBefore: number;\n    readonly charsAfter: number;\n}',
+    declaration: 'export interface PrunedEntry {\n    readonly originalSeq: number;\n    readonly replacementSeq: number;\n    readonly callId: ToolCallId;\n    readonly charsBefore: number;\n    readonly charsAfter: number;\n    readonly spillLocator?: SpillLocator;\n}',
   },
   {
     name: 'PruneResult',
