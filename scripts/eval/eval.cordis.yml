@@ -1,0 +1,39 @@
+# Evaluation overlay for scripts/eval/run-eval.ts, applied over the shipped
+# base profile by the headless base driver. It changes only what an unattended
+# run needs: a model chosen by environment, workspace-write sandboxing with no
+# approval prompts (nobody is there to answer), and uncompressed session logs.
+
+- id: agent-default-model
+  name: '@deepseek-ai/dsh-agent-default-model'
+  config:
+    provider: !!js process.env.DSH_EVAL_PROVIDER ?? 'deepseek-official'
+    model: !!js process.env.DSH_EVAL_MODEL ?? 'deepseek-v4-flash'
+
+- id: sandbox-policy
+  name: '@deepseek-ai/dsh-sandbox-policy'
+  config:
+    mode: workspace-write
+    workspaceRoot: !!js process.cwd()
+
+- id: approval
+  name: '@deepseek-ai/dsh-user-approval'
+  config:
+    policy: never
+
+- id: fs-sandbox
+  name: '@deepseek-ai/dsh-fs-sandbox'
+  config:
+    cwd: !!js process.cwd()
+
+- id: session-persistence-jsonl
+  name: '@deepseek-ai/dsh-session-persistence-jsonl'
+  config:
+    root: !!js dshHomePath('sessions')
+    compression: none
+
+- id: session-title-llm
+  disabled: true
+
+- insert:
+    - id: code-runtime
+      name: '@deepseek-ai/dsh-code-runtime-worker-thread'

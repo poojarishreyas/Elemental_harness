@@ -136,7 +136,8 @@
     "dev:web": "tsx scripts/dev-web.ts --poll",
     "postinstall": "node scripts/install-lefthook.mjs",
     "start": "node --import tsx/esm apps/server/src/index.ts",
-    "start:built": "node apps/server/lib/index.js"
+    "start:built": "node apps/server/lib/index.js",
+    "eval:file-finding": "tsx scripts/eval/run-eval.ts"
   },
   "devDependencies": {
     "@deepseek-ai/dsh-web-fetch-http": "workspace:^",

@@ -40,3 +40,6 @@ apps/web/dist/
 worktrees/
 .agents/worktrees/
 .typert-*/
+
+# File-finding evaluation output (scripts/eval)
+eval-results/
