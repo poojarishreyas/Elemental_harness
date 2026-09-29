@@ -46,6 +46,10 @@ export interface BasicCompactionConfig extends CompactionPolicyConfig {
   restoreFileTokens?: number
   /** Estimated-token cap for all re-attached files together. Defaults to `50000`. */
   restoreTotalTokens?: number
+  /** A pressure compaction within this many steps of the previous one counts as a rapid refill. Defaults to `3`. */
+  thrashWindowSteps?: number
+  /** Rapid refills in a row that end the turn with a thrashing error; `0` disables the guard. Defaults to `3`. */
+  thrashLimit?: number
 }
 
 /** Exactly one validated retention form. */
@@ -70,6 +74,8 @@ export type ResolvedConfig = ResolvedPolicyFields & ResolvedRetention & {
   readonly restoreFileCount: number
   readonly restoreFileTokens: number
   readonly restoreTotalTokens: number
+  readonly thrashWindowSteps: number
+  readonly thrashLimit: number
 }
 
 /** Fully merged policy for one routed conversation target, before capacity scaling. */

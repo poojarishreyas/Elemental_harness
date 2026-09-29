@@ -120,6 +120,8 @@ export class BasicCompactionEngine extends CompactionEngine {
     restoreFileCount: z.number().step(1).min(0),
     restoreFileTokens: z.number().step(1).min(1),
     restoreTotalTokens: z.number().step(1).min(0),
+    thrashWindowSteps: z.number().step(1).min(1),
+    thrashLimit: z.number().step(1).min(0),
   })
 
   /** Resolved and validated compaction configuration. */
@@ -128,6 +130,8 @@ export class BasicCompactionEngine extends CompactionEngine {
   private readonly warnedPressureConfigTargets = new Set<string>()
   private readonly overflowRetries = new WeakMap<Agent, number>()
   private readonly overflowAgents = new WeakMap<Session, Agent>()
+  /** Steps since each agent's last pressure compaction and how many compactions in a row came within the thrash window. */
+  private readonly refills = new WeakMap<Agent, { steps: number; rapid: number }>()
 
   constructor(ctx: Context, config: BasicCompactionConfig = {}) {
     super(ctx)
@@ -155,8 +159,11 @@ export class BasicCompactionEngine extends CompactionEngine {
       next,
     ): Promise<PreStepDecision> => {
       if (!signal.aborted) {
+        const refill = this.refills.get(agent)
+        if (refill !== undefined) refill.steps += 1
+        let result: CompactionResult | null = null
         try {
-          const result = await this.compactIfNeeded(agent, 'pressure', signal)
+          result = await this.compactIfNeeded(agent, 'pressure', signal)
           if (result !== null) logResult(result, 'step pressure')
         } catch (error: unknown) {
           if (error instanceof TargetPressureConfigError) {
@@ -166,6 +173,7 @@ export class BasicCompactionEngine extends CompactionEngine {
           const message = error instanceof Error ? error.message : String(error)
           ctx.logger.warn(`step compaction failed: ${message}; continuing the turn`)
         }
+        if (result !== null) this.recordPressureCompaction(agent, refill)
       }
       return next()
     })
@@ -227,6 +235,25 @@ export class BasicCompactionEngine extends CompactionEngine {
       this.overflowRetries.set(agent, retries + 1)
       return { kind: 'retry' }
     })
+  }
+
+  /**
+   * Count a pressure compaction toward the thrash guard, and end the turn once
+   * `thrashLimit` compactions in a row each came within `thrashWindowSteps`
+   * steps of the previous one: the context is refilling faster than compaction
+   * can help, usually because one file or tool output is too large.
+   * @param agent - agent whose pressure compaction just committed.
+   * @param previous - its refill state before this step, if it had compacted before.
+   * @throws CompactionThrashError when the guard trips; the state resets so the next turn starts fresh.
+   */
+  private recordPressureCompaction(agent: Agent, previous: { steps: number; rapid: number } | undefined): void {
+    const { thrashLimit, thrashWindowSteps } = this.config
+    const rapid = previous !== undefined && previous.steps <= thrashWindowSteps ? previous.rapid + 1 : 0
+    if (thrashLimit > 0 && rapid >= thrashLimit) {
+      this.refills.delete(agent)
+      throw new CompactionThrashError(thrashWindowSteps, thrashLimit)
+    }
+    this.refills.set(agent, { steps: 0, rapid })
   }
 
   /**
@@ -436,6 +463,22 @@ export class BasicCompactionEngine extends CompactionEngine {
       summarize: (input, owner, abort) => this.summarize(input, owner, abort),
       continuation: input => buildContinuation(this.ctx, this.ctx.tokenMeter, this.config, input),
     }
+  }
+}
+
+/** Automatic compaction stopped the turn because the context kept refilling right after each compaction. */
+export class CompactionThrashError extends Error {
+  /**
+   * @param windowSteps - the configured `thrashWindowSteps`.
+   * @param limit - the configured `thrashLimit`.
+   */
+  constructor(windowSteps: number, limit: number) {
+    super(
+      `Automatic compaction is thrashing: the context refilled to the compaction threshold within ${windowSteps} `
+      + `steps of the previous compaction, ${limit} times in a row. A file being read or a tool output is likely `
+      + 'too large for the context window. Read large files in smaller ranges or search them instead, or start a new session.',
+    )
+    this.name = 'CompactionThrashError'
   }
 }
 

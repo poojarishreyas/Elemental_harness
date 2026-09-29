@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
 import { AttachmentId } from '@deepseek-ai/dsh-attachment'
-import BasicCompactionEngine from '@deepseek-ai/dsh-compaction-basic'
+import BasicCompactionEngine, { CompactionThrashError } from '@deepseek-ai/dsh-compaction-basic'
 import type { BasicCompactionConfig } from '@deepseek-ai/dsh-compaction-basic'
 import { selectCompactableRange } from '@deepseek-ai/dsh-compaction-basic/src/region.ts'
 import { frameSummary } from '@deepseek-ai/dsh-compaction-basic/src/summarizer.ts'
@@ -309,8 +309,16 @@ describe('compact configuration and defaults', () => {
       restoreFileCount: 5,
       restoreFileTokens: 5_000,
       restoreTotalTokens: 50_000,
+      thrashWindowSteps: 3,
+      thrashLimit: 3,
     })
     expect(Object.isFrozen(resolved)).toBe(true)
+  })
+
+  it('validates thrash-guard limits', () => {
+    expect(resolveConfig({ thrashWindowSteps: 1, thrashLimit: 0 })).toMatchObject({ thrashWindowSteps: 1, thrashLimit: 0 })
+    expect(() => resolveConfig({ thrashWindowSteps: 0 })).toThrow(/thrashWindowSteps .* positive integer/)
+    expect(() => resolveConfig({ thrashLimit: -1 })).toThrow(/thrashLimit .* non-negative integer/)
   })
 
   it('validates file re-attachment limits', () => {
@@ -1545,6 +1553,55 @@ describe('automatic listener and loader composition', () => {
     await preStep(ctx, agent(small, MODEL))
     expect(small.events.some(event => event.type === 'compaction/start')).toBe(false)
     expect(compact.calls).toHaveLength(1)
+  })
+
+  describe('thrash guard', () => {
+    /** Engine whose pressure checks return a compaction exactly when the script says so. */
+    class ScriptedEngine extends TestCompactionEngine {
+      script: boolean[] = []
+      override compactIfNeeded(): Promise<CompactionResult | null> {
+        const compacted = this.script.shift() ?? false
+        return Promise.resolve(compacted ? ({ compactionId: CompactionId('scripted') } as CompactionResult) : null)
+      }
+    }
+
+    it('ends the turn once compactions keep coming within the window, then starts fresh', async () => {
+      const ctx = createContext()
+      const compact = new ScriptedEngine(ctx, {})
+      const owner = agent(conversation(1), MODEL)
+      compact.script = [true, true, false, true]
+      for (let step = 0; step < 3; step += 1) await preStep(ctx, owner)
+      await expect(preStep(ctx, owner)).resolves.toMatchObject({ kind: 'enter' })
+
+      compact.script = [true]
+      const tripped = preStep(ctx, owner)
+      await expect(tripped).rejects.toBeInstanceOf(CompactionThrashError)
+      await expect(tripped).rejects.toThrow(
+        'Automatic compaction is thrashing: the context refilled to the compaction threshold within 3 steps '
+        + 'of the previous compaction, 3 times in a row.',
+      )
+
+      compact.script = [true, true, true]
+      for (let step = 0; step < 3; step += 1) await expect(preStep(ctx, owner)).resolves.toMatchObject({ kind: 'enter' })
+    })
+
+    it('does not trip when compactions are spread beyond the window', async () => {
+      const ctx = createContext()
+      const compact = new ScriptedEngine(ctx, { thrashWindowSteps: 2 })
+      const owner = agent(conversation(1), MODEL)
+      compact.script = [true, false, false, true, false, false, true, false, false, true, false, false, true]
+      for (let step = 0; step < compact.script.length + 1; step += 1) {
+        await expect(preStep(ctx, owner)).resolves.toMatchObject({ kind: 'enter' })
+      }
+    })
+
+    it('never trips with thrashLimit 0', async () => {
+      const ctx = createContext()
+      const compact = new ScriptedEngine(ctx, { thrashLimit: 0 })
+      const owner = agent(conversation(1), MODEL)
+      compact.script = Array.from({ length: 10 }, () => true)
+      for (let step = 0; step < 10; step += 1) await expect(preStep(ctx, owner)).resolves.toMatchObject({ kind: 'enter' })
+    })
   })
 
   it('skips pre-step pressure when the step signal is already aborted', async () => {

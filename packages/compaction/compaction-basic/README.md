@@ -74,6 +74,8 @@ All settings are optional. The defaults start condensing at 80% of the routed mo
 | `restoreFileCount` | `5` | Most recently read files re-attached after a checkpoint when `ctx.fs` is mounted; `0` disables. |
 | `restoreFileTokens` | `5000` | Estimated-token cap for one re-attached file; longer content is cut at a line boundary. |
 | `restoreTotalTokens` | `50000` | Estimated-token cap for all re-attached files together. |
+| `thrashWindowSteps` | `3` | A pressure compaction within this many steps of the previous one counts as a rapid refill. |
+| `thrashLimit` | `3` | Rapid refills in a row that end the turn with a thrashing error; `0` disables the guard. |
 
 Misconfiguration fails fast: an unknown setting, a duplicate per-model override, both retention forms together, or a ratio retention that is not below the threshold all reject the plugin at load. An absolute `retainTokens` budget — top-level or per-model — that is not below its threshold fails when that model is first used, because the comparison needs the model's context size.
 
@@ -89,6 +91,10 @@ Two optional services add recovery context after the summary in the checkpoint m
 - **Re-attached files** — with a `ctx.fs` backend, the most recently read files from the condensed span (by the `read` tool, directly or inside `run_code`) are re-read from disk and attached with their current content. A file read again later in the retained conversation is skipped, since it is still in context; an unreadable or deleted file is skipped too.
 
 Both are best-effort and bounded: the checkpoint must still cost fewer tokens than the span it replaces, so pieces that would break that are left out, transcript first in priority. The same defaults as Claude Code's post-compaction restore apply to files: 5 files, 5,000 tokens each, 50,000 in total.
+
+### When compaction cannot keep up
+
+If the context refills to the threshold again and again right after each automatic compaction — by default, 3 times in a row within 3 steps of the previous one — condensation is no longer helping, and a long agentic turn would keep paying for summaries. The turn then ends with the error `Automatic compaction is thrashing: …`, which names the likely cause: a file being read or a tool output too large for the context window. The latest compaction still stands, the agent stays usable, and the count restarts, so the next message proceeds normally. The guard follows Claude Code's autocompact thrashing check, counted in model steps rather than user turns because one turn can run many steps.
 
 ### On-demand condensation with /compact
 
@@ -258,6 +264,7 @@ These limits define when automatic condensation is a poor fit or needs special c
 
 - **Meter accuracy follows the fixed heuristic** — missing reusable provider usage falls back to character count plus structural overhead rather than exact tokenization; image occurrences carry provider-exact visual tokens only on routes whose adapter declares request-image pricing.
 - **Overflow classification is adapter-maintained** — provider wording can change; both DeepSeek adapters normalize recognized context-limit failures to `CONTEXT_WINDOW_EXCEEDED`.
+- **The thrash guard counts steps in memory** — the refill count lives in the running engine, so a restart or a new engine instance starts counting from zero, and only automatic pressure compactions count; overflow recovery and `/compact` do not.
 - **Re-attached files are read at compaction time** — their content is current as of the checkpoint, not as the model last saw it, and a file edited outside the session since is attached in its new form. Only files named by the `read` tool are considered.
 - **Stored transcripts are not tied to commit** — the transcript is saved before the checkpoint commits, so a compaction that later fails or is cancelled leaves an orphan file until the spill backend's retention removes it.
 - **Some indivisible-unit and envelope-only overflow remains outside surface compaction** — recovery cannot shrink system/tools/prefix, split an indivisible non-tool node, or repair a tool unit whose non-prunable remainder still exceeds the window. The optional pruner can shrink text-bearing tool-result bulk inside an otherwise indivisible pair.

@@ -42,7 +42,12 @@ const BASIC_COMPACT_CONFIG_KEYS: ReadonlySet<string> = new Set([
   'restoreFileCount',
   'restoreFileTokens',
   'restoreTotalTokens',
+  'thrashWindowSteps',
+  'thrashLimit',
 ])
+
+/** Thrash-guard defaults, from Claude Code's autocompact guard (3 refills within 3 turns). */
+const DEFAULT_THRASH = { thrashWindowSteps: 3, thrashLimit: 3 }
 
 /**
  * File re-attachment defaults, from Claude Code's post-compaction restore
@@ -87,6 +92,12 @@ export function resolveConfig(config: BasicCompactionConfig = {}): ResolvedConfi
   assertNonNegativeInteger('BasicCompactionConfig.restoreFileCount', restore.restoreFileCount)
   assertPositiveInteger('BasicCompactionConfig.restoreFileTokens', restore.restoreFileTokens)
   assertNonNegativeInteger('BasicCompactionConfig.restoreTotalTokens', restore.restoreTotalTokens)
+  const thrash = {
+    thrashWindowSteps: config.thrashWindowSteps ?? DEFAULT_THRASH.thrashWindowSteps,
+    thrashLimit: config.thrashLimit ?? DEFAULT_THRASH.thrashLimit,
+  }
+  assertPositiveInteger('BasicCompactionConfig.thrashWindowSteps', thrash.thrashWindowSteps)
+  assertNonNegativeInteger('BasicCompactionConfig.thrashLimit', thrash.thrashLimit)
 
   const thresholdRatio = config.thresholdRatio ?? DEFAULT_THRESHOLD_RATIO
   const retention = resolveRetention(config, { retainRatio: DEFAULT_RETAIN_RATIO })
@@ -111,6 +122,7 @@ export function resolveConfig(config: BasicCompactionConfig = {}): ResolvedConfi
     modelPolicies,
     auto: config.auto ?? true,
     ...restore,
+    ...thrash,
   })
 }
 
