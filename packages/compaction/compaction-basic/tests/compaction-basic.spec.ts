@@ -876,7 +876,10 @@ describe('optional model-free tool-result pruning', () => {
       ? checkpoint.data.content.flatMap(block => block.type === 'text' ? [block.text] : []).join('\n')
       : ''
     expect(text).toContain('</compacted-summary>')
-    expect(text).toContain('The full text of the conversation this checkpoint condenses is stored at: /spill/t.txt. Read it.')
+    expect(text).toContain(
+      'The full text of the conversation condensed so far is stored in these files, oldest first. '
+      + 'Read them when you need exact details from before this checkpoint. Read it.\n- /spill/t.txt',
+    )
   })
 
   it('retains the original compaction-basic behavior without the optional plugin', async () => {

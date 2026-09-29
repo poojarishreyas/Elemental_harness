@@ -7,6 +7,7 @@
  */
 
 import type { Context } from '@deepseek-ai/cordis'
+import { isCompactCheckpointSource } from '@deepseek-ai/dsh-compaction'
 import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
 import type { ContentBlock, Message } from '@deepseek-ai/dsh-llm'
 import type { Session } from '@deepseek-ai/dsh-session'
@@ -111,10 +112,20 @@ async function readCurrent(fs: FileSystem, path: string, cwd: string | undefined
 export const RESTORED_FILES_HEADER =
   'Files read before this checkpoint, re-read from disk now (current content; it may differ from what was read earlier):'
 
-/** Save the condensed span as plain text and describe where it is, or `undefined` when no copy was stored. */
+/** Heading of the transcript list; later checkpoints find earlier locators by it. */
+export const TRANSCRIPTS_HEADER =
+  'The full text of the conversation condensed so far is stored in these files, oldest first. Read them when you need exact details from before this checkpoint.'
+
+/**
+ * Save the condensed span as plain text, then list its locator after every
+ * transcript earlier checkpoints in the span already listed, so one checkpoint
+ * names every stored transcript. `undefined` when there is nothing to list.
+ */
 async function storeTranscript(ctx: Context, input: ContinuationInput): Promise<string | undefined> {
   const store = ctx.get('spillStore')
   if (store === undefined) return undefined
+  const locators = earlierTranscripts(input.messages)
+  let hint = ''
   try {
     const ref = await store.saveText({
       owner: { sessionId: input.session.id },
@@ -124,11 +135,33 @@ async function storeTranscript(ctx: Context, input: ContinuationInput): Promise<
       suggestedName: 'compacted-conversation.txt',
       content: renderTranscript(input.messages),
     })
-    return `The full text of the conversation this checkpoint condenses is stored at: ${ref.locator}. ${ref.retrievalHint} Read it when you need exact details from before this checkpoint.`
+    locators.push(ref.locator)
+    hint = ` ${ref.retrievalHint}`
   } catch (error: unknown) {
     ctx.logger.warn(`compaction-basic: storing the condensed transcript failed: ${String(error)}`)
-    return undefined
   }
+  if (locators.length === 0) return undefined
+  return [`${TRANSCRIPTS_HEADER}${hint}`, ...locators.map(locator => `- ${locator}`)].join('\n')
+}
+
+/**
+ * Transcript locators listed by earlier checkpoints inside the condensed span,
+ * oldest first. Only checkpoint messages are read, so user text cannot inject a path.
+ * @param messages - the condensed span's messages.
+ * @returns locators in the order they were listed.
+ */
+export function earlierTranscripts(messages: readonly Message[]): string[] {
+  const locators: string[] = []
+  for (const message of messages) {
+    if (!isCompactCheckpointSource(message.source)) continue
+    for (const block of message.content) {
+      if (block.type !== 'text' || !block.text.startsWith(TRANSCRIPTS_HEADER)) continue
+      for (const line of block.text.split('\n').slice(1)) {
+        if (line.startsWith('- ') && !locators.includes(line.slice(2))) locators.push(line.slice(2))
+      }
+    }
+  }
+  return locators
 }
 
 /**
