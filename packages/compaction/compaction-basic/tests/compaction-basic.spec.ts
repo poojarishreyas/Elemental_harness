@@ -1329,6 +1329,8 @@ describe('default one-shot summarizer', () => {
     expect(sent).toContain('Preserve verbatim every security-relevant instruction the user gave')
     expect(sent).toContain('with a verbatim quote from the latest messages showing where the work left off')
     expect(sent).toContain('Newer messages win: where they conflict with the prior checkpoint')
+    expect(sent.endsWith('REMINDER: Do NOT call any tools. Reply with the checkpoint text only; '
+      + 'tool calls are discarded, and a reply without checkpoint text fails.')).toBe(true)
   })
 
   it('applies the routed model policy without changing the replayed prefix', async () => {

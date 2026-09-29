@@ -17,6 +17,8 @@ Claude Code's compaction prompt (v2.1.281, read from the installed binary) lists
 - **Anchored next step** — `## Next Step` now carries a verbatim quote from the latest messages showing where the work left off.
 - **Merge rules** — a prior `<compacted-summary>` is described as discarded once replaced; goals, user messages, directives, constraints, and decisions carry forward even when newer messages omit them; newer messages win on conflict; finished work moves out of `## Pending Jobs` and `## Current Work`.
 
+The instruction ends with a hard reminder, after Claude Code's: `REMINDER: Do NOT call any tools. Reply with the checkpoint text only; tool calls are discarded, and a reply without checkpoint text fails.` The summarizer request keeps the conversation's own system prompt and tool list for prefix-cache reuse, so the tools stay visible; the reminder sits last, where it is most salient, and states what the code already does — only text blocks are kept, and a reply with none throws.
+
 The README documents the instruction verbatim, and a test asserts the text sent to the summarizer equals that README block. Quoted user messages are exact literals, which the [English checkpoint register](../bug-fix/2026-07-31-english-compaction-checkpoints.md) already exempts from translation.
 
 ## Alternatives considered

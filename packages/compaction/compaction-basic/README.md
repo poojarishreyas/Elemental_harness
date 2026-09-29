@@ -245,6 +245,8 @@ Rules:
   - Newer messages win: where they conflict with the prior checkpoint, state the corrected fact and drop the old claim.
   - Move work that is now done out of Pending Jobs and Current Work, and update Current Work and Next Step to the latest state.
   - Do not copy the prior checkpoint forward verbatim.
+
+REMINDER: Do NOT call any tools. Reply with the checkpoint text only; tool calls are discarded, and a reply without checkpoint text fails.
 ```
 
 #### Token effect
