@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
 import { AttachmentId } from '@deepseek-ai/dsh-attachment'
@@ -1264,6 +1265,21 @@ describe('default one-shot summarizer', () => {
     expect(lastText).toContain('Write concise English engineering prose.')
     expect(lastText).toContain('numeric values, function signatures, and syntax fragments.')
     expect(lastText).toContain('## Primary Request and Intent')
+  })
+
+  it('sends exactly the compaction instruction the README documents', async () => {
+    const { adapter, compact } = await summarizerHarness([{ type: 'text', text: 'summary' }])
+    await compact.runSummarize(promptInput('transcript'), agent(conversation(1), MODEL))
+    const last = adapter.lastOptions?.messages.at(-1)?.content[0]
+    const sent = last?.type === 'text' ? last.text : ''
+
+    const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8')
+    const documented = /##### Compaction instruction \(final user message\)\n\n```markdown\n([\s\S]*?)\n```/.exec(readme)?.[1]
+    expect(sent).toBe(documented)
+    expect(sent).toContain('## User Messages')
+    expect(sent).toContain('Preserve verbatim every security-relevant instruction the user gave')
+    expect(sent).toContain('with a verbatim quote from the latest messages showing where the work left off')
+    expect(sent).toContain('Newer messages win: where they conflict with the prior checkpoint')
   })
 
   it('applies the routed model policy without changing the replayed prefix', async () => {

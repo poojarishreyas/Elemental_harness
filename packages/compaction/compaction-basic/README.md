@@ -191,6 +191,9 @@ Output EXACTLY the Markdown structure below: keep every section, in order. Use t
 ## Primary Request and Intent
 - [the user's original and evolving goals; quote verbatim where the exact wording matters]
 
+## User Messages
+- [every user message that is not a tool result, oldest first, quoted verbatim; shorten only long pasted content, marking the cut with [...]]
+
 ## Key Technical Concepts
 - [technologies, frameworks, patterns, and conventions in play]
 
@@ -207,7 +210,7 @@ Output EXACTLY the Markdown structure below: keep every section, in order. Use t
 - [precisely what was in progress at this checkpoint]
 
 ## Next Step
-- [the single next action, directly in line with the most recent request, or "(none)"]
+- [the single next action, directly in line with the most recent request, with a verbatim quote from the latest messages showing where the work left off; or "(none)"]
 
 ## Critical Context
 - [decisions and their rationale, constraints, user preferences, open questions, data needed to continue]
@@ -215,9 +218,14 @@ Output EXACTLY the Markdown structure below: keep every section, in order. Use t
 Rules:
 - Write concise English engineering prose. Preserve exact file paths, commands, error strings, identifiers, numeric values, function signatures, and syntax fragments.
 - Capture user feedback and explicit instructions faithfully, especially corrections.
+- Preserve verbatim every security-relevant instruction the user gave: files or data to avoid, operations that must not be performed, and credential or secret handling rules. Record each under Critical Context so it stays in effect.
 - Do NOT mention this summarization request or that the context was compacted.
 - Output only the checkpoint text: do not call any tool or take any other action.
-- If the conversation already contains a <compacted-summary> block, it is a PRIOR checkpoint. Do not copy it forward verbatim: preserve still-true facts, drop stale ones, and merge newer information into a single consolidated summary under the same structure.
+- If the conversation already contains a <compacted-summary> block, it is a PRIOR checkpoint covering everything before it, and it is discarded once your checkpoint replaces it: anything you do not carry forward is lost. Merge it into one consolidated checkpoint under the same structure:
+  - Carry forward goals, user messages, directives, constraints, and decisions from the prior checkpoint even when newer messages do not mention them. Drop only work that is finished and no longer needed.
+  - Newer messages win: where they conflict with the prior checkpoint, state the corrected fact and drop the old claim.
+  - Move work that is now done out of Pending Jobs and Current Work, and update Current Work and Next Step to the latest state.
+  - Do not copy the prior checkpoint forward verbatim.
 ```
 
 #### Token effect
