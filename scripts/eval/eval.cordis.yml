@@ -20,6 +20,20 @@
   config:
     policy: never
 
+# The shipped presets pair workspace-write with approval prompts, and a
+# headless run cannot answer them. This preset keeps the sandbox and makes
+# every denial final instead of asking.
+- id: permission
+  name: '@deepseek-ai/dsh-permission-presets'
+  config:
+    presets:
+      eval:
+        sandbox: workspace-write
+        approval: never
+        name: eval
+        description: Sandboxed workspace writes; denials are final because no one can approve.
+    defaultPreset: eval
+
 - id: fs-sandbox
   name: '@deepseek-ai/dsh-fs-sandbox'
   config:

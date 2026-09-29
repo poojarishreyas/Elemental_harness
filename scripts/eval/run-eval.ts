@@ -15,7 +15,7 @@
  */
 
 import { spawn } from 'node:child_process'
-import { mkdir, rm, writeFile } from 'node:fs/promises'
+import { copyFile, mkdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -95,17 +95,34 @@ function parseDriverOutput(stdout: string): { events: EvalEvent[]; usage?: EvalU
   return { events, ...usage === undefined ? {} : { usage }, ...output === undefined ? {} : { output } }
 }
 
+/** The error message of a turn that ended in error, e.g. a model provider rejecting every request. */
+function turnErrorOf(events: readonly EvalEvent[]): string | undefined {
+  for (const event of events) {
+    if (event.type !== 'turn/end') continue
+    const reason = event.data.reason as { kind?: string; error?: { message?: string } } | undefined
+    if (reason?.kind === 'error') return reason.error?.message ?? 'unknown error'
+  }
+  return undefined
+}
+
 interface RunOptions {
   readonly repo: string
   readonly install: string
   readonly keep: boolean
   readonly dryRun: boolean
-  readonly home: string
+  /** Existing DSH home whose settings and stored credentials the agent run should use. */
+  readonly homeFrom?: string
 }
+
+/** Files copied from `--home-from`: provider settings and the credential store they reference. */
+const HOME_FILES = ['settings.yaml', '.credentials.yaml']
 
 async function runTask(task: EvalTask, options: RunOptions): Promise<TaskResult> {
   const workspace = join(tmpdir(), `dsh-eval-${task.id}`)
+  // Kept outside the repository and deleted after the task, since it may hold copied credentials.
+  const home = join(tmpdir(), `dsh-eval-home-${task.id}`)
   await rm(workspace, { recursive: true, force: true })
+  await rm(home, { recursive: true, force: true })
   try {
     await prepareWorkspace(options.repo, task, workspace)
     const [installCommand = 'pnpm', ...installArgs] = options.install.split(' ')
@@ -118,16 +135,26 @@ async function runTask(task: EvalTask, options: RunOptions): Promise<TaskResult>
     }
     if (options.dryRun) return { task, status: 'valid', passed: false, note: 'dry run: prepared and validated' }
 
+    await mkdir(home, { recursive: true })
+    if (options.homeFrom !== undefined) {
+      for (const file of HOME_FILES) {
+        await copyFile(join(options.homeFrom, file), join(home, file)).catch((error: unknown) => {
+          if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+        })
+      }
+    }
     const launch = resolveExampleLaunch({
       srcBin: DRIVER,
       libBin: DRIVER,
       mode: 'src',
       tsconfigPath: TSCONFIG,
       configArgs: [JSON.stringify([OVERLAY]), taskPrompt(task, tail(`${baseline.stdout}\n${baseline.stderr}`, MAX_FAILURE_CHARS))],
-      env: { DSH_HOME: join(options.home, task.id), DSH_TELEMETRY_DISABLED: '1' },
+      env: { DSH_HOME: home, DSH_TELEMETRY_DISABLED: '1' },
     })
     const agent = await exec(launch.command, launch.args, workspace, { ...process.env, ...launch.env }, 60 * 60_000)
     const parsed = parseDriverOutput(agent.stdout)
+    const turnError = turnErrorOf(parsed.events)
+    if (turnError !== undefined) return { task, status: 'error', passed: false, note: `agent turn failed: ${turnError}` }
     const after = await runTests(workspace, task.testFiles)
     const metrics = computeMetrics(parsed.events, { workspace, sourceFiles: task.sourceFiles, testFiles: task.testFiles }, parsed.usage)
     return {
@@ -141,6 +168,7 @@ async function runTask(task: EvalTask, options: RunOptions): Promise<TaskResult>
   } catch (error: unknown) {
     return { task, status: 'error', passed: false, note: error instanceof Error ? error.message : String(error) }
   } finally {
+    await rm(home, { recursive: true, force: true })
     if (!options.keep) await removeWorkspace(options.repo, workspace).catch(() => rm(workspace, { recursive: true, force: true }))
   }
 }
@@ -176,28 +204,38 @@ async function main(): Promise<void> {
       install: { type: 'string', default: 'pnpm install --prefer-offline' },
       keep: { type: 'boolean', default: false },
       'dry-run': { type: 'boolean', default: false },
+      'home-from': { type: 'string' },
+      only: { type: 'string' },
     },
   })
   if (values.repo === undefined) throw new Error('--repo <git repository with bug-fix history> is required')
   const dryRun = values['dry-run']
-  if (!dryRun && process.env.DEEPSEEK_API_KEY === undefined && process.env.DSH_EVAL_PROVIDER === undefined) {
-    throw new Error('DEEPSEEK_API_KEY is not set; use --dry-run to only prepare and validate tasks')
+  const homeFrom = values['home-from'] === undefined ? undefined : resolve(values['home-from'])
+  if (!dryRun && homeFrom === undefined && process.env.DEEPSEEK_API_KEY === undefined) {
+    throw new Error('no model credentials: set DEEPSEEK_API_KEY, pass --home-from <dsh home>, or use --dry-run')
   }
   const repo = resolve(values.repo)
   const out = resolve(values.out)
   await mkdir(out, { recursive: true })
-  const home = join(out, 'dsh-home')
 
   const limit = Number(values.limit)
+  const only = values.only?.split(',').map(id => id.trim()).filter(Boolean)
   const tasks = (await mineTasks(repo, Number.MAX_SAFE_INTEGER))
     .filter(task => !task.sourceFiles.every(file => LOCALE_FILE.test(file)))
+    .filter(task => only === undefined || only.some(id => task.fixCommit.startsWith(id)))
     .slice(0, limit)
   process.stdout.write(`eval: ${tasks.length} task(s) from ${repo}${dryRun ? ' (dry run)' : ''}\n`)
 
   const results: TaskResult[] = []
   for (const task of tasks) {
     process.stdout.write(`eval: ${task.id} ${task.subject}\n`)
-    const result = await runTask(task, { repo, install: values.install, keep: values.keep, dryRun, home })
+    const result = await runTask(task, {
+      repo,
+      install: values.install,
+      keep: values.keep,
+      dryRun,
+      ...homeFrom === undefined ? {} : { homeFrom },
+    })
     results.push(result)
     await writeFile(join(out, `${task.id}.json`), `${JSON.stringify(result, null, 2)}\n`)
     process.stdout.write(`eval: ${task.id} -> ${result.status}${result.passed ? ' (passed)' : ''}${result.note === undefined ? '' : ` — ${result.note.split('\n')[0]}`}\n`)
