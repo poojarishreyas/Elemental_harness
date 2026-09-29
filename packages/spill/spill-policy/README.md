@@ -34,17 +34,21 @@ Load the policy with a `maxInlineBytes` budget, in UTF-8 bytes, and a spill back
 - name: '@deepseek-ai/dsh-spill-policy'
   config:
     maxInlineBytes: 50000
+    previewBytes: 2000
 ```
 
 | Field | Default | Meaning |
 |---|---|---|
-| `maxInlineBytes` | omitted | Model-facing context cap for a plain-text result, in UTF-8 bytes; omitted disables the policy entirely |
+| `maxInlineBytes` | omitted | Spill a plain-text result larger than this many UTF-8 bytes; omitted disables the policy entirely |
+| `previewBytes` | `maxInlineBytes` | UTF-8 size of the replacement — preview plus notice — for a spilled result; at most `maxInlineBytes` |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-spill-policy) is the exhaustive source for every accepted field. A negative or fractional cap fails plugin load rather than corrupting per-call behavior.
+`dsh-base` ships `maxInlineBytes: 50000` and `previewBytes: 2000`, matching Claude Code's 50,000-character cap and 2,000-character preview: a result over 50 KB costs about 500 tokens in context instead of about 12,500, and the model reads the file for anything the preview does not show. A patch that replaces this row's config without `previewBytes` returns to a full-budget preview.
+
+The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-spill-policy) is the exhaustive source for every accepted field. A negative or fractional value, or a `previewBytes` above `maxInlineBytes`, fails plugin load rather than corrupting per-call behavior.
 
 ### What the model sees
 
-An oversized plain-text result is replaced by a preview plus a notice inside the same budget, so the whole replacement never exceeds `maxInlineBytes`:
+An oversized plain-text result is replaced by a preview plus a notice inside the same budget, so the whole replacement never exceeds `previewBytes`:
 
 ```text
 <retained head/tail preview>
@@ -78,7 +82,7 @@ This section explains the design decisions behind the policy; the observable beh
 
 ### Design philosophy
 
-The policy is deliberately narrow: it only decides **when** to spill and composes the notice. It registers no service, owns no storage, and owns no preview mechanics — `TextRetainer` from `dsh-output-retention` builds the head/tail preview. Two invariants shape the code: the model-facing replacement never exceeds `maxInlineBytes` (the notice's byte cost is reserved out of the budget first), and a spill failure never changes the tool call's outcome.
+The policy is deliberately narrow: it only decides **when** to spill and composes the notice. It registers no service, owns no storage, and owns no preview mechanics — `TextRetainer` from `dsh-output-retention` builds the head/tail preview. Two invariants shape the code: the model-facing replacement never exceeds `previewBytes` (the notice's byte cost is reserved out of the budget first), and a spill failure never changes the tool call's outcome. Because `previewBytes` is at most `maxInlineBytes` and only larger results spill, a replacement is always smaller than the original.
 
 ### The two arms
 
@@ -94,7 +98,7 @@ A `tools/post-execute` waterfall listener (registered with `prepend`, delegating
 
 ### Failure modes
 
-Best-effort degradation applies to both arms: no session owner, no backend, a save rejection, or no within-cap replacement logs a warning and keeps the original content. Load-time validation rejects a negative or fractional `maxInlineBytes` so a bad config fails the deployment, not every oversized call.
+Best-effort degradation applies to both arms: no session owner, no backend, a save rejection, or no within-cap replacement logs a warning and keeps the original content. Load-time validation rejects a negative or fractional `maxInlineBytes`, and a `previewBytes` that is negative, fractional, or above `maxInlineBytes`, so a bad config fails the deployment, not every oversized call.
 
 </details>
 
@@ -124,7 +128,7 @@ Results at or below `maxInlineBytes`, nested results, `read` results, blocked de
 
 #### Token effect
 
-A successful replacement is at most `maxInlineBytes` UTF-8 bytes and remains in history until compaction; the full spill text is not resent to the model.
+A successful replacement is at most `previewBytes` UTF-8 bytes (2,000 in `dsh-base`, roughly 500 tokens) and remains in history until compaction; the full spill text is not resent to the model. Reading the spill file back costs whatever the model reads.
 
 #### KV Cache effect
 

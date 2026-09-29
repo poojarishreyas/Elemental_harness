@@ -64,6 +64,12 @@ export interface Config {
    * this is spilled and replaced with a preview derived from this same budget.
    */
   maxInlineBytes?: number
+  /**
+   * Model-facing size of a spilled result's replacement — head/tail preview plus
+   * the storage notice — in UTF-8 bytes. Must not exceed `maxInlineBytes`.
+   * Omitted spends the whole `maxInlineBytes` on the replacement.
+   */
+  previewBytes?: number
 }
 
 /** Cordis plugin name used by loader diagnostics. */
@@ -74,6 +80,7 @@ export const inject = ['tools']
 
 export const Config: z<Config> = z.object({
   maxInlineBytes: z.number(),
+  previewBytes: z.number(),
 })
 
 /** All-text content flattened to one UTF-8 string, or `undefined` if any block is non-text. */
@@ -117,8 +124,14 @@ export function apply(ctx: Context, config: Config): void {
   if (!Number.isInteger(maxInlineBytes) || maxInlineBytes < 0) {
     throw new Error(`spill-policy: maxInlineBytes must be a non-negative integer (got ${maxInlineBytes})`)
   }
+  const previewBytes = config.previewBytes ?? maxInlineBytes
+  if (!Number.isInteger(previewBytes) || previewBytes < 0 || previewBytes > maxInlineBytes) {
+    throw new Error(
+      `spill-policy: previewBytes must be a non-negative integer no larger than maxInlineBytes (got ${previewBytes})`,
+    )
+  }
   // Narrowed once for the nested arms (closure narrowing does not survive awaits).
-  const cap: number = maxInlineBytes
+  const cap: number = previewBytes
 
   /**
    * Spill `text` and build the bounded replacement (preview + notice), or
@@ -160,7 +173,7 @@ export function apply(ctx: Context, config: Config): void {
       return undefined
     }
 
-    // Reserve the notice's byte cost INSIDE maxInlineBytes so the replacement
+    // Reserve the notice's byte cost INSIDE previewBytes so the replacement
     // (preview + blank line + notice) never exceeds the documented cap — a naive
     // preview that spent the whole budget then appended the notice could be
     // larger than the cap, and for a marginally-over result even larger than the
@@ -173,15 +186,15 @@ export function apply(ctx: Context, config: Config): void {
     const { text: previewText, omitted } = preview(text, previewBudget)
     const notice = spillNotice(omitted, ref)
     const replacedText = previewText.length > 0 ? `${previewText}\n\n${notice}` : notice
-    // Invariant: the policy NEVER emits a replacement larger than the cap. When
-    // the notice alone exceeds maxInlineBytes (a tiny cap or a long spill root),
+    // Invariant: the policy NEVER emits a replacement larger than previewBytes.
+    // When the notice alone exceeds it (a tiny budget or a long spill root),
     // there is no within-cap replacement, so keep the inline content — spilling
-    // would break the advertised cap. (A within-cap replacement is always
-    // smaller than the original, which is > cap by the entry condition, so this
-    // one check subsumes "not smaller than the original" too. The spill file
-    // already written is a harmless orphan; cleanup is deferred.)
+    // would break the advertised cap. (previewBytes <= maxInlineBytes, and the
+    // original is > maxInlineBytes by the entry condition, so a within-cap
+    // replacement is always smaller than the original. The spill file already
+    // written is a harmless orphan; cleanup is deferred.)
     if (Buffer.byteLength(replacedText, 'utf8') > cap) {
-      ctx.logger.warn(`spill-policy: spill notice for ${toolName} exceeds maxInlineBytes; keeping the inline content`)
+      ctx.logger.warn(`spill-policy: spill notice for ${toolName} exceeds previewBytes; keeping the inline content`)
       return undefined
     }
     return replacedText

@@ -390,10 +390,13 @@
     - id: spill-local
       name: '@deepseek-ai/dsh-spill-local'
 
+    # Spill above 50 KB and keep a 2 KB head/tail preview plus the file path,
+    # matching Claude Code's 50,000-character cap and 2,000-character preview.
     - id: spill-policy
       name: '@deepseek-ai/dsh-spill-policy'
       config:
         maxInlineBytes: 50000
+        previewBytes: 2000
 
     # Durability checkpoints before each model request and top-level dispatch.
     - id: session-checkpoint-policy

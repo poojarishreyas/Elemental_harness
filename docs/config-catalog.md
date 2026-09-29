@@ -1906,6 +1906,12 @@ export interface Config {
    * this is spilled and replaced with a preview derived from this same budget.
    */
   maxInlineBytes?: number
+  /**
+   * Model-facing size of a spilled result's replacement — head/tail preview plus
+   * the storage notice — in UTF-8 bytes. Must not exceed `maxInlineBytes`.
+   * Omitted spends the whole `maxInlineBytes` on the replacement.
+   */
+  previewBytes?: number
 }
 ```
 

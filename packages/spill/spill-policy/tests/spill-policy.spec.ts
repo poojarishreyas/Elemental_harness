@@ -122,6 +122,45 @@ describe('config validation', () => {
     await expect(setup({ maxInlineBytes: 1.5 })).rejects.toThrow(/non-negative integer/)
   })
 
+  it('rejects a previewBytes that is negative, fractional, or above maxInlineBytes', async () => {
+    for (const previewBytes of [-1, 1.5, 201]) {
+      await expect(setup({ maxInlineBytes: 200, previewBytes }))
+        .rejects.toThrow(/previewBytes must be a non-negative integer no larger than maxInlineBytes/)
+    }
+  })
+})
+
+describe('preview size', () => {
+  it('spills above maxInlineBytes but sizes the replacement by previewBytes', async () => {
+    const { ctx, spill } = await setup({ maxInlineBytes: 1000, previewBytes: 300 })
+    const body = 'HEAD'.repeat(300) + 'TAIL'.repeat(300)
+    ctx.tools.register(textTool('big', body))
+    const result = await ctx.tools.execute(exec('big'))
+
+    expect(spill?.saves[0]?.content).toBe(body)
+    const text = textOf(result.content)
+    expect(text.startsWith('HEAD')).toBe(true)
+    expect(text).toContain('TAIL')
+    expect(text).toContain('Full formatted result stored at: /spill/big.txt')
+    expect(Buffer.byteLength(text, 'utf8')).toBeLessThanOrEqual(300)
+  })
+
+  it('keeps a result between previewBytes and maxInlineBytes inline', async () => {
+    const { ctx, spill } = await setup({ maxInlineBytes: 1000, previewBytes: 300 })
+    ctx.tools.register(textTool('mid', 'm'.repeat(800)))
+    const result = await ctx.tools.execute(exec('mid'))
+    expect(textOf(result.content)).toBe('m'.repeat(800))
+    expect(spill?.saves).toHaveLength(0)
+  })
+
+  it('keeps the inline result when the notice alone exceeds previewBytes', async () => {
+    const { ctx } = await setup({ maxInlineBytes: 1000, previewBytes: 10 })
+    const warn = vi.spyOn(ctx.logger, 'warn').mockImplementation(() => { })
+    ctx.tools.register(textTool('big', 'x'.repeat(2000)))
+    const result = await ctx.tools.execute(exec('big'))
+    expect(textOf(result.content)).toBe('x'.repeat(2000))
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('exceeds previewBytes'))
+  })
 })
 
 describe('oversized plain-text replacement', () => {
