@@ -40,6 +40,12 @@ export interface BasicCompactionConfig extends CompactionPolicyConfig {
   modelPolicies?: ModelCompactPolicyConfig[]
   /** Enable automatic step-boundary pressure and overflow-recovery listeners. Defaults to `true`. */
   auto?: boolean
+  /** Most recently read files re-attached after a checkpoint when `ctx.fs` is mounted; `0` disables. Defaults to `5`. */
+  restoreFileCount?: number
+  /** Estimated-token cap for one re-attached file. Defaults to `5000`. */
+  restoreFileTokens?: number
+  /** Estimated-token cap for all re-attached files together. Defaults to `50000`. */
+  restoreTotalTokens?: number
 }
 
 /** Exactly one validated retention form. */
@@ -61,6 +67,9 @@ interface ResolvedPolicyFields {
 export type ResolvedConfig = ResolvedPolicyFields & ResolvedRetention & {
   readonly modelPolicies: readonly Readonly<ModelCompactPolicyConfig>[]
   readonly auto: boolean
+  readonly restoreFileCount: number
+  readonly restoreFileTokens: number
+  readonly restoreTotalTokens: number
 }
 
 /** Fully merged policy for one routed conversation target, before capacity scaling. */

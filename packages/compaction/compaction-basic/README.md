@@ -7,7 +7,7 @@ kind: "package-reference"
 
 ## Summary
 
-`dsh-compaction-basic` keeps long agent conversations working near the model's context limit. As token pressure builds, it automatically condenses the oldest part of the conversation into a summary and keeps the recent part intact; after a context-overflow error it condenses and retries. You can also condense on demand with `/compact` from `dsh-command-compact`, and mount `dsh-compaction-tool-result-pruner` to trim oversized tool outputs first. Condensation costs one extra model request that reads the selected history and writes the summary; only the summary text is kept. It condenses derived history only — it cannot shrink the system prompt, tools, or session prefix, and one indivisible unit such as a single huge tool call cannot be split.
+`dsh-compaction-basic` keeps long agent conversations working near the model's context limit. As token pressure builds, it automatically condenses the oldest part of the conversation into a summary and keeps the recent part intact; after a context-overflow error it condenses and retries. You can also condense on demand with `/compact` from `dsh-command-compact`, and mount `dsh-compaction-tool-result-pruner` to trim oversized tool outputs first. Condensation costs one extra model request that reads the selected history and writes the summary; the checkpoint keeps the summary text and, when a spill store and filesystem are mounted, a pointer to the stored transcript and the current content of recently read files. It condenses derived history only — it cannot shrink the system prompt, tools, or session prefix, and one indivisible unit such as a single huge tool call cannot be split.
 
 ## Table of Contents
 
@@ -71,12 +71,24 @@ All settings are optional. The defaults start condensing at 80% of the routed mo
 | `maxOverflowRetries` | `1` | Maximum retries after a confirmed context-window overflow; `0` disables recovery only. |
 | `modelPolicies` | `[]` | Exact `{ provider, model, ...partialPolicy }` overrides for individual model routes. |
 | `auto` | `true` | Enable automatic condensation and overflow recovery; set `false` for manual-only operation. |
+| `restoreFileCount` | `5` | Most recently read files re-attached after a checkpoint when `ctx.fs` is mounted; `0` disables. |
+| `restoreFileTokens` | `5000` | Estimated-token cap for one re-attached file; longer content is cut at a line boundary. |
+| `restoreTotalTokens` | `50000` | Estimated-token cap for all re-attached files together. |
 
 Misconfiguration fails fast: an unknown setting, a duplicate per-model override, both retention forms together, or a ratio retention that is not below the threshold all reject the plugin at load. An absolute `retainTokens` budget — top-level or per-model — that is not below its threshold fails when that model is first used, because the comparison needs the model's context size.
 
 ### What happens when condensation runs
 
 The oldest balanced span is replaced by one summary message and the recent tail stays verbatim; the conversation continues from the summary. The operation reports how many history items were condensed and the estimated tokens freed. If nothing can be condensed safely — for example the whole conversation is one indivisible unit — nothing changes and nothing is written to the session log. If no model is available to write the summary (no configured target and no routed request yet), condensation fails with a clear error telling you to configure the summarization provider and model or route one request.
+
+### Recovering what the summary left out
+
+Two optional services add recovery context after the summary in the checkpoint message:
+
+- **Stored transcript** — with a `ctx.spillStore` backend such as `dsh-spill-local`, the condensed span is saved as a plain-text transcript, and the checkpoint names the file with the backend's retrieval guidance. The model can read or search it for exact details the summary dropped.
+- **Re-attached files** — with a `ctx.fs` backend, the most recently read files from the condensed span (by the `read` tool, directly or inside `run_code`) are re-read from disk and attached with their current content. A file read again later in the retained conversation is skipped, since it is still in context; an unreadable or deleted file is skipped too.
+
+Both are best-effort and bounded: the checkpoint must still cost fewer tokens than the span it replaces, so pieces that would break that are left out, transcript first in priority. The same defaults as Claude Code's post-compaction restore apply to files: 5 files, 5,000 tokens each, 50,000 in total.
 
 ### On-demand condensation with /compact
 
@@ -117,7 +129,7 @@ A direct `ctx.llm.stream()` call uses the configured provider/model pair and cap
 
 ### The region transaction
 
-The transaction validates the surface span and the durable lock, appends `compaction/start`, summarizes through the hook, revalidates stability (whole-surface for automatic calls, selected-span for manual calls), rejects a summary that does not shrink its source, appends `compaction/summary` plus the replacement `user/message`, and makes exactly one `compaction/end` attempt. A live unmatched start is the durable lock: an unmatched marker before a newer `session/end-seed` is stale evidence from a prior lifecycle and does not block; one after that boundary reports `busy`. A failed close deliberately leaves a blocking orphan. Cancellation remains authoritative after cleanup and durability.
+The transaction validates the surface span and the durable lock, appends `compaction/start`, summarizes through the hook, rejects a bare framed summary that does not shrink its source, appends recovery context within the remaining token budget, revalidates stability (whole-surface for automatic calls, selected-span for manual calls), appends `compaction/summary` plus the replacement `user/message`, and makes exactly one `compaction/end` attempt. A live unmatched start is the durable lock: an unmatched marker before a newer `session/end-seed` is stale evidence from a prior lifecycle and does not block; one after that boundary reports `busy`. A failed close deliberately leaves a blocking orphan. Cancellation remains authoritative after cleanup and durability.
 
 ### Config resolution
 
@@ -130,6 +142,7 @@ The transaction validates the surface span and the durable lock, appends `compac
 | [`src/index.ts`](src/index.ts) | Plugin entry: `BasicCompactionEngine`, automatic listeners, entry-point dispatch |
 | [`src/region.ts`](src/region.ts) | Retention selection and the shared bracket-first compaction transaction |
 | [`src/summarizer.ts`](src/summarizer.ts) | Default `ctx.llm.stream()` summarization, checkpoint framing, safe-summary projection |
+| [`src/continuation.ts`](src/continuation.ts) | Checkpoint recovery context: stored transcript, recently read files, budget pricing |
 | [`src/config.ts`](src/config.ts) | Load-time validation and routed-model policy resolution |
 | [`src/types.ts`](src/types.ts) | `BasicCompactionConfig` and resolved policy vocabulary |
 | [`src/invariant.ts`](src/invariant.ts) | Invariant companion (no runtime invariant; the durable bracket is observable in the session log) |
@@ -159,7 +172,7 @@ Read these pages when the package-level contract is not enough; they move from t
 
 #### What the model sees
 
-After a successful step crosses the threshold, oversized tool results are first rewritten when the optional pruner is loaded and its pressure safeguards allow it. If summarization remains necessary, the next request receives the checkpoint preamble below, a blank line, `<compacted-summary>`, the data-dependent summary, and `</compacted-summary>`. Overflow recovery rebuilds the immediate retry from whatever replacement advanced the surface. A checkpoint replaces the selected older range and is followed by the retained recent units.
+After a successful step crosses the threshold, oversized tool results are first rewritten when the optional pruner is loaded and its pressure safeguards allow it. If summarization remains necessary, the next request receives the checkpoint preamble below, a blank line, `<compacted-summary>`, the data-dependent summary, and `</compacted-summary>`. When the recovery services are mounted and the budget allows, the same message then carries `The full text of the conversation this checkpoint condenses is stored at: <locator>. <retrieval guidance> Read it when you need exact details from before this checkpoint.` and a block headed `Files read before this checkpoint, re-read from disk now (current content; it may differ from what was read earlier):` followed by one `<file path="…">` element per re-attached file. Overflow recovery rebuilds the immediate retry from whatever replacement advanced the surface. A checkpoint replaces the selected older range and is followed by the retained recent units.
 
 ##### Conversation checkpoint preamble
 
@@ -169,7 +182,7 @@ This is an automatically generated checkpoint condensing an earlier span of the 
 
 #### Token effect
 
-Model-free pruning can avoid the auxiliary call entirely; otherwise it reduces that call's transcript before the summary replaces an older range. The replacement reduces future input history rather than appending a second copy. A summary remains until a later compaction replaces it, while an indivisible non-tool unit can still exceed the budget.
+Model-free pruning can avoid the auxiliary call entirely; otherwise it reduces that call's transcript before the summary replaces an older range. The replacement reduces future input history rather than appending a second copy. Recovery context adds up to `restoreTotalTokens` of files plus one transcript line, and never enough to make the checkpoint cost as much as the span it replaced. A summary remains until a later compaction replaces it, while an indivisible non-tool unit can still exceed the budget.
 
 #### KV Cache effect
 
@@ -245,6 +258,8 @@ These limits define when automatic condensation is a poor fit or needs special c
 
 - **Meter accuracy follows the fixed heuristic** — missing reusable provider usage falls back to character count plus structural overhead rather than exact tokenization; image occurrences carry provider-exact visual tokens only on routes whose adapter declares request-image pricing.
 - **Overflow classification is adapter-maintained** — provider wording can change; both DeepSeek adapters normalize recognized context-limit failures to `CONTEXT_WINDOW_EXCEEDED`.
+- **Re-attached files are read at compaction time** — their content is current as of the checkpoint, not as the model last saw it, and a file edited outside the session since is attached in its new form. Only files named by the `read` tool are considered.
+- **Stored transcripts are not tied to commit** — the transcript is saved before the checkpoint commits, so a compaction that later fails or is cancelled leaves an orphan file until the spill backend's retention removes it.
 - **Some indivisible-unit and envelope-only overflow remains outside surface compaction** — recovery cannot shrink system/tools/prefix, split an indivisible non-tool node, or repair a tool unit whose non-prunable remainder still exceeds the window. The optional pruner can shrink text-bearing tool-result bulk inside an otherwise indivisible pair.
 - **`compactRegion` requires an open turn** — a manual call on a fully-closed session throws ("no open turn") rather than compacting.
 - **Summarization failure preserves the latest durable surface** — before any replacement, the auto path logs a warning and proceeds with full over-budget history. If pruning already landed, a later summarization failure proceeds from that durable pruned surface. Summarization truncation at `maxTokens`, which hidden reasoning tokens can consume, follows the same rule.

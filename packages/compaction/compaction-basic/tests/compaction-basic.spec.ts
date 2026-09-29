@@ -29,6 +29,8 @@ import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import TokenMeter from '@deepseek-ai/dsh-token-meter'
 import { agentEvents, type Agent, type RequestErrorAction } from '@deepseek-ai/dsh-agent'
 import ToolResultPruner from '@deepseek-ai/dsh-compaction-tool-result-pruner'
+import { SpillLocator, SpillStore } from '@deepseek-ai/dsh-spill'
+import type { SaveTextSpill, SpillRef } from '@deepseek-ai/dsh-spill'
 
 const SIGNAL = new AbortController().signal
 const MODEL = 'test-model'
@@ -304,8 +306,22 @@ describe('compact configuration and defaults', () => {
       maxOverflowRetries: 1,
       modelPolicies: [],
       auto: true,
+      restoreFileCount: 5,
+      restoreFileTokens: 5_000,
+      restoreTotalTokens: 50_000,
     })
     expect(Object.isFrozen(resolved)).toBe(true)
+  })
+
+  it('validates file re-attachment limits', () => {
+    expect(resolveConfig({ restoreFileCount: 0, restoreFileTokens: 1, restoreTotalTokens: 0 })).toMatchObject({
+      restoreFileCount: 0,
+      restoreFileTokens: 1,
+      restoreTotalTokens: 0,
+    })
+    expect(() => resolveConfig({ restoreFileCount: -1 })).toThrow(/restoreFileCount .* non-negative integer/)
+    expect(() => resolveConfig({ restoreFileTokens: 0 })).toThrow(/restoreFileTokens .* positive integer/)
+    expect(() => resolveConfig({ restoreTotalTokens: 1.5 })).toThrow(/restoreTotalTokens .* non-negative integer/)
   })
 
   it('resolves threshold and retention overrides independently', () => {
@@ -828,6 +844,31 @@ describe('optional model-free tool-result pruning', () => {
     expect(compact.calls).toHaveLength(1)
     expect(summarizedText(compact.calls[0]!.input)).toContain('tool result middle pruned')
     expect(summarizedText(compact.calls[0]!.input)).not.toContain('result 1 '.repeat(300))
+  })
+
+  it('names the stored transcript of the condensed span in the checkpoint', async () => {
+    const ctx = createContext(2_000)
+    class StubSpillStore extends SpillStore {
+      readonly saved: string[] = []
+      override saveText(input: SaveTextSpill): Promise<SpillRef> {
+        this.saved.push(input.content)
+        return Promise.resolve({ locator: SpillLocator('/spill/t.txt'), bytes: input.content.length, retrievalHint: 'Read it.' })
+      }
+    }
+    const store = new StubSpillStore(ctx)
+    void new ToolResultPruner(ctx, pruneConfig)
+    const compact = new TestCompactionEngine(ctx, { auto: false, thresholdRatio: 0.5, retainTokens: 50 })
+    const session = toolConversation()
+
+    expect(await compactIfNeeded(compact, session)).not.toBeNull()
+    // The pruner stores trimmed originals through the same store; the transcript is the save naming the user turn.
+    expect(store.saved.some(content => content.startsWith('[User]: request 1 '))).toBe(true)
+    const checkpoint = session.events.findLast(event => event.type === 'user/message')
+    const text = checkpoint?.type === 'user/message'
+      ? checkpoint.data.content.flatMap(block => block.type === 'text' ? [block.text] : []).join('\n')
+      : ''
+    expect(text).toContain('</compacted-summary>')
+    expect(text).toContain('The full text of the conversation this checkpoint condenses is stored at: /spill/t.txt. Read it.')
   })
 
   it('retains the original compaction-basic behavior without the optional plugin', async () => {

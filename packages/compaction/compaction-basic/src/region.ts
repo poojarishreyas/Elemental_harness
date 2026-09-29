@@ -17,16 +17,19 @@ import {
 import type { CompactionResult } from '@deepseek-ai/dsh-compaction'
 import type { CommandId } from '@deepseek-ai/dsh-commands/brand'
 import { createUserMessage, errorChain } from '@deepseek-ai/dsh-llm'
-import type { Message, UserMessage } from '@deepseek-ai/dsh-llm'
+import type { ContentBlock, Message, UserMessage } from '@deepseek-ai/dsh-llm'
 import type { TokenMeasurement, TokenMeter } from '@deepseek-ai/dsh-token-meter'
 import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
 import type { Agent } from '@deepseek-ai/dsh-agent'
 import { frameSummary } from './summarizer.ts'
 import type { SummarizationInput, SummaryResult } from './summarizer.ts'
+import type { ContinuationInput } from './continuation.ts'
 
 interface RegionDependencies {
   readonly meter: TokenMeter
   summarize(input: SummarizationInput, agent: Agent, signal?: AbortSignal): Promise<SummaryResult>
+  /** Recovery blocks appended after the framed summary; their summed price stays within `input.budgetTokens`. */
+  continuation(input: ContinuationInput): Promise<ContentBlock[]>
 }
 
 /** One validated inclusive span of current surface positions. */
@@ -203,6 +206,7 @@ export async function compactSurfaceRegion(
     const prepared = prepareCompaction(dependencies, session, selection)
     const summarized = await summarizeCompaction(
       dependencies,
+      session,
       prepared,
       agent,
       compactionId,
@@ -363,9 +367,13 @@ function prepareCompaction(
   }
 }
 
-/** Run the summarizer and frame its replacement checkpoint. */
+/**
+ * Run the summarizer and frame its replacement checkpoint, then append any
+ * recovery context that keeps the checkpoint smaller than the span it replaces.
+ */
 async function summarizeCompaction(
   dependencies: RegionDependencies,
+  session: Session,
   prepared: PreparedCompaction,
   agent: Agent,
   compactionId: CompactionResult['compactionId'],
@@ -373,19 +381,31 @@ async function summarizeCompaction(
   signal?: AbortSignal,
 ): Promise<SummarizedCompaction> {
   const summaryResult = await dependencies.summarize(prepared.input, agent, signal)
-  const checkpointMessage = createUserMessage({
-    content: frameSummary(summaryResult.summary),
-    source: compactCheckpointSource(compactionId, sourceCommandId),
-  })
+  const source = compactCheckpointSource(compactionId, sourceCommandId)
+  const framed = frameSummary(summaryResult.summary)
+  const baseMessage = createUserMessage({ content: framed, source })
   // The checkpoint is text-only, so its fixed-heuristic price IS its route
   // price; comparing it against the span's route price asks the real
   // question — does the replacement lower the next request's pressure.
-  const framedSummaryTokenCount = dependencies.meter.estimateMessage(checkpointMessage)
+  const framedSummaryTokenCount = dependencies.meter.estimateMessage(baseMessage)
   if (framedSummaryTokenCount >= prepared.shadowedRouteTokenCount) {
     throw new Error(
       `summary is not smaller than the shadowed content (${framedSummaryTokenCount} estimated framed tokens >= ${prepared.shadowedRouteTokenCount})`,
     )
   }
+  // The continuation keeps its blocks within this budget, so the extended
+  // checkpoint still prices below the span it replaces.
+  const extra = await dependencies.continuation({
+    session,
+    messages: prepared.input.messages,
+    endSeq: prepared.end,
+    compactionId,
+    budgetTokens: prepared.shadowedRouteTokenCount - framedSummaryTokenCount - 1,
+    ...signal === undefined ? {} : { signal },
+  })
+  const checkpointMessage = extra.length === 0
+    ? baseMessage
+    : createUserMessage({ content: [...framed, ...extra], source })
   return {
     ...prepared,
     ...summaryResult,

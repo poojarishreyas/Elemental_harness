@@ -11,7 +11,7 @@ import type { CompactionResult, CompactionTrigger } from '@deepseek-ai/dsh-compa
 import type { TokenMeter } from '@deepseek-ai/dsh-token-meter'
 import type { Session } from '@deepseek-ai/dsh-session'
 import { CONTEXT_WINDOW_EXCEEDED_CODE } from '@deepseek-ai/dsh-llm'
-import type { LlmCallConfig } from '@deepseek-ai/dsh-llm'
+import type { ContentBlock, LlmCallConfig } from '@deepseek-ai/dsh-llm'
 import { assertNever } from '@deepseek-ai/dsh-util-values'
 import type { Agent, PreStepDecision } from '@deepseek-ai/dsh-agent'
 import type { CommandId } from '@deepseek-ai/dsh-commands/brand'
@@ -28,6 +28,8 @@ import {
   compactSurfaceRegion,
   selectCompactableRange,
 } from './region.ts'
+import { buildContinuation } from './continuation.ts'
+import type { ContinuationInput } from './continuation.ts'
 import { summarizeWithLlm } from './summarizer.ts'
 import type { SummarizationInput, SummaryResult } from './summarizer.ts'
 import type {
@@ -115,6 +117,9 @@ export class BasicCompactionEngine extends CompactionEngine {
     maxOverflowRetries: maxOverflowRetriesSchema,
     modelPolicies: z.array(modelPolicy),
     auto: z.boolean(),
+    restoreFileCount: z.number().step(1).min(0),
+    restoreFileTokens: z.number().step(1).min(1),
+    restoreTotalTokens: z.number().step(1).min(0),
   })
 
   /** Resolved and validated compaction configuration. */
@@ -420,11 +425,16 @@ export class BasicCompactionEngine extends CompactionEngine {
     }
   }
 
-  /** Bind the effective token meter and dynamically dispatched summarizer hook. */
-  private regionDependencies(): { meter: TokenMeter; summarize: RegionSummarize } {
+  /** Bind the effective token meter, dynamically dispatched summarizer hook, and checkpoint recovery context. */
+  private regionDependencies(): {
+    meter: TokenMeter
+    summarize: RegionSummarize
+    continuation(input: ContinuationInput): Promise<ContentBlock[]>
+  } {
     return {
       meter: this.ctx.tokenMeter,
       summarize: (input, owner, abort) => this.summarize(input, owner, abort),
+      continuation: input => buildContinuation(this.ctx, this.ctx.tokenMeter, this.config, input),
     }
   }
 }

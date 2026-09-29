@@ -34,6 +34,15 @@
       "path": "../compaction"
     },
     {
+      "path": "../../fs/fs"
+    },
+    {
+      "path": "../../spill/spill"
+    },
+    {
+      "path": "../../core/tools"
+    },
+    {
       "path": "../../runtime-diagnostics/invariants"
     },
     {

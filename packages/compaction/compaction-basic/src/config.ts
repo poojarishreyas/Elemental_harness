@@ -39,7 +39,16 @@ const BASIC_COMPACT_CONFIG_KEYS: ReadonlySet<string> = new Set([
   ...POLICY_CONFIG_KEYS,
   'modelPolicies',
   'auto',
+  'restoreFileCount',
+  'restoreFileTokens',
+  'restoreTotalTokens',
 ])
+
+/**
+ * File re-attachment defaults, from Claude Code's post-compaction restore
+ * (5 files, 5,000 tokens each, 50,000 in total).
+ */
+const DEFAULT_RESTORE = { restoreFileCount: 5, restoreFileTokens: 5_000, restoreTotalTokens: 50_000 }
 
 /** Complete exact-target override key set. */
 const MODEL_POLICY_KEYS: ReadonlySet<string> = new Set([
@@ -70,6 +79,14 @@ export function resolveConfig(config: BasicCompactionConfig = {}): ResolvedConfi
   if (config.auto !== undefined && typeof config.auto !== 'boolean') {
     throw new Error('BasicCompactionConfig: auto must be a boolean')
   }
+  const restore = {
+    restoreFileCount: config.restoreFileCount ?? DEFAULT_RESTORE.restoreFileCount,
+    restoreFileTokens: config.restoreFileTokens ?? DEFAULT_RESTORE.restoreFileTokens,
+    restoreTotalTokens: config.restoreTotalTokens ?? DEFAULT_RESTORE.restoreTotalTokens,
+  }
+  assertNonNegativeInteger('BasicCompactionConfig.restoreFileCount', restore.restoreFileCount)
+  assertPositiveInteger('BasicCompactionConfig.restoreFileTokens', restore.restoreFileTokens)
+  assertNonNegativeInteger('BasicCompactionConfig.restoreTotalTokens', restore.restoreTotalTokens)
 
   const thresholdRatio = config.thresholdRatio ?? DEFAULT_THRESHOLD_RATIO
   const retention = resolveRetention(config, { retainRatio: DEFAULT_RETAIN_RATIO })
@@ -93,6 +110,7 @@ export function resolveConfig(config: BasicCompactionConfig = {}): ResolvedConfi
     maxOverflowRetries: config.maxOverflowRetries ?? 1,
     modelPolicies,
     auto: config.auto ?? true,
+    ...restore,
   })
 }
 

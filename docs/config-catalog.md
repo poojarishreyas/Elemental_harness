@@ -382,6 +382,12 @@ export interface BasicCompactionConfig extends CompactionPolicyConfig {
   modelPolicies?: ModelCompactPolicyConfig[]
   /** Enable automatic step-boundary pressure and overflow-recovery listeners. Defaults to `true`. */
   auto?: boolean
+  /** Most recently read files re-attached after a checkpoint when `ctx.fs` is mounted; `0` disables. Defaults to `5`. */
+  restoreFileCount?: number
+  /** Estimated-token cap for one re-attached file. Defaults to `5000`. */
+  restoreFileTokens?: number
+  /** Estimated-token cap for all re-attached files together. Defaults to `50000`. */
+  restoreTotalTokens?: number
 }
 
 /** Policy fields shared by the default policy and exact model overrides. */
