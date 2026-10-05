@@ -8,10 +8,12 @@
  *
  * Usage:
  *   pnpm run eval:file-finding -- --repo <git repo> [--limit 10] [--out eval-results]
- *     [--install "pnpm install --prefer-offline"] [--keep] [--dry-run]
+ *     [--install "pnpm install --prefer-offline"] [--keep] [--dry-run] [--hard] [--only <id,...>]
  *
  * `--dry-run` stops after preparing and validating each task, so it needs no
  * model key. A full run needs the provider key (DEEPSEEK_API_KEY by default).
+ * `--hard` keeps only tasks where the failing test does not lead straight to
+ * the fix (see `difficultyTags`), taken round-robin across those kinds.
  */
 
 import { spawn } from 'node:child_process'
@@ -23,8 +25,8 @@ import { parseArgs } from 'node:util'
 import { resolveExampleLaunch } from '@deepseek-ai/dsh-loader-smoke'
 import { computeMetrics, summarize } from './metrics.ts'
 import type { EvalEvent, EvalUsage, RunMetrics } from './metrics.ts'
-import { mineTasks, prepareWorkspace, removeWorkspace, taskPrompt } from './tasks.ts'
-import type { EvalTask } from './tasks.ts'
+import { difficultyTags, mineTasks, prepareWorkspace, readTestSources, removeWorkspace, taskPrompt } from './tasks.ts'
+import type { EvalTask, TaskTag } from './tasks.ts'
 
 const repoRoot = fileURLToPath(new URL('../../', import.meta.url))
 const DRIVER = join(repoRoot, 'packages/test-support/loader-smoke/tests/fixtures/base-driver.ts')
@@ -36,6 +38,7 @@ const LOCALE_FILE = /(^|\/)locales?(\/|\.ts$|\.tsx$)/
 /** Outcome of one task. */
 interface TaskResult {
   readonly task: EvalTask
+  readonly tags: readonly TaskTag[]
   readonly status: 'valid' | 'invalid' | 'ran' | 'error'
   readonly passed: boolean
   readonly metrics?: RunMetrics
@@ -117,7 +120,7 @@ interface RunOptions {
 /** Files copied from `--home-from`: provider settings and the credential store they reference. */
 const HOME_FILES = ['settings.yaml', '.credentials.yaml']
 
-async function runTask(task: EvalTask, options: RunOptions): Promise<TaskResult> {
+async function runTask(task: EvalTask, options: RunOptions): Promise<Omit<TaskResult, 'tags'>> {
   const workspace = join(tmpdir(), `dsh-eval-${task.id}`)
   // Kept outside the repository and deleted after the task, since it may hold copied credentials.
   const home = join(tmpdir(), `dsh-eval-home-${task.id}`)
@@ -176,6 +179,7 @@ async function runTask(task: EvalTask, options: RunOptions): Promise<TaskResult>
 function markdownTable(results: readonly TaskResult[]): string {
   const rows = results.map(result => [
     result.task.id,
+    result.tags.join(', '),
     result.status,
     result.passed ? 'yes' : 'no',
     result.metrics?.editedExpected === true ? 'yes' : 'no',
@@ -186,8 +190,8 @@ function markdownTable(results: readonly TaskResult[]): string {
     result.task.subject.replaceAll('|', '/').slice(0, 60),
   ].join(' | '))
   return [
-    '| task | status | passed | right file edited | first seen step | first read step | steps | input tokens | subject |',
-    '|---|---|---|---|---|---|---|---|---|',
+    '| task | difficulty | status | passed | right file edited | first seen step | first read step | steps | input tokens | subject |',
+    '|---|---|---|---|---|---|---|---|---|---|',
     ...rows.map(row => `| ${row} |`),
   ].join('\n')
 }
@@ -206,6 +210,7 @@ async function main(): Promise<void> {
       'dry-run': { type: 'boolean', default: false },
       'home-from': { type: 'string' },
       only: { type: 'string' },
+      hard: { type: 'boolean', default: false },
     },
   })
   if (values.repo === undefined) throw new Error('--repo <git repository with bug-fix history> is required')
@@ -220,22 +225,27 @@ async function main(): Promise<void> {
 
   const limit = Number(values.limit)
   const only = values.only?.split(',').map(id => id.trim()).filter(Boolean)
-  const tasks = (await mineTasks(repo, Number.MAX_SAFE_INTEGER))
+  const candidates = (await mineTasks(repo, Number.MAX_SAFE_INTEGER))
     .filter(task => !task.sourceFiles.every(file => LOCALE_FILE.test(file)))
     .filter(task => only === undefined || only.some(id => task.fixCommit.startsWith(id)))
-    .slice(0, limit)
+  const tags = new Map<EvalTask, TaskTag[]>()
+  const tasks = await selectTasks(candidates, limit, values.hard, async (task) => {
+    const taskTags = difficultyTags(task, await readTestSources(repo, task))
+    tags.set(task, taskTags)
+    return taskTags
+  })
   process.stdout.write(`eval: ${tasks.length} task(s) from ${repo}${dryRun ? ' (dry run)' : ''}\n`)
 
   const results: TaskResult[] = []
   for (const task of tasks) {
-    process.stdout.write(`eval: ${task.id} ${task.subject}\n`)
-    const result = await runTask(task, {
+    process.stdout.write(`eval: ${task.id} [${(tags.get(task) ?? []).join(', ')}] ${task.subject}\n`)
+    const result = { tags: tags.get(task) ?? [], ...await runTask(task, {
       repo,
       install: values.install,
       keep: values.keep,
       dryRun,
       ...homeFrom === undefined ? {} : { homeFrom },
-    })
+    }) }
     results.push(result)
     await writeFile(join(out, `${task.id}.json`), `${JSON.stringify(result, null, 2)}\n`)
     process.stdout.write(`eval: ${task.id} -> ${result.status}${result.passed ? ' (passed)' : ''}${result.note === undefined ? '' : ` — ${result.note.split('\n')[0]}`}\n`)
@@ -248,6 +258,43 @@ async function main(): Promise<void> {
   await writeFile(join(out, 'summary.json'), `${JSON.stringify(summary, null, 2)}\n`)
   await writeFile(join(out, 'summary.md'), `${markdownTable(results)}\n`)
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`)
+}
+
+/** Most candidates tagged while hunting for hard tasks; each tag reads test files from git. */
+const MAX_TAGGED = 400
+const HARD_TAGS: readonly TaskTag[] = ['cross-package', 'indirect', 'multi-file']
+
+/**
+ * Pick the tasks to run: the first `limit` candidates, or with `hard` a
+ * round-robin over the hard kinds so each is represented.
+ */
+async function selectTasks(
+  candidates: readonly EvalTask[],
+  limit: number,
+  hard: boolean,
+  tag: (task: EvalTask) => Promise<TaskTag[]>,
+): Promise<EvalTask[]> {
+  if (!hard) {
+    const chosen = candidates.slice(0, limit)
+    for (const task of chosen) await tag(task)
+    return chosen
+  }
+  const byKind = new Map<TaskTag, EvalTask[]>(HARD_TAGS.map(kind => [kind, []]))
+  for (const task of candidates.slice(0, MAX_TAGGED)) {
+    const taskTags = await tag(task)
+    for (const kind of HARD_TAGS) if (taskTags.includes(kind)) byKind.get(kind)?.push(task)
+    if (HARD_TAGS.every(kind => (byKind.get(kind)?.length ?? 0) >= limit)) break
+  }
+  const chosen: EvalTask[] = []
+  while (chosen.length < limit) {
+    const before = chosen.length
+    for (const kind of HARD_TAGS) {
+      const next = byKind.get(kind)?.find(task => !chosen.includes(task))
+      if (next !== undefined && chosen.length < limit) chosen.push(next)
+    }
+    if (chosen.length === before) break
+  }
+  return chosen
 }
 
 function countBy(values: readonly string[]): Record<string, number> {

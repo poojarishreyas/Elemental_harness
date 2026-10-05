@@ -8,6 +8,8 @@
  */
 
 import { execFile } from 'node:child_process'
+import { rm } from 'node:fs/promises'
+import { join } from 'node:path'
 import { promisify } from 'node:util'
 
 const run = promisify(execFile)
@@ -110,16 +112,71 @@ export async function mineTasks(repo: string, limit: number, rules: MiningRules 
   return tasks
 }
 
+/** Why a task is hard for file-finding; `direct` is the easy control case. */
+export type TaskTag = 'cross-package' | 'indirect' | 'multi-file' | 'direct'
+
+/**
+ * The package or app directory a repo-relative path belongs to.
+ * @param path - repo-relative path with `/`.
+ * @returns e.g. `packages/client/ui-tool` or `apps/web`.
+ */
+export function packageOf(path: string): string {
+  const parts = path.split('/')
+  return (parts[0] === 'apps' ? parts.slice(0, 2) : parts.slice(0, 3)).join('/')
+}
+
+const IMPORT_SPECIFIER = /(?:from\s+|import\s*\(\s*|vi\.mock\(\s*)['"]([^'"]+)['"]/g
+
+/** The name an import specifier would use for a source file: its stem, or its directory for an index file. */
+function importName(path: string): string {
+  const parts = path.split('/')
+  const stem = (parts.at(-1) ?? '').replace(/\.(ts|tsx)$/, '')
+  return stem === 'index' ? parts.at(-2) ?? stem : stem
+}
+
+/**
+ * Classify what makes a task hard to navigate.
+ * @param task - the task.
+ * @param testSources - contents of the task's test files at the fix commit.
+ * @returns tags; `direct` alone when a test imports a fix file from the same package.
+ */
+export function difficultyTags(task: Pick<EvalTask, 'sourceFiles' | 'testFiles'>, testSources: readonly string[]): TaskTag[] {
+  const tags: TaskTag[] = []
+  const testPackages = new Set(task.testFiles.map(packageOf))
+  if (task.sourceFiles.some(file => !testPackages.has(packageOf(file)))) tags.push('cross-package')
+  const imported = new Set(testSources.flatMap(text => [...text.matchAll(IMPORT_SPECIFIER)]
+    .map(match => importName(match[1] ?? ''))))
+  if (!task.sourceFiles.some(file => imported.has(importName(file)))) tags.push('indirect')
+  if (task.sourceFiles.length > 1) tags.push('multi-file')
+  return tags.length === 0 ? ['direct'] : tags
+}
+
+/**
+ * Read a task's test files as of the fix commit.
+ * @param repo - repository root.
+ * @param task - the task.
+ * @returns each test file's contents, empty when unreadable.
+ */
+export async function readTestSources(repo: string, task: EvalTask): Promise<string[]> {
+  return Promise.all(task.testFiles.map(async file => run('git', ['show', `${task.fixCommit}:${file}`], { cwd: repo, maxBuffer: 16 * 1024 * 1024 })
+    .then(result => result.stdout, () => '')))
+}
+
 /**
  * Create a detached worktree at the fix commit with its source files reverted
- * to the parent commit, leaving the fix's tests in place.
+ * to the parent commit, leaving the fix's tests in place. Source files the fix
+ * created are deleted, so the agent must write them.
  * @param repo - repository root.
  * @param task - the task to prepare.
  * @param dir - new worktree directory; must not exist.
  */
 export async function prepareWorkspace(repo: string, task: EvalTask, dir: string): Promise<void> {
   await run('git', ['worktree', 'add', '--detach', dir, task.fixCommit], { cwd: repo })
-  await run('git', ['checkout', task.parentCommit, '--', ...task.sourceFiles], { cwd: dir })
+  const existed = await Promise.all(task.sourceFiles.map(file => run('git', ['cat-file', '-e', `${task.parentCommit}:${file}`], { cwd: dir })
+    .then(() => true, () => false)))
+  const restore = task.sourceFiles.filter((_, index) => existed[index])
+  if (restore.length > 0) await run('git', ['checkout', task.parentCommit, '--', ...restore], { cwd: dir })
+  for (const file of task.sourceFiles.filter((_, index) => !existed[index])) await rm(join(dir, file), { force: true })
 }
 
 /**

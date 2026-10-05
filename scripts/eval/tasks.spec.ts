@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { promisify } from 'node:util'
 import { afterEach, describe, expect, it } from 'vitest'
-import { classifyCommit, mineTasks, parseGitLog, prepareWorkspace, removeWorkspace, taskPrompt } from './tasks.ts'
+import { classifyCommit, difficultyTags, mineTasks, packageOf, parseGitLog, prepareWorkspace, removeWorkspace, taskPrompt } from './tasks.ts'
 
 const git = promisify(execFile)
 let root: string | undefined
@@ -96,5 +96,51 @@ describe('mining and preparing from a real repository', () => {
     expect(await text(spec)).toBe('test\n')
     await removeWorkspace(repo, workspace)
     await expect(readFile(join(workspace, src), 'utf8')).rejects.toThrow()
+  })
+
+  it('deletes a source file the fix created instead of failing to restore it', async () => {
+    root = await mkdtemp(join(tmpdir(), 'dsh-eval-tasks-'))
+    const repo = join(root, 'repo')
+    await mkdir(repo)
+    await git('git', ['init', '-q'], { cwd: repo })
+    const src = 'packages/core/math/src/add.ts'
+    const created = 'packages/core/math/src/sum.ts'
+    const spec = 'packages/core/math/tests/add.spec.ts'
+    await commit(repo, { [src]: 'old\n' }, 'Add math')
+    await commit(repo, { [src]: 'new\n', [created]: 'sum\n', [spec]: 'test\n' }, 'fix(math): add sum')
+
+    const [task] = await mineTasks(repo, 10)
+    const workspace = join(root, 'workspace')
+    await prepareWorkspace(repo, task!, workspace)
+    expect((await readFile(join(workspace, src), 'utf8')).replaceAll('\r\n', '\n')).toBe('old\n')
+    await expect(readFile(join(workspace, created), 'utf8')).rejects.toThrow()
+    await removeWorkspace(repo, workspace)
+  })
+})
+
+describe('difficultyTags', () => {
+  const testFile = 'packages/client/ui-x/tests/section.spec.tsx'
+
+  it('maps paths to their package or app', () => {
+    expect(packageOf('packages/client/ui-x/src/a.ts')).toBe('packages/client/ui-x')
+    expect(packageOf('apps/web/src/a.ts')).toBe('apps/web')
+  })
+
+  it('calls a same-package fix the test imports direct', () => {
+    const task = { sourceFiles: ['packages/client/ui-x/src/client/Section.tsx'], testFiles: [testFile] }
+    expect(difficultyTags(task, ["import { Section } from '../src/client/Section.tsx'"])).toEqual(['direct'])
+  })
+
+  it('treats an imported index file as importing its directory', () => {
+    const task = { sourceFiles: ['packages/client/ui-x/src/client/index.ts'], testFiles: [testFile] }
+    expect(difficultyTags(task, ["const mod = await import('../src/client')"])).toEqual(['direct'])
+  })
+
+  it('tags fixes the test never imports, in other packages, or across files', () => {
+    const task = {
+      sourceFiles: ['packages/client/ui-x/src/client/helper.ts', 'packages/core/engine/src/run.ts'],
+      testFiles: [testFile],
+    }
+    expect(difficultyTags(task, ["vi.mock('../src/client/other.ts')"])).toEqual(['cross-package', 'indirect', 'multi-file'])
   })
 })

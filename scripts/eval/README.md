@@ -14,6 +14,19 @@ For each task the runner:
 4. runs the agent headless through the shipped base profile (`packages/test-support/loader-smoke/tests/fixtures/base-driver.ts` with [`eval.cordis.yml`](eval.cordis.yml));
 5. re-runs the tests and computes metrics from the streamed session events.
 
+## Difficulty
+
+Each task is tagged by what makes its file hard to find from the failing test:
+
+| Tag | Meaning |
+|---|---|
+| `cross-package` | A fix file lives in a different package or app than every failing test |
+| `indirect` | No failing test imports a fix file, so the agent must trace the call path |
+| `multi-file` | The fix spans more than one source file, and all must be found |
+| `direct` | None of the above: the test imports the fix file in its own package (the control case) |
+
+`--hard` runs only tagged tasks, taking `cross-package`, `indirect`, and `multi-file` in turn so each kind is represented. Tags appear in the log, each `<task>.json`, and `summary.md`.
+
 ## Metrics
 
 | Metric | Meaning |
@@ -36,6 +49,12 @@ pnpm run eval:file-finding -- --repo <path-to-repo> --limit 5 --dry-run
 
 # Full run; needs DEEPSEEK_API_KEY (model via DSH_EVAL_PROVIDER / DSH_EVAL_MODEL).
 pnpm run eval:file-finding -- --repo <path-to-repo> --limit 20 --out eval-results
+
+# Edge cases only: tasks where the failing test does not lead straight to the fix.
+pnpm run eval:file-finding -- --repo <path-to-repo> --hard --limit 6
+
+# A model from an existing DSH home (e.g. a custom provider), and specific tasks.
+DSH_EVAL_PROVIDER=<provider id> DSH_EVAL_MODEL=<model id> pnpm run eval:file-finding -- --repo <path-to-repo> --home-from ~/.dsh --only <hash>,<hash>
 ```
 
 This repository's history is squashed, so mine a repository with real history, such as a clone of the upstream `deepseek-ai/deepseek-harness`. A blobless clone (`git clone --filter=blob:none`) is enough. `--install` overrides the dependency command, and `--keep` leaves worktrees in place for inspection.
